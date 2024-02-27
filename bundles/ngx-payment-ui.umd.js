@@ -84,7 +84,8 @@
     }());
     NgxPaymentUiModule.ɵfac = i0__namespace.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: NgxPaymentUiModule, deps: [], target: i0__namespace.ɵɵFactoryTarget.NgModule });
     NgxPaymentUiModule.ɵmod = i0__namespace.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: NgxPaymentUiModule, declarations: [NgxPaymentUiComponent,
-            ButtonComponent], exports: [NgxPaymentUiComponent] });
+            ButtonComponent], exports: [NgxPaymentUiComponent,
+            ButtonComponent] });
     NgxPaymentUiModule.ɵinj = i0__namespace.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: NgxPaymentUiModule, imports: [[]] });
     i0__namespace.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: NgxPaymentUiModule, decorators: [{
                 type: i0.NgModule,
@@ -95,7 +96,8 @@
                         ],
                         imports: [],
                         exports: [
-                            NgxPaymentUiComponent
+                            NgxPaymentUiComponent,
+                            ButtonComponent
                         ]
                     }]
             }] });

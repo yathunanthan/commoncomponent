@@ -61,7 +61,8 @@ class NgxPaymentUiModule {
 }
 NgxPaymentUiModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0, type: NgxPaymentUiModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
 NgxPaymentUiModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0, type: NgxPaymentUiModule, declarations: [NgxPaymentUiComponent,
-        ButtonComponent], exports: [NgxPaymentUiComponent] });
+        ButtonComponent], exports: [NgxPaymentUiComponent,
+        ButtonComponent] });
 NgxPaymentUiModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0, type: NgxPaymentUiModule, imports: [[]] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0, type: NgxPaymentUiModule, decorators: [{
             type: NgModule,
@@ -72,7 +73,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImpo
                     ],
                     imports: [],
                     exports: [
-                        NgxPaymentUiComponent
+                        NgxPaymentUiComponent,
+                        ButtonComponent
                     ]
                 }]
         }] });
