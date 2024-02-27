@@ -1,5 +1,5 @@
 /**
  * Generated bundle index. Do not edit.
  */
-/// <amd-module name="ngx-payment-ui" />
+/// <amd-module name="my-lib" />
 export * from './public-api';
