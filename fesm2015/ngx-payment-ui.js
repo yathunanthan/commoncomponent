@@ -85,5 +85,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImpo
  * Generated bundle index. Do not edit.
  */
 
-export { NgxPaymentUiComponent, NgxPaymentUiModule, NgxPaymentUiService };
+export { ButtonComponent, NgxPaymentUiComponent, NgxPaymentUiModule, NgxPaymentUiService };
 //# sourceMappingURL=ngx-payment-ui.js.map

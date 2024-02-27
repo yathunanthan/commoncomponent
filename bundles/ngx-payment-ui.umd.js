@@ -108,6 +108,7 @@
      * Generated bundle index. Do not edit.
      */
 
+    exports.ButtonComponent = ButtonComponent;
     exports.NgxPaymentUiComponent = NgxPaymentUiComponent;
     exports.NgxPaymentUiModule = NgxPaymentUiModule;
     exports.NgxPaymentUiService = NgxPaymentUiService;
