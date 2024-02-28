@@ -38,6 +38,24 @@
                     }]
             }], ctorParameters: function () { return []; } });
 
+    var ChildpaymentComponent = /** @class */ (function () {
+        function ChildpaymentComponent() {
+        }
+        ChildpaymentComponent.prototype.ngOnInit = function () {
+        };
+        return ChildpaymentComponent;
+    }());
+    ChildpaymentComponent.ɵfac = i0__namespace.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: ChildpaymentComponent, deps: [], target: i0__namespace.ɵɵFactoryTarget.Component });
+    ChildpaymentComponent.ɵcmp = i0__namespace.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.2.17", type: ChildpaymentComponent, selector: "lib-childpayment", ngImport: i0__namespace, template: "<p>childpayment works!</p>\n", styles: [""] });
+    i0__namespace.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: ChildpaymentComponent, decorators: [{
+                type: i0.Component,
+                args: [{
+                        selector: 'lib-childpayment',
+                        templateUrl: './childpayment.component.html',
+                        styleUrls: ['./childpayment.component.css']
+                    }]
+            }], ctorParameters: function () { return []; } });
+
     var ParentpaymentComponent = /** @class */ (function () {
         function ParentpaymentComponent() {
         }
@@ -46,13 +64,13 @@
         return ParentpaymentComponent;
     }());
     ParentpaymentComponent.ɵfac = i0__namespace.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: ParentpaymentComponent, deps: [], target: i0__namespace.ɵɵFactoryTarget.Component });
-    ParentpaymentComponent.ɵcmp = i0__namespace.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.2.17", type: ParentpaymentComponent, selector: "lib-parentpayment", ngImport: i0__namespace, template: "\n    <p>\n      parentpayment works!\n    </p>\n  ", isInline: true });
+    ParentpaymentComponent.ɵcmp = i0__namespace.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.2.17", type: ParentpaymentComponent, selector: "lib-parentpayment", ngImport: i0__namespace, template: "<lib-childpayment></lib-childpayment>", styles: [""], components: [{ type: ChildpaymentComponent, selector: "lib-childpayment" }] });
     i0__namespace.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: ParentpaymentComponent, decorators: [{
                 type: i0.Component,
                 args: [{
                         selector: 'lib-parentpayment',
-                        template: "\n    <p>\n      parentpayment works!\n    </p>\n  ",
-                        styles: []
+                        templateUrl: './parentpayment.component.html',
+                        styleUrls: ['./parentpayment.component.css']
                     }]
             }], ctorParameters: function () { return []; } });
 
@@ -62,13 +80,15 @@
         return ParentpaymentModule;
     }());
     ParentpaymentModule.ɵfac = i0__namespace.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: ParentpaymentModule, deps: [], target: i0__namespace.ɵɵFactoryTarget.NgModule });
-    ParentpaymentModule.ɵmod = i0__namespace.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: ParentpaymentModule, declarations: [ParentpaymentComponent], exports: [ParentpaymentComponent] });
+    ParentpaymentModule.ɵmod = i0__namespace.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: ParentpaymentModule, declarations: [ParentpaymentComponent,
+            ChildpaymentComponent], exports: [ParentpaymentComponent] });
     ParentpaymentModule.ɵinj = i0__namespace.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: ParentpaymentModule, imports: [[]] });
     i0__namespace.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: ParentpaymentModule, decorators: [{
                 type: i0.NgModule,
                 args: [{
                         declarations: [
-                            ParentpaymentComponent
+                            ParentpaymentComponent,
+                            ChildpaymentComponent,
                         ],
                         imports: [],
                         exports: [
@@ -85,6 +105,7 @@
      * Generated bundle index. Do not edit.
      */
 
+    exports.ChildpaymentComponent = ChildpaymentComponent;
     exports.ParentpaymentComponent = ParentpaymentComponent;
     exports.ParentpaymentModule = ParentpaymentModule;
     exports.ParentpaymentService = ParentpaymentService;
