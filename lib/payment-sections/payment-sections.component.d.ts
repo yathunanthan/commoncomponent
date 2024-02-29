@@ -22,5 +22,5 @@ export declare class PaymentSectionsComponent implements OnInit {
     ngOnInit(): void;
     paymentSelected(value: any): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<PaymentSectionsComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<PaymentSectionsComponent, "app-payment-sections", never, { "tip": "tip"; }, { "emitter": "emitter"; "payEmitter": "payEmitter"; }, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<PaymentSectionsComponent, "lib-payment-sections", never, { "tip": "tip"; }, { "emitter": "emitter"; "payEmitter": "payEmitter"; }, never, never>;
 }

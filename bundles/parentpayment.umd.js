@@ -39,6 +39,24 @@
                     }]
             }], ctorParameters: function () { return []; } });
 
+    var ParentpaymentComponent = /** @class */ (function () {
+        function ParentpaymentComponent() {
+        }
+        ParentpaymentComponent.prototype.ngOnInit = function () {
+        };
+        return ParentpaymentComponent;
+    }());
+    ParentpaymentComponent.ɵfac = i0__namespace.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: ParentpaymentComponent, deps: [], target: i0__namespace.ɵɵFactoryTarget.Component });
+    ParentpaymentComponent.ɵcmp = i0__namespace.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.2.17", type: ParentpaymentComponent, selector: "lib-parentpayment", ngImport: i0__namespace, template: "\n      <app-payment-sections></app-payment-sections>\n  ", isInline: true });
+    i0__namespace.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: ParentpaymentComponent, decorators: [{
+                type: i0.Component,
+                args: [{
+                        selector: 'lib-parentpayment',
+                        template: "\n      <app-payment-sections></app-payment-sections>\n  ",
+                        styles: []
+                    }]
+            }], ctorParameters: function () { return []; } });
+
     // import { Injectable } from '@angular/core';
     var PaymentBankComponent = /** @class */ (function () {
         // @Injectable({providedIn: 'root'})
@@ -162,6 +180,98 @@
                     }]
             }], ctorParameters: function () { return [{ type: i1__namespace.FormBuilder }]; }, propDecorators: { paymentTypeS: [{
                     type: i0.Input
+                }], payEmitter: [{
+                    type: i0.Output
+                }] } });
+
+    var PaymentSectionsComponent = /** @class */ (function () {
+        function PaymentSectionsComponent() {
+            this.devicePayment = false;
+            this.testResult = "testResult";
+            this.paymentMethodAllowed = 3;
+            this.paymentMethodType = 'Bank transfer';
+            this.paymentMethod = 1;
+            this.paymentCompleted = true;
+            this.canDoWalletPay = false;
+            this.walletPayLogoName = '';
+            this.walletPayDesc = '';
+            this.emitter = new i0.EventEmitter();
+            this.payEmitter = new i0.EventEmitter();
+        }
+        PaymentSectionsComponent.prototype.valid = function (paymentEnable) {
+            this.paymentEnable = paymentEnable;
+            this.payEmitter.emit(paymentEnable);
+        };
+        PaymentSectionsComponent.prototype.ngOnInit = function () {
+            this.emitter.emit(this.paymentMethodType);
+        };
+        // canWalletPay() {
+        //     this.canDoWalletPay = false;
+        //     if (this.userData.isStripeEnabled && this.userData.isWalletPayEnabled) {
+        //         const stripe = window.Stripe(atob(this.userData.pk_token), {stripeAccount: this.userData.stripeConnectedAccountId});
+        //         const paymentRequest = stripe.paymentRequest({
+        //             country: this.userData.clientDetails.countryNameCode,
+        //             currency: this.userData.currencyCode.toLowerCase(),
+        //             total: {
+        //                 label: 'Demo total',
+        //                 amount: 1,
+        //             },
+        //             requestPayerName: true,
+        //             requestPayerEmail: true,
+        //         });
+        //         (async () => {
+        //             // Check the availability of the Payment Request API first.
+        //             const result = await paymentRequest.canMakePayment();
+        //             if (result) {
+        //                 this.canDoWalletPay = true;
+        //                 if (result.applePay) {
+        //                     this.walletPayDesc = 'Apple Pay';
+        //                     this.walletPayLogoName = 'ApplePay';
+        //                 } else if (result.googlePay) {
+        //                     this.walletPayDesc = 'Google Pay';
+        //                     this.walletPayLogoName = 'GooglePay';
+        //                 } else if (result.link) {
+        //                     this.walletPayDesc = 'Pay via Link';
+        //                     this.walletPayLogoName = 'LinkPay';
+        //                 } else {
+        //                     this.walletPayDesc = 'WalletPay';
+        //                     this.walletPayLogoName = 'Wallet';
+        //                 }
+        //             } else {
+        //                 console.log("Cannot make Wallet payments.");
+        //             }
+        //         })();
+        //     }
+        // }
+        PaymentSectionsComponent.prototype.paymentSelected = function (value) {
+            var temp = this.paymentMethod != value;
+            if (value > 0) {
+                this.paymentMethod = value;
+                this.emitter.emit(value);
+                var check = document.getElementById(value);
+                if (check) {
+                    check.checked = true;
+                }
+                if (temp) {
+                    this.payEmitter.emit(true);
+                }
+            }
+        };
+        return PaymentSectionsComponent;
+    }());
+    PaymentSectionsComponent.ɵfac = i0__namespace.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: PaymentSectionsComponent, deps: [], target: i0__namespace.ɵɵFactoryTarget.Component });
+    PaymentSectionsComponent.ɵcmp = i0__namespace.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.2.17", type: PaymentSectionsComponent, selector: "lib-payment-sections", inputs: { tip: "tip" }, outputs: { emitter: "emitter", payEmitter: "payEmitter" }, ngImport: i0__namespace, template: "<div class=\"row pay-body\">\n    <div class=\"pay-title-box\">\n        <div class=\"pay-title\">Payment details</div>\n        <div class=\"pay-details\">Please fill the information below about your payment method</div>\n    </div>\n    <div class=\"pay-selection\">\n\n        <div class=\"col pay-width\">Pay with</div>\n        <div class=\"row width-q\">\n            <div class=\"col pay-btn\" (click)=\"paymentSelected(1)\"><input type=\"radio\"\n                    name=\"payWith\" id=\"1\"><span class=\"pay-btn-text\">{{paymentMethodType }}</span>\n                <img class=\"icon-align\" src=\"\" alt=\"\">\n            </div>\n            <!-- <div *ngIf=\"paymentMethodAllowed >= 2\" class=\"col pay-btn\"\n                (click)=\"paymentSelected(2)\"><input type=\"radio\" name=\"payWith\" id=\"2\"><span class=\"pay-btn-text\">Debit or credit card</span><img class=\"icon-align\"\n                    src=\"\" alt=\"\"></div> -->\n            <!-- <div *ngIf=\"userData.isStripeEnabled && userData.isWalletPayEnabled && canDoWalletPay\" class=\"col pay-btn\"\n                [ngClass]=\"{'pay-btn-active' : paymentMethod == '3'}\" (click)=\"paymentSelected(3)\"><input type=\"radio\"\n                    name=\"payWith\" id=\"3\"><span class=\"pay-btn-text\">{{ walletPayDesc }}</span><img\n                    class=\"icon-align\" src=\"\" alt=\"\">\n            </div> -->\n\n        </div>\n        <app-payment-bank></app-payment-bank>\n        <!-- <app-payment-card *ngIf=\"paymentMethod == '2'\"></app-payment-card> -->\n    </div>\n</div>\n<div class=\"row pay-body error-body\" *ngIf=\"paymentMethod == 0\">\n    <div class=\"error-title\">\n        Oops. Sorry, we are unable to process your payment.\n    </div>\n    <div class=\"error-content\">\n        An error has occurred while attempting to process your order. Please try again or try another payment method.\n    </div>\n</div>", styles: [".pay-body{border:1px solid var(--primaryBorderColor);box-shadow:0 4px 8px #0000000a,0 0 2px #0000000f,0 0 1px #0000000a;border-radius:4px;margin:24px;overflow:hidden}.error-body{text-align:center;height:280px}.error-body .error-title{font-weight:700;font-size:14px;line-height:20px;color:#f2994a;padding-top:120px;padding-bottom:12px}.error-body .error-content{font-weight:400;font-size:12px;line-height:20px;color:var(--primaryTextColor)}.pay-title-box{background:var(--titleBarBackground);width:100%;padding:16px 24.5px}.pay-title{font-weight:700;font-size:16px;line-height:24px;color:var(--titleBarFontColor)}.pay-details{font-size:14px;line-height:20px;color:var(--titleBarSecondaryFontColour);padding-top:12px}.pay-selection{width:100%;padding:24px}.width-q{margin:0;grid-gap:24px;gap:24px}.pay-width{font-weight:700;font-size:16px;color:var(--primaryTextColor);padding-bottom:8px}.pay-btn{background:#FFFFFF;border:1px solid var(--primaryBorderColor);border-radius:4px;font-size:14px;color:var(--primaryTextColor);display:flex;align-items:center;cursor:pointer;margin-bottom:0;padding-right:18px}.pay-btn-active{border:1px solid var(--secondaryButtonColour)}.pay-btn-text{font-size:14px;color:var(--primaryTextColor);padding:8px 8px 8px 16px;width:95%}.icon-align{width:20px;height:19px}.paymentCompleted{padding:0}@media (max-width: 578px){.pay-body{margin:16px 0 0;border:none;box-shadow:none;border-radius:0}.pay-title-box{padding:22px 16px}.pay-selection{padding:16px}}@media (max-width: 784px){.pay-btn{min-width:100%;padding-right:16px;padding-left:12px}.width-q{grid-gap:12px;gap:12px}.pay-width{padding-bottom:12px}.pay-details{padding-top:8px}}\n"], components: [{ type: PaymentBankComponent, selector: "app-payment-bank", inputs: ["paymentTypeS"], outputs: ["payEmitter"] }] });
+    i0__namespace.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: PaymentSectionsComponent, decorators: [{
+                type: i0.Component,
+                args: [{
+                        selector: 'lib-payment-sections',
+                        templateUrl: './payment-sections.component.html',
+                        styleUrls: ['./payment-sections.component.scss']
+                    }]
+            }], ctorParameters: function () { return []; }, propDecorators: { tip: [{
+                    type: i0.Input
+                }], emitter: [{
+                    type: i0.Output
                 }], payEmitter: [{
                     type: i0.Output
                 }] } });
@@ -294,116 +404,6 @@
                     type: i0.Output
                 }] } });
 
-    var PaymentSectionsComponent = /** @class */ (function () {
-        function PaymentSectionsComponent() {
-            this.devicePayment = false;
-            this.testResult = "testResult";
-            this.paymentMethodAllowed = 3;
-            this.paymentMethodType = 'Bank transfer';
-            this.paymentMethod = 1;
-            this.paymentCompleted = true;
-            this.canDoWalletPay = false;
-            this.walletPayLogoName = '';
-            this.walletPayDesc = '';
-            this.emitter = new i0.EventEmitter();
-            this.payEmitter = new i0.EventEmitter();
-        }
-        PaymentSectionsComponent.prototype.valid = function (paymentEnable) {
-            this.paymentEnable = paymentEnable;
-            this.payEmitter.emit(paymentEnable);
-        };
-        PaymentSectionsComponent.prototype.ngOnInit = function () {
-            this.emitter.emit(this.paymentMethodType);
-        };
-        // canWalletPay() {
-        //     this.canDoWalletPay = false;
-        //     if (this.userData.isStripeEnabled && this.userData.isWalletPayEnabled) {
-        //         const stripe = window.Stripe(atob(this.userData.pk_token), {stripeAccount: this.userData.stripeConnectedAccountId});
-        //         const paymentRequest = stripe.paymentRequest({
-        //             country: this.userData.clientDetails.countryNameCode,
-        //             currency: this.userData.currencyCode.toLowerCase(),
-        //             total: {
-        //                 label: 'Demo total',
-        //                 amount: 1,
-        //             },
-        //             requestPayerName: true,
-        //             requestPayerEmail: true,
-        //         });
-        //         (async () => {
-        //             // Check the availability of the Payment Request API first.
-        //             const result = await paymentRequest.canMakePayment();
-        //             if (result) {
-        //                 this.canDoWalletPay = true;
-        //                 if (result.applePay) {
-        //                     this.walletPayDesc = 'Apple Pay';
-        //                     this.walletPayLogoName = 'ApplePay';
-        //                 } else if (result.googlePay) {
-        //                     this.walletPayDesc = 'Google Pay';
-        //                     this.walletPayLogoName = 'GooglePay';
-        //                 } else if (result.link) {
-        //                     this.walletPayDesc = 'Pay via Link';
-        //                     this.walletPayLogoName = 'LinkPay';
-        //                 } else {
-        //                     this.walletPayDesc = 'WalletPay';
-        //                     this.walletPayLogoName = 'Wallet';
-        //                 }
-        //             } else {
-        //                 console.log("Cannot make Wallet payments.");
-        //             }
-        //         })();
-        //     }
-        // }
-        PaymentSectionsComponent.prototype.paymentSelected = function (value) {
-            var temp = this.paymentMethod != value;
-            if (value > 0) {
-                this.paymentMethod = value;
-                this.emitter.emit(value);
-                var check = document.getElementById(value);
-                if (check) {
-                    check.checked = true;
-                }
-                if (temp) {
-                    this.payEmitter.emit(true);
-                }
-            }
-        };
-        return PaymentSectionsComponent;
-    }());
-    PaymentSectionsComponent.ɵfac = i0__namespace.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: PaymentSectionsComponent, deps: [], target: i0__namespace.ɵɵFactoryTarget.Component });
-    PaymentSectionsComponent.ɵcmp = i0__namespace.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.2.17", type: PaymentSectionsComponent, selector: "app-payment-sections", inputs: { tip: "tip" }, outputs: { emitter: "emitter", payEmitter: "payEmitter" }, ngImport: i0__namespace, template: "<div class=\"row pay-body\">\n    <div class=\"pay-title-box\">\n        <div class=\"pay-title\">Payment details</div>\n        <div class=\"pay-details\">Please fill the information below about your payment method</div>\n    </div>\n    <div class=\"pay-selection\">\n\n        <div class=\"col pay-width\">Pay with</div>\n        <div class=\"row width-q\">\n            <div class=\"col pay-btn\" (click)=\"paymentSelected(1)\"><input type=\"radio\"\n                    name=\"payWith\" id=\"1\"><span class=\"pay-btn-text\">{{paymentMethodType }}</span>\n                <img class=\"icon-align\" src=\"\" alt=\"\">\n            </div>\n            <div *ngIf=\"paymentMethodAllowed >= 2\" class=\"col pay-btn\"\n                (click)=\"paymentSelected(2)\"><input type=\"radio\" name=\"payWith\" id=\"2\"><span class=\"pay-btn-text\">Debit or credit card</span><img class=\"icon-align\"\n                    src=\"\" alt=\"\"></div>\n            <!-- <div *ngIf=\"userData.isStripeEnabled && userData.isWalletPayEnabled && canDoWalletPay\" class=\"col pay-btn\"\n                [ngClass]=\"{'pay-btn-active' : paymentMethod == '3'}\" (click)=\"paymentSelected(3)\"><input type=\"radio\"\n                    name=\"payWith\" id=\"3\"><span class=\"pay-btn-text\">{{ walletPayDesc }}</span><img\n                    class=\"icon-align\" src=\"\" alt=\"\">\n            </div> -->\n\n        </div>\n        <app-payment-bank *ngIf=\"paymentMethod == '1'\"></app-payment-bank>\n        <app-payment-card *ngIf=\"paymentMethod == '2'\"></app-payment-card>\n    </div>\n</div>\n<div class=\"row pay-body error-body\" *ngIf=\"paymentMethod == 0\">\n    <div class=\"error-title\">\n        Oops. Sorry, we are unable to process your payment.\n    </div>\n    <div class=\"error-content\">\n        An error has occurred while attempting to process your order. Please try again or try another payment method.\n    </div>\n</div>", styles: [".pay-body{border:1px solid var(--primaryBorderColor);box-shadow:0 4px 8px #0000000a,0 0 2px #0000000f,0 0 1px #0000000a;border-radius:4px;margin:24px;overflow:hidden}.error-body{text-align:center;height:280px}.error-body .error-title{font-weight:700;font-size:14px;line-height:20px;color:#f2994a;padding-top:120px;padding-bottom:12px}.error-body .error-content{font-weight:400;font-size:12px;line-height:20px;color:var(--primaryTextColor)}.pay-title-box{background:var(--titleBarBackground);width:100%;padding:16px 24.5px}.pay-title{font-weight:700;font-size:16px;line-height:24px;color:var(--titleBarFontColor)}.pay-details{font-size:14px;line-height:20px;color:var(--titleBarSecondaryFontColour);padding-top:12px}.pay-selection{width:100%;padding:24px}.width-q{margin:0;grid-gap:24px;gap:24px}.pay-width{font-weight:700;font-size:16px;color:var(--primaryTextColor);padding-bottom:8px}.pay-btn{background:#FFFFFF;border:1px solid var(--primaryBorderColor);border-radius:4px;font-size:14px;color:var(--primaryTextColor);display:flex;align-items:center;cursor:pointer;margin-bottom:0;padding-right:18px}.pay-btn-active{border:1px solid var(--secondaryButtonColour)}.pay-btn-text{font-size:14px;color:var(--primaryTextColor);padding:8px 8px 8px 16px;width:95%}.icon-align{width:20px;height:19px}.paymentCompleted{padding:0}@media (max-width: 578px){.pay-body{margin:16px 0 0;border:none;box-shadow:none;border-radius:0}.pay-title-box{padding:22px 16px}.pay-selection{padding:16px}}@media (max-width: 784px){.pay-btn{min-width:100%;padding-right:16px;padding-left:12px}.width-q{grid-gap:12px;gap:12px}.pay-width{padding-bottom:12px}.pay-details{padding-top:8px}}\n"], components: [{ type: PaymentBankComponent, selector: "app-payment-bank", inputs: ["paymentTypeS"], outputs: ["payEmitter"] }, { type: PaymentCardComponent, selector: "app-payment-card", outputs: ["payEmitter"] }] });
-    i0__namespace.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: PaymentSectionsComponent, decorators: [{
-                type: i0.Component,
-                args: [{
-                        selector: 'app-payment-sections',
-                        templateUrl: './payment-sections.component.html',
-                        styleUrls: ['./payment-sections.component.scss']
-                    }]
-            }], ctorParameters: function () { return []; }, propDecorators: { tip: [{
-                    type: i0.Input
-                }], emitter: [{
-                    type: i0.Output
-                }], payEmitter: [{
-                    type: i0.Output
-                }] } });
-
-    var ParentpaymentComponent = /** @class */ (function () {
-        function ParentpaymentComponent() {
-        }
-        ParentpaymentComponent.prototype.ngOnInit = function () {
-        };
-        return ParentpaymentComponent;
-    }());
-    ParentpaymentComponent.ɵfac = i0__namespace.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: ParentpaymentComponent, deps: [], target: i0__namespace.ɵɵFactoryTarget.Component });
-    ParentpaymentComponent.ɵcmp = i0__namespace.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.2.17", type: ParentpaymentComponent, selector: "lib-parentpayment", ngImport: i0__namespace, template: "\n      <app-payment-sections><app-payment-sections>\n  ", isInline: true, components: [{ type: PaymentSectionsComponent, selector: "app-payment-sections", inputs: ["tip"], outputs: ["emitter", "payEmitter"] }] });
-    i0__namespace.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: ParentpaymentComponent, decorators: [{
-                type: i0.Component,
-                args: [{
-                        selector: 'lib-parentpayment',
-                        template: "\n      <app-payment-sections><app-payment-sections>\n  ",
-                        styles: []
-                    }]
-            }], ctorParameters: function () { return []; } });
-
     var PaymentApplepayComponent = /** @class */ (function () {
         function PaymentApplepayComponent() {
             this.payEmitter = new i0.EventEmitter();
@@ -449,6 +449,9 @@
                             PaymentApplepayComponent
                         ],
                         imports: [],
+                        schemas: [
+                            i0.CUSTOM_ELEMENTS_SCHEMA
+                        ],
                         exports: [
                             ParentpaymentComponent
                         ]
