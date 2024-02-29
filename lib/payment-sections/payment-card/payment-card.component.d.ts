@@ -1,0 +1,33 @@
+import { OnInit, EventEmitter } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import * as i0 from "@angular/core";
+export declare class PaymentCardComponent implements OnInit {
+    private fb;
+    payEmitter: EventEmitter<any>;
+    userData: any;
+    storedCards: any;
+    cardType: any;
+    constructor(fb: FormBuilder);
+    card: boolean;
+    container: any;
+    cardwidth: Number;
+    messages: any;
+    placeholders: any;
+    masks: any;
+    formatting: boolean;
+    debug: boolean;
+    creditForm: FormGroup;
+    summary: any;
+    companyNameSelected: boolean;
+    isCardNumberLength: boolean;
+    ngOnInit(): void;
+    dropdown(val: any): void;
+    buildCreditForms(): void;
+    companyNameClick(): void;
+    keypress(): void;
+    setCardType(): void;
+    cardSelected(val: any, from: string): void;
+    detectCardType(number: number): string | false;
+    static ɵfac: i0.ɵɵFactoryDeclaration<PaymentCardComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<PaymentCardComponent, "app-payment-card", never, {}, { "payEmitter": "payEmitter"; }, never, never>;
+}

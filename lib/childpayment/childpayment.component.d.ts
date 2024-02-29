@@ -1,8 +1,36 @@
 import { OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as i0 from "@angular/core";
 export declare class ChildpaymentComponent implements OnInit {
-    constructor();
+    private activatedRoute;
+    private router;
+    keyword: number;
+    downloading: boolean;
+    chatInfo: any;
+    paymentErrorMsg: any;
+    paymentType: any;
+    cardDetails: any;
+    walletDetails: any;
+    send(keyword: any): void;
+    selected: any;
+    select(selected: any): void;
+    paymentEnable: any;
+    valid(paymentEnable: any): void;
+    paymentCompleted(completed: any): void;
+    setPaymentId(paymentId: any): void;
+    setCardDetailsEmitter(cardDetails: any): void;
+    setWalletDetails(walletDetails: any): void;
+    closeError(value: boolean): void;
+    constructor(activatedRoute: ActivatedRoute, router: Router);
+    completed: boolean;
+    paymentError: boolean;
+    userData: any;
+    loading: boolean;
+    error: boolean;
+    logoUrl: string;
+    paymentId: number;
     ngOnInit(): void;
+    deleteQueryParameterFromCurrentRoute(val: string): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<ChildpaymentComponent, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<ChildpaymentComponent, "lib-childpayment", never, {}, {}, never, never>;
 }
