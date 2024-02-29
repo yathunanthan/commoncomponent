@@ -15,6 +15,40 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImpo
                 }]
         }], ctorParameters: function () { return []; } });
 
+class PaymentBankDetailsComponent {
+    constructor() { }
+    ngOnInit() {
+    }
+}
+PaymentBankDetailsComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0, type: PaymentBankDetailsComponent, deps: [], target: i0.ɵɵFactoryTarget.Component });
+PaymentBankDetailsComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.2.17", type: PaymentBankDetailsComponent, selector: "lib-payment-bank-details", ngImport: i0, template: "<p>payment-bank-details works!</p>\n", styles: [""] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0, type: PaymentBankDetailsComponent, decorators: [{
+            type: Component,
+            args: [{
+                    selector: 'lib-payment-bank-details',
+                    templateUrl: './payment-bank-details.component.html',
+                    styleUrls: ['./payment-bank-details.component.scss']
+                }]
+        }], ctorParameters: function () { return []; } });
+
+class PaymentDetailsComponent {
+    constructor() {
+        this.paymentMethodType = 'Bank transfer';
+    }
+    ngOnInit() {
+    }
+}
+PaymentDetailsComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0, type: PaymentDetailsComponent, deps: [], target: i0.ɵɵFactoryTarget.Component });
+PaymentDetailsComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.2.17", type: PaymentDetailsComponent, selector: "lib-payment-details", ngImport: i0, template: "<div class=\"row pay-body\">\n    <div class=\"pay-title-box\">\n        <div class=\"pay-title\">Payment details</div>\n        <div class=\"pay-details\">Please fill the information below about your payment method</div>\n    </div>\n    <div class=\"pay-selection\">\n\n        <div class=\"col pay-width\">Pay with</div>\n        <div class=\"row width-q\">\n            <div class=\"col pay-btn\"><input type=\"radio\"\n                    name=\"payWith\" id=\"1\"><span class=\"pay-btn-text\">{{paymentMethodType }}</span>\n                <img class=\"icon-align\" src=\"\" alt=\"\">\n            </div>\n            <!-- <div *ngIf=\"paymentMethodAllowed >= 2\" class=\"col pay-btn\"\n                (click)=\"paymentSelected(2)\"><input type=\"radio\" name=\"payWith\" id=\"2\"><span class=\"pay-btn-text\">Debit or credit card</span><img class=\"icon-align\"\n                    src=\"\" alt=\"\"></div> -->\n            <!-- <div *ngIf=\"userData.isStripeEnabled && userData.isWalletPayEnabled && canDoWalletPay\" class=\"col pay-btn\"\n                [ngClass]=\"{'pay-btn-active' : paymentMethod == '3'}\" (click)=\"paymentSelected(3)\"><input type=\"radio\"\n                    name=\"payWith\" id=\"3\"><span class=\"pay-btn-text\">{{ walletPayDesc }}</span><img\n                    class=\"icon-align\" src=\"\" alt=\"\">\n            </div> -->\n\n        </div>\n        <lib-payment-bank-details></lib-payment-bank-details>\n        <!-- <app-payment-card *ngIf=\"paymentMethod == '2'\"></app-payment-card> -->\n    </div>\n</div>\n<div class=\"row pay-body error-body\" *ngIf=\"paymentMethod == 0\">\n    <div class=\"error-title\">\n        Oops. Sorry, we are unable to process your payment.\n    </div>\n    <div class=\"error-content\">\n        An error has occurred while attempting to process your order. Please try again or try another payment method.\n    </div>\n</div>", styles: [".pay-body{border:1px solid var(--primaryBorderColor);box-shadow:0 4px 8px #0000000a,0 0 2px #0000000f,0 0 1px #0000000a;border-radius:4px;margin:24px;overflow:hidden}.error-body{text-align:center;height:280px}.error-body .error-title{font-weight:700;font-size:14px;line-height:20px;color:#f2994a;padding-top:120px;padding-bottom:12px}.error-body .error-content{font-weight:400;font-size:12px;line-height:20px;color:var(--primaryTextColor)}.pay-title-box{background:var(--titleBarBackground);width:100%;padding:16px 24.5px}.pay-title{font-weight:700;font-size:16px;line-height:24px;color:var(--titleBarFontColor)}.pay-details{font-size:14px;line-height:20px;color:var(--titleBarSecondaryFontColour);padding-top:12px}.pay-selection{width:100%;padding:24px}.width-q{margin:0;grid-gap:24px;gap:24px}.pay-width{font-weight:700;font-size:16px;color:var(--primaryTextColor);padding-bottom:8px}.pay-btn{background:#FFFFFF;border:1px solid var(--primaryBorderColor);border-radius:4px;font-size:14px;color:var(--primaryTextColor);display:flex;align-items:center;cursor:pointer;margin-bottom:0;padding-right:18px}.pay-btn-active{border:1px solid var(--secondaryButtonColour)}.pay-btn-text{font-size:14px;color:var(--primaryTextColor);padding:8px 8px 8px 16px;width:95%}.icon-align{width:20px;height:19px}.paymentCompleted{padding:0}@media (max-width: 578px){.pay-body{margin:16px 0 0;border:none;box-shadow:none;border-radius:0}.pay-title-box{padding:22px 16px}.pay-selection{padding:16px}}@media (max-width: 784px){.pay-btn{min-width:100%;padding-right:16px;padding-left:12px}.width-q{grid-gap:12px;gap:12px}.pay-width{padding-bottom:12px}.pay-details{padding-top:8px}}\n"], components: [{ type: PaymentBankDetailsComponent, selector: "lib-payment-bank-details" }] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0, type: PaymentDetailsComponent, decorators: [{
+            type: Component,
+            args: [{
+                    selector: 'lib-payment-details',
+                    templateUrl: './payment-details.component.html',
+                    styleUrls: ['./payment-details.component.scss']
+                }]
+        }], ctorParameters: function () { return []; } });
+
 class ParentpaymentComponent {
     constructor() { }
     ngOnInit() {
@@ -22,14 +56,14 @@ class ParentpaymentComponent {
 }
 ParentpaymentComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0, type: ParentpaymentComponent, deps: [], target: i0.ɵɵFactoryTarget.Component });
 ParentpaymentComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.2.17", type: ParentpaymentComponent, selector: "lib-parentpayment", ngImport: i0, template: `
-      <app-payment-sections></app-payment-sections>
-  `, isInline: true });
+      <lib-payment-details></lib-payment-details>
+  `, isInline: true, components: [{ type: PaymentDetailsComponent, selector: "lib-payment-details" }] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0, type: ParentpaymentComponent, decorators: [{
             type: Component,
             args: [{
                     selector: 'lib-parentpayment',
                     template: `
-      <app-payment-sections></app-payment-sections>
+      <lib-payment-details></lib-payment-details>
   `,
                     styles: []
                 }]
@@ -406,7 +440,9 @@ ParentpaymentModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", ver
         PaymentSectionsComponent,
         PaymentCardComponent,
         PaymentBankComponent,
-        PaymentApplepayComponent], exports: [ParentpaymentComponent] });
+        PaymentApplepayComponent,
+        PaymentDetailsComponent,
+        PaymentBankDetailsComponent], exports: [ParentpaymentComponent] });
 ParentpaymentModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0, type: ParentpaymentModule, imports: [[]] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0, type: ParentpaymentModule, decorators: [{
             type: NgModule,
@@ -416,7 +452,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImpo
                         PaymentSectionsComponent,
                         PaymentCardComponent,
                         PaymentBankComponent,
-                        PaymentApplepayComponent
+                        PaymentApplepayComponent,
+                        PaymentDetailsComponent,
+                        PaymentBankDetailsComponent
                     ],
                     imports: [],
                     schemas: [
@@ -436,5 +474,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImpo
  * Generated bundle index. Do not edit.
  */
 
-export { ParentpaymentComponent, ParentpaymentModule, ParentpaymentService, PaymentApplepayComponent, PaymentBankComponent, PaymentCardComponent, PaymentSectionsComponent };
+export { ParentpaymentComponent, ParentpaymentModule, ParentpaymentService, PaymentBankDetailsComponent, PaymentDetailsComponent };
 //# sourceMappingURL=parentpayment.js.map
