@@ -395,13 +395,13 @@
         return ParentpaymentComponent;
     }());
     ParentpaymentComponent.ɵfac = i0__namespace.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: ParentpaymentComponent, deps: [], target: i0__namespace.ɵɵFactoryTarget.Component });
-    ParentpaymentComponent.ɵcmp = i0__namespace.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.2.17", type: ParentpaymentComponent, selector: "lib-parentpayment", ngImport: i0__namespace, template: "<app-payment-secctions></app-payment-secctions>", styles: [""], components: [{ type: PaymentSectionsComponent, selector: "app-payment-secctions", inputs: ["tip"], outputs: ["emitter", "payEmitter"] }] });
+    ParentpaymentComponent.ɵcmp = i0__namespace.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.2.17", type: ParentpaymentComponent, selector: "lib-parentpayment", ngImport: i0__namespace, template: "\n  <app-payment-secctions></app-payment-secctions>", isInline: true, components: [{ type: PaymentSectionsComponent, selector: "app-payment-secctions", inputs: ["tip"], outputs: ["emitter", "payEmitter"] }] });
     i0__namespace.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: ParentpaymentComponent, decorators: [{
                 type: i0.Component,
                 args: [{
                         selector: 'lib-parentpayment',
-                        templateUrl: './parentpayment.component.html',
-                        styleUrls: ['./parentpayment.component.css']
+                        template: "\n  <app-payment-secctions></app-payment-secctions>",
+                        styles: []
                     }]
             }], ctorParameters: function () { return []; } });
 
