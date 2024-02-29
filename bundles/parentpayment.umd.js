@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/forms'), require('@angular/router')) :
-    typeof define === 'function' && define.amd ? define('parentpayment', ['exports', '@angular/core', '@angular/forms', '@angular/router'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.parentpayment = {}, global.ng.core, global.ng.forms, global.ng.router));
-})(this, (function (exports, i0, i1, i1$1) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/forms')) :
+    typeof define === 'function' && define.amd ? define('parentpayment', ['exports', '@angular/core', '@angular/forms'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.parentpayment = {}, global.ng.core, global.ng.forms));
+})(this, (function (exports, i0, i1) { 'use strict';
 
     function _interopNamespace(e) {
         if (e && e.__esModule) return e;
@@ -24,7 +24,6 @@
 
     var i0__namespace = /*#__PURE__*/_interopNamespace(i0);
     var i1__namespace = /*#__PURE__*/_interopNamespace(i1);
-    var i1__namespace$1 = /*#__PURE__*/_interopNamespace(i1$1);
 
     var ParentpaymentService = /** @class */ (function () {
         function ParentpaymentService() {
@@ -371,11 +370,11 @@
         return PaymentSectionsComponent;
     }());
     PaymentSectionsComponent.ɵfac = i0__namespace.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: PaymentSectionsComponent, deps: [], target: i0__namespace.ɵɵFactoryTarget.Component });
-    PaymentSectionsComponent.ɵcmp = i0__namespace.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.2.17", type: PaymentSectionsComponent, selector: "app-payment-secctions", inputs: { tip: "tip" }, outputs: { emitter: "emitter", payEmitter: "payEmitter" }, ngImport: i0__namespace, template: "<div class=\"row pay-body\">\n    <div class=\"pay-title-box\">\n        <div class=\"pay-title\">Payment details</div>\n        <div class=\"pay-details\">Please fill the information below about your payment method</div>\n    </div>\n    <div class=\"pay-selection\">\n\n        <div class=\"col pay-width\">Pay with</div>\n        <div class=\"row width-q\">\n            <div class=\"col pay-btn\" (click)=\"paymentSelected(1)\"><input type=\"radio\"\n                    name=\"payWith\" id=\"1\"><span class=\"pay-btn-text\">{{paymentMethodType }}</span>\n                <img class=\"icon-align\" src=\"\" alt=\"\">\n            </div>\n            <div *ngIf=\"paymentMethodAllowed >= 2\" class=\"col pay-btn\"\n                (click)=\"paymentSelected(2)\"><input type=\"radio\" name=\"payWith\" id=\"2\"><span class=\"pay-btn-text\">Debit or credit card</span><img class=\"icon-align\"\n                    src=\"\" alt=\"\"></div>\n            <!-- <div *ngIf=\"userData.isStripeEnabled && userData.isWalletPayEnabled && canDoWalletPay\" class=\"col pay-btn\"\n                [ngClass]=\"{'pay-btn-active' : paymentMethod == '3'}\" (click)=\"paymentSelected(3)\"><input type=\"radio\"\n                    name=\"payWith\" id=\"3\"><span class=\"pay-btn-text\">{{ walletPayDesc }}</span><img\n                    class=\"icon-align\" src=\"\" alt=\"\">\n            </div> -->\n\n        </div>\n        <app-payment-bank *ngIf=\"paymentMethod == '1'\"></app-payment-bank>\n        <app-payment-card *ngIf=\"paymentMethod == '2'\"></app-payment-card>\n    </div>\n</div>\n<div class=\"row pay-body error-body\" *ngIf=\"paymentMethod == 0\">\n    <div class=\"error-title\">\n        Oops. Sorry, we are unable to process your payment.\n    </div>\n    <div class=\"error-content\">\n        An error has occurred while attempting to process your order. Please try again or try another payment method.\n    </div>\n</div>", styles: [".pay-body{border:1px solid var(--primaryBorderColor);box-shadow:0 4px 8px #0000000a,0 0 2px #0000000f,0 0 1px #0000000a;border-radius:4px;margin:24px;overflow:hidden}.error-body{text-align:center;height:280px}.error-body .error-title{font-weight:700;font-size:14px;line-height:20px;color:#f2994a;padding-top:120px;padding-bottom:12px}.error-body .error-content{font-weight:400;font-size:12px;line-height:20px;color:var(--primaryTextColor)}.pay-title-box{background:var(--titleBarBackground);width:100%;padding:16px 24.5px}.pay-title{font-weight:700;font-size:16px;line-height:24px;color:var(--titleBarFontColor)}.pay-details{font-size:14px;line-height:20px;color:var(--titleBarSecondaryFontColour);padding-top:12px}.pay-selection{width:100%;padding:24px}.width-q{margin:0;grid-gap:24px;gap:24px}.pay-width{font-weight:700;font-size:16px;color:var(--primaryTextColor);padding-bottom:8px}.pay-btn{background:#FFFFFF;border:1px solid var(--primaryBorderColor);border-radius:4px;font-size:14px;color:var(--primaryTextColor);display:flex;align-items:center;cursor:pointer;margin-bottom:0;padding-right:18px}.pay-btn-active{border:1px solid var(--secondaryButtonColour)}.pay-btn-text{font-size:14px;color:var(--primaryTextColor);padding:8px 8px 8px 16px;width:95%}.icon-align{width:20px;height:19px}.paymentCompleted{padding:0}@media (max-width: 578px){.pay-body{margin:16px 0 0;border:none;box-shadow:none;border-radius:0}.pay-title-box{padding:22px 16px}.pay-selection{padding:16px}}@media (max-width: 784px){.pay-btn{min-width:100%;padding-right:16px;padding-left:12px}.width-q{grid-gap:12px;gap:12px}.pay-width{padding-bottom:12px}.pay-details{padding-top:8px}}\n"], components: [{ type: PaymentBankComponent, selector: "app-payment-bank", inputs: ["paymentTypeS"], outputs: ["payEmitter"] }, { type: PaymentCardComponent, selector: "app-payment-card", outputs: ["payEmitter"] }] });
+    PaymentSectionsComponent.ɵcmp = i0__namespace.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.2.17", type: PaymentSectionsComponent, selector: "app-payment-sections", inputs: { tip: "tip" }, outputs: { emitter: "emitter", payEmitter: "payEmitter" }, ngImport: i0__namespace, template: "<div class=\"row pay-body\">\n    <div class=\"pay-title-box\">\n        <div class=\"pay-title\">Payment details</div>\n        <div class=\"pay-details\">Please fill the information below about your payment method</div>\n    </div>\n    <div class=\"pay-selection\">\n\n        <div class=\"col pay-width\">Pay with</div>\n        <div class=\"row width-q\">\n            <div class=\"col pay-btn\" (click)=\"paymentSelected(1)\"><input type=\"radio\"\n                    name=\"payWith\" id=\"1\"><span class=\"pay-btn-text\">{{paymentMethodType }}</span>\n                <img class=\"icon-align\" src=\"\" alt=\"\">\n            </div>\n            <div *ngIf=\"paymentMethodAllowed >= 2\" class=\"col pay-btn\"\n                (click)=\"paymentSelected(2)\"><input type=\"radio\" name=\"payWith\" id=\"2\"><span class=\"pay-btn-text\">Debit or credit card</span><img class=\"icon-align\"\n                    src=\"\" alt=\"\"></div>\n            <!-- <div *ngIf=\"userData.isStripeEnabled && userData.isWalletPayEnabled && canDoWalletPay\" class=\"col pay-btn\"\n                [ngClass]=\"{'pay-btn-active' : paymentMethod == '3'}\" (click)=\"paymentSelected(3)\"><input type=\"radio\"\n                    name=\"payWith\" id=\"3\"><span class=\"pay-btn-text\">{{ walletPayDesc }}</span><img\n                    class=\"icon-align\" src=\"\" alt=\"\">\n            </div> -->\n\n        </div>\n        <app-payment-bank *ngIf=\"paymentMethod == '1'\"></app-payment-bank>\n        <app-payment-card *ngIf=\"paymentMethod == '2'\"></app-payment-card>\n    </div>\n</div>\n<div class=\"row pay-body error-body\" *ngIf=\"paymentMethod == 0\">\n    <div class=\"error-title\">\n        Oops. Sorry, we are unable to process your payment.\n    </div>\n    <div class=\"error-content\">\n        An error has occurred while attempting to process your order. Please try again or try another payment method.\n    </div>\n</div>", styles: [".pay-body{border:1px solid var(--primaryBorderColor);box-shadow:0 4px 8px #0000000a,0 0 2px #0000000f,0 0 1px #0000000a;border-radius:4px;margin:24px;overflow:hidden}.error-body{text-align:center;height:280px}.error-body .error-title{font-weight:700;font-size:14px;line-height:20px;color:#f2994a;padding-top:120px;padding-bottom:12px}.error-body .error-content{font-weight:400;font-size:12px;line-height:20px;color:var(--primaryTextColor)}.pay-title-box{background:var(--titleBarBackground);width:100%;padding:16px 24.5px}.pay-title{font-weight:700;font-size:16px;line-height:24px;color:var(--titleBarFontColor)}.pay-details{font-size:14px;line-height:20px;color:var(--titleBarSecondaryFontColour);padding-top:12px}.pay-selection{width:100%;padding:24px}.width-q{margin:0;grid-gap:24px;gap:24px}.pay-width{font-weight:700;font-size:16px;color:var(--primaryTextColor);padding-bottom:8px}.pay-btn{background:#FFFFFF;border:1px solid var(--primaryBorderColor);border-radius:4px;font-size:14px;color:var(--primaryTextColor);display:flex;align-items:center;cursor:pointer;margin-bottom:0;padding-right:18px}.pay-btn-active{border:1px solid var(--secondaryButtonColour)}.pay-btn-text{font-size:14px;color:var(--primaryTextColor);padding:8px 8px 8px 16px;width:95%}.icon-align{width:20px;height:19px}.paymentCompleted{padding:0}@media (max-width: 578px){.pay-body{margin:16px 0 0;border:none;box-shadow:none;border-radius:0}.pay-title-box{padding:22px 16px}.pay-selection{padding:16px}}@media (max-width: 784px){.pay-btn{min-width:100%;padding-right:16px;padding-left:12px}.width-q{grid-gap:12px;gap:12px}.pay-width{padding-bottom:12px}.pay-details{padding-top:8px}}\n"], components: [{ type: PaymentBankComponent, selector: "app-payment-bank", inputs: ["paymentTypeS"], outputs: ["payEmitter"] }, { type: PaymentCardComponent, selector: "app-payment-card", outputs: ["payEmitter"] }] });
     i0__namespace.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: PaymentSectionsComponent, decorators: [{
                 type: i0.Component,
                 args: [{
-                        selector: 'app-payment-secctions',
+                        selector: 'app-payment-sections',
                         templateUrl: './payment-sections.component.html',
                         styleUrls: ['./payment-sections.component.scss']
                     }]
@@ -395,120 +394,15 @@
         return ParentpaymentComponent;
     }());
     ParentpaymentComponent.ɵfac = i0__namespace.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: ParentpaymentComponent, deps: [], target: i0__namespace.ɵɵFactoryTarget.Component });
-    ParentpaymentComponent.ɵcmp = i0__namespace.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.2.17", type: ParentpaymentComponent, selector: "lib-parentpayment", ngImport: i0__namespace, template: "\n  <app-payment-secctions></app-payment-secctions>", isInline: true, components: [{ type: PaymentSectionsComponent, selector: "app-payment-secctions", inputs: ["tip"], outputs: ["emitter", "payEmitter"] }] });
+    ParentpaymentComponent.ɵcmp = i0__namespace.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.2.17", type: ParentpaymentComponent, selector: "lib-parentpayment", ngImport: i0__namespace, template: "\n      <app-payment-sections><app-payment-sections>\n  ", isInline: true, components: [{ type: PaymentSectionsComponent, selector: "app-payment-sections", inputs: ["tip"], outputs: ["emitter", "payEmitter"] }] });
     i0__namespace.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: ParentpaymentComponent, decorators: [{
                 type: i0.Component,
                 args: [{
                         selector: 'lib-parentpayment',
-                        template: "\n  <app-payment-secctions></app-payment-secctions>",
+                        template: "\n      <app-payment-sections><app-payment-sections>\n  ",
                         styles: []
                     }]
             }], ctorParameters: function () { return []; } });
-
-    var PaymentSectionComponent = /** @class */ (function () {
-        function PaymentSectionComponent() {
-        }
-        PaymentSectionComponent.prototype.ngOnInit = function () {
-        };
-        return PaymentSectionComponent;
-    }());
-    PaymentSectionComponent.ɵfac = i0__namespace.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: PaymentSectionComponent, deps: [], target: i0__namespace.ɵɵFactoryTarget.Component });
-    PaymentSectionComponent.ɵcmp = i0__namespace.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.2.17", type: PaymentSectionComponent, selector: "lib-payment-section", ngImport: i0__namespace, template: "<p>payment-section works!</p>\n", styles: [""] });
-    i0__namespace.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: PaymentSectionComponent, decorators: [{
-                type: i0.Component,
-                args: [{
-                        selector: 'lib-payment-section',
-                        templateUrl: './payment-section.component.html',
-                        styleUrls: ['./payment-section.component.css']
-                    }]
-            }], ctorParameters: function () { return []; } });
-
-    var ChildpaymentComponent = /** @class */ (function () {
-        function ChildpaymentComponent(activatedRoute, router) {
-            var _this = this;
-            this.activatedRoute = activatedRoute;
-            this.router = router;
-            this.keyword = 0;
-            this.downloading = false;
-            this.paymentType = false;
-            this.selected = false;
-            this.paymentEnable = false;
-            // logoUrl:string='ss';
-            this.completed = false;
-            this.paymentError = false;
-            this.loading = false;
-            this.error = false;
-            this.logoUrl = '';
-            this.paymentId = 0;
-            this.activatedRoute.queryParams.subscribe(function (params) {
-                if (params['success'] == 'true') {
-                    _this.completed = true;
-                    _this.paymentError = false;
-                }
-                if (params['success'] == 'false') {
-                    _this.paymentError = true;
-                }
-            });
-        }
-        ChildpaymentComponent.prototype.send = function (keyword) {
-            this.keyword = keyword;
-        };
-        ChildpaymentComponent.prototype.select = function (selected) {
-            this.selected = selected;
-        };
-        ChildpaymentComponent.prototype.valid = function (paymentEnable) {
-            this.paymentEnable = paymentEnable;
-        };
-        ChildpaymentComponent.prototype.paymentCompleted = function (completed) {
-            if (completed === true) {
-                this.completed = completed;
-                if (this.selected == 3) {
-                    this.paymentType = "walletPay";
-                }
-                else {
-                    this.paymentType = "cardPayment";
-                }
-            }
-            else if (completed.length != 0) {
-                this.paymentError = true;
-                this.paymentErrorMsg = completed;
-            }
-        };
-        ChildpaymentComponent.prototype.setPaymentId = function (paymentId) {
-            this.paymentId = paymentId;
-        };
-        ChildpaymentComponent.prototype.setCardDetailsEmitter = function (cardDetails) {
-            this.cardDetails = cardDetails;
-        };
-        ChildpaymentComponent.prototype.setWalletDetails = function (walletDetails) {
-            this.walletDetails = walletDetails;
-        };
-        // doCloseError:boolean=false;
-        ChildpaymentComponent.prototype.closeError = function (value) {
-            // this.doCloseError=true;
-            this.paymentError = !value;
-            this.deleteQueryParameterFromCurrentRoute('success');
-        };
-        ChildpaymentComponent.prototype.ngOnInit = function () {
-            this.loading = true;
-        };
-        ChildpaymentComponent.prototype.deleteQueryParameterFromCurrentRoute = function (val) {
-            var params = Object.assign({}, this.activatedRoute.snapshot.queryParams);
-            delete params[val];
-            this.router.navigate([], { queryParams: params });
-        };
-        return ChildpaymentComponent;
-    }());
-    ChildpaymentComponent.ɵfac = i0__namespace.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: ChildpaymentComponent, deps: [{ token: i1__namespace$1.ActivatedRoute }, { token: i1__namespace$1.Router }], target: i0__namespace.ɵɵFactoryTarget.Component });
-    ChildpaymentComponent.ɵcmp = i0__namespace.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.2.17", type: ChildpaymentComponent, selector: "lib-childpayment", ngImport: i0__namespace, template: "<lib-payment-section></lib-payment-section>", styles: [""], components: [{ type: PaymentSectionComponent, selector: "lib-payment-section" }] });
-    i0__namespace.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: ChildpaymentComponent, decorators: [{
-                type: i0.Component,
-                args: [{
-                        selector: 'lib-childpayment',
-                        templateUrl: './childpayment.component.html',
-                        styleUrls: ['./childpayment.component.css']
-                    }]
-            }], ctorParameters: function () { return [{ type: i1__namespace$1.ActivatedRoute }, { type: i1__namespace$1.Router }]; } });
 
     var PaymentApplepayComponent = /** @class */ (function () {
         function PaymentApplepayComponent() {
@@ -539,8 +433,6 @@
     }());
     ParentpaymentModule.ɵfac = i0__namespace.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: ParentpaymentModule, deps: [], target: i0__namespace.ɵɵFactoryTarget.NgModule });
     ParentpaymentModule.ɵmod = i0__namespace.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: ParentpaymentModule, declarations: [ParentpaymentComponent,
-            ChildpaymentComponent,
-            PaymentSectionComponent,
             PaymentSectionsComponent,
             PaymentCardComponent,
             PaymentBankComponent,
@@ -551,8 +443,6 @@
                 args: [{
                         declarations: [
                             ParentpaymentComponent,
-                            ChildpaymentComponent,
-                            PaymentSectionComponent,
                             PaymentSectionsComponent,
                             PaymentCardComponent,
                             PaymentBankComponent,
@@ -573,7 +463,6 @@
      * Generated bundle index. Do not edit.
      */
 
-    exports.ChildpaymentComponent = ChildpaymentComponent;
     exports.ParentpaymentComponent = ParentpaymentComponent;
     exports.ParentpaymentModule = ParentpaymentModule;
     exports.ParentpaymentService = ParentpaymentService;
