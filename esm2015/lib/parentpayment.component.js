@@ -9,7 +9,7 @@ export class ParentpaymentComponent {
 ParentpaymentComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0, type: ParentpaymentComponent, deps: [], target: i0.ɵɵFactoryTarget.Component });
 ParentpaymentComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.2.17", type: ParentpaymentComponent, selector: "lib-parentpayment", ngImport: i0, template: `
       <lib-payment-details></lib-payment-details>
-  `, isInline: true, components: [{ type: i1.PaymentDetailsComponent, selector: "lib-payment-details" }] });
+  `, isInline: true, components: [{ type: i1.PaymentDetailsComponent, selector: "lib-payment-details", inputs: ["tip"], outputs: ["emitter", "payEmitter"] }] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0, type: ParentpaymentComponent, decorators: [{
             type: Component,
             args: [{
