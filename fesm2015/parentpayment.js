@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { Injectable, EventEmitter, Component, Input, Output, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Injectable, EventEmitter, Component, Output, Input, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import * as i1 from '@angular/forms';
 import { Validators } from '@angular/forms';
 
@@ -14,131 +14,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImpo
                     providedIn: 'root'
                 }]
         }], ctorParameters: function () { return []; } });
-
-class PaymentBankDetailsComponent {
-    // @Injectable({providedIn: 'root'})
-    // resp: any;
-    // testObj:any;
-    constructor(fb) {
-        this.fb = fb;
-        this.companyNameSelected = false;
-        this.payEmitter = new EventEmitter();
-    }
-    ngOnInit() {
-        if (this.paymentTypeS == 'PAD') {
-            this.paymentType = 1;
-        }
-        else if (this.paymentTypeS == 'Bank transfer') {
-            this.paymentType = 2;
-        }
-        else if (this.paymentTypeS == 'ACH') {
-            this.paymentType = 3;
-        }
-        else if (this.paymentTypeS == 'SEPA') {
-            this.paymentType = 4;
-        }
-        this.buildPaymetForm();
-    }
-    buildPaymetForm() {
-        if (this.paymentType == 1) {
-            this.paymentForm = this.fb.group({
-                firstName: ['', [Validators.required]],
-                lastName: ['', [Validators.required]],
-                email: ['', [Validators.required, Validators.email]],
-                country: ['', [Validators.required]],
-                institutionNo: ['', [Validators.required]],
-                transitNo: ['', [Validators.required]],
-                accountNo: ['', [Validators.required,]],
-            });
-        }
-        else if (this.paymentType == 2) {
-            this.paymentForm = this.fb.group({
-                instantpayment: this.fb.group({
-                    country_code: 'GB',
-                    currency: this.userData.currencyCode,
-                    payment: this.fb.group({
-                        description: "Invoice no : #" + this.userData.invoiceDetails.invoiceNumber,
-                        amount: [0, [Validators.required]],
-                        app_fee: "1",
-                    }),
-                    customer: this.fb.group({
-                        commusoftId: 0,
-                        addressline1: this.userData.customerDetails.addressline1,
-                        addressline2: this.userData.customerDetails.addressline2,
-                        addressline3: this.userData.customerDetails.addressline3,
-                        companyname: "",
-                        surname: this.userData.customerDetails.customerName,
-                        firstname: this.userData.customerDetails.customerName,
-                        postcode: this.userData.customerDetails.postcode,
-                        phonenumber: "",
-                        region: this.userData.customerDetails.county,
-                        email: [this.userData.customerDetails.emailId, [Validators.required, Validators.email]],
-                        language: ""
-                    }),
-                    bank: this.fb.group({
-                        firstname: [this.userData.customerDetails.customerName, [Validators.required]],
-                        lastname: [""],
-                        account_number: ['', [Validators.required]],
-                        iban: "",
-                        account_type: "",
-                        bank_code: "",
-                        branch_code: ["", [Validators.required]],
-                    })
-                }),
-            });
-        }
-        else if (this.paymentType == 3) {
-            this.paymentForm = this.fb.group({
-                firstName: ['', [Validators.required]],
-                lastName: ['', [Validators.required]],
-                email: ['', [Validators.required, Validators.email]],
-                billingAddress1: ['', [Validators.required]],
-                billingAddress2: ['', [Validators.required]],
-                accountNo: ['', [Validators.required,]],
-                routingNo: ['', [Validators.required]],
-                accountType: ['', [Validators.required]],
-                // confirm: [false, [Validators.requiredTrue] ],
-            });
-        }
-        else if (this.paymentType == 4) {
-            this.paymentForm = this.fb.group({
-                firstName: ['', [Validators.required]],
-                lastName: ['', [Validators.required]],
-                email: ['', [Validators.required, Validators.email]],
-                creditorIdentifier: ['', [Validators.required]],
-                internationalBankAccountNo: ['', [Validators.required]],
-                accountNo: ['', [Validators.required,]],
-                billingAddress1: ['', [Validators.required]],
-                billingAddress2: ['', [Validators.required]],
-            });
-        }
-    }
-    companyNameClick() {
-        this.companyNameSelected = !this.companyNameSelected;
-        this.paymentForm.patchValue({ 'instantpayment': { 'bank': { 'firstname': '' } } });
-    }
-    keypress() {
-        this.payEmitter.emit(this.paymentForm);
-    }
-    branch_codeFormat(el) {
-        this.paymentForm.patchValue({ 'instantpayment': { 'bank': { 'branch_code': el.target.value.replace(/[^0-9]/g, '').replace(/(\d{2})(?=\d)/g, "$1-") } } });
-        this.keypress();
-    }
-}
-PaymentBankDetailsComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0, type: PaymentBankDetailsComponent, deps: [{ token: i1.FormBuilder }], target: i0.ɵɵFactoryTarget.Component });
-PaymentBankDetailsComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.2.17", type: PaymentBankDetailsComponent, selector: "lib-payment-bank-details", inputs: { paymentTypeS: "paymentTypeS" }, outputs: { payEmitter: "payEmitter" }, ngImport: i0, template: "<form>\n    <div>\n        \n<div class=\"content-group\">\n    <div class=\"row\">\n        <div class=\"col-md-6\">\n            <div class=\"lable\">First name</div>\n            <input class=\"field\" type=\"text\" (keyup)=\"keypress()\" >\n        </div>\n        <div class=\"col-md-6\">\n            <div class=\"lable\">Last name</div>\n            <input class=\"field\" type=\"text\" (keyup)=\"keypress()\" >\n        </div>\n    </div>\n    <div class=\"direct-debit\">\n        <div>\n            <div class=\"form-group\">\n        <div class=\"lable\">Account holder\u2019s name</div>\n            <input formControlName=\"firstname\" class=\"field\" type=\"text\" (keyup)=\"keypress()\" >\n            </div></div>\n    </div>\n    <div class=\"direct-debit\">\n        <div>\n            <div class=\"form-group\">\n        <div class=\"lable\">Company name</div>\n            <input class=\"field\" type=\"text\" (keyup)=\"keypress()\" >\n        </div></div>\n    </div>\n    <div  class=\"company-name-link\" (click)=\"companyNameClick()\">Or click here to use a company name</div>\n    <!-- <div *ngIf= \"companyNameSelected\" class=\"company-name-link\" (click)=\"companyNameClick()\">Or click here to use your personal information</div> -->\n</div>\n<div class=\"content-group\">\n    <div>\n        <div class=\"form-group\">\n            <div class=\"lable\">Email address</div>\n    <input class=\"field\" type=\"text\" placeholder=\"william.ty@example.co\" (keyup)=\"keypress()\" >\n    <div class=\"email-info\">This email will only be used to keep you updated about their payments</div>\n\n        </div>\n    </div>\n    \n</div>\n<div class=\"content-group\">\n    <div class=\"lable\">vdsf</div>\n    <select (click)=\"keypress()\">\n        <option value=\"\" disabled selected hidden>Please select</option>\n        <!-- <option *ngFor=\"let name of countryName\" [value]=\"name\" >{{name}}</option> -->\n    </select><i class=\"fa-solid fa-angle-down\"></i>\n</div>\n<div class=\"content-group\">\n    <div class=\"row\">\n        <div class=\"col-md-6\">\n            <div class=\"lable\">Institution number</div>\n            <input class=\"field\" type=\"text\" placeholder=\"E.g. 10-20-30\" (keyup)=\"keypress()\" >\n        </div>\n        <div class=\"col-md-6\">\n            <div class=\"lable transit-adjust\">Transit number</div>\n            <input class=\"field\" type=\"text\" placeholder=\"E.g. 12345678\" (keyup)=\"keypress()\" >\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"col-md-4\">\n                <div>\n                    <div class=\"form-group\">\n\n            <div class=\"lable\">Sort code</div>\n            <input class=\"field\" type=\"text\" placeholder=\"E.g. 10-20-30\" (input)=\"branch_codeFormat($event)\" maxlength=\"8\" >\n                    </div></div>\n        </div>\n        <div class=\"col-md-8\">\n            <div>\n                <div class=\"form-group\">\n\n\n            <div class=\"lable transit-adjust\">Account number</div>\n            <input class=\"field\" type=\"text\" placeholder=\"E.g. 12345678\" (keyup)=\"keypress()\" >\n        </div></div>\n        </div>\n    </div>\n</div>\n<div class=\"content-group\">\n    <div class=\"lable\">Account number</div>\n    <input class=\"field\" type=\"text\" placeholder=\"E.g. 12345678\" (keyup)=\"keypress()\" >\n</div>\n\n<!-- <div *ngIf=\"paymentType==4\" class=\"content-group\">\n    <div class=\"lable\">Creditor identifier</div>\n    <input class=\"field\" type=\"text\" placeholder=\"Creditor identifier\" (keyup)=\"keypress()\" >\n</div>\n\n<div *ngIf=\"paymentType==4\" class=\"content-group\">\n    <div class=\"lable\">International bank account number (IBAN)</div>\n    <input class=\"field\" type=\"text\" placeholder=\"International bank account number (IBAN)\" (keyup)=\"keypress()\" >\n</div>\n\n<div *ngIf=\"paymentType==3 || paymentType==4\" class=\"content-group\">\n    <div class=\"lable\">Billing address</div>\n    <input class=\"field\" type=\"text\" placeholder=\"Address Line 1\" >\n    <input class=\"field\" type=\"text\" placeholder=\"Address Line 2\" style=\"margin-top:12px\" >\n\n</div> -->\n<div class=\"content-group\">\n    <div class=\"lable\">Bank account number</div>\n    <input class=\"field\" type=\"text\" placeholder=\"Bank account number\" (keyup)=\"keypress()\">\n</div>\n<div class=\"content-group\">\n    <div class=\"row\">\n        <div class=\"col-md-6\">\n            <div class=\"lable\">Routing number</div>\n            <input class=\"field\" type=\"text\" placeholder=\"Routing number\" (keyup)=\"keypress()\">\n        </div>\n        <div class=\"col-md-6\">\n            <div class=\"lable transit-adjust\">Account type</div>\n            <select (click)=\"keypress()\">\n                <option value=\"\" disabled selected hidden>Please select</option>\n                <option>xxxx - xxxx - xxxx - 1234</option>\n                <option>Use existing credit card</option>\n            </select><i class=\"fa-solid fa-angle-down\"></i>\n        </div>\n    </div>\n</div>\n\n<!-- <div class=\"content-group\" style=\"margin-bottom: 0;\">\n    <div *ngIf=\"paymentType==1\">\n    <div class=\"confirm\">\n        <span style=\"margin-top: 5px;\">I confirm that I am the account holder and am authorised to set up PAD payments on this account</span>\n    </div>\n    </div>\n    \n    <div *ngIf=\"paymentType==2\">\n        <div class=\"confirm\">\n            <span>We work with a company called GoCardless. They help us process your payment, which involves some of your personal data. By continuing, you agree to their terms of use and understand their <a href=\"https://gocardless.com/privacy/payers/\"  target=\"_blank\"> privacy notice.</a></span></div>\n        </div>\n    <div *ngIf=\"paymentType==3\">\n        <div class=\"confirm-msg\">\n            This service is provided by Community Federal Savings Bank (\u201CCFSB\u201D), member FDIC, forwhich GoCardless Ltd acts as a third-party servicer. GoCardless and CFSB use personal data as described in <a>these privacy notices</a>. By submitting this form, you agree to the GoCardless <a>Website Terms of Use</a>. GoCardless uses analytics <a>cookies</a>.\n        </div></div>\n    \n        <div *ngIf=\"paymentType==4\">\n            <div class=\"confirm-msg\">\n                By signing this mandate form, you authorise (A) GoCardless to send instructions to your bank to debit your account (B) your bank to debit your account in accordance with the instructions from GoCardless. As part of your rights, you are entitled to refund from your bank under the terms and conditions of your agreement with your bank. A refund must be claimed within 8 weeks starting from the date on which your account was debited.\n            </div>\n        </div>\n    </div> -->\n    </div>\n    </form>", styles: ["a{color:var(--circleFontColour)!important;cursor:pointer;text-decoration:none}.lable{font-size:14px;color:var(--primaryTextColor);padding-bottom:8px}.field{width:100%;border:1px solid var(--primaryBorderColor);border-radius:4px;height:40px;padding:0 5px;color:var(--primaryTextColor);font-family:\"Helvetica\";font-style:normal;font-weight:400;font-size:14px;line-height:24px}.field:focus-visible{outline:1px solid var(--inputHighlight)}.company-name-link{padding-top:8px;color:var(--tertiaryButtonFontColour);cursor:pointer;font-family:\"Helvetica\";font-style:normal;font-weight:400;font-size:14px;line-height:20px;max-width:-moz-fit-content;max-width:fit-content}.email-info{color:var(--positiveFoundation);margin-top:8px;font-family:\"Helvetica\";font-style:normal;font-weight:400;font-size:14px;line-height:20px}.content-group{margin:16px 0;font-size:14px}.content-group select:invalid{color:gray}.content-group select{appearance:none;background-color:#fff;border:1px solid var(--primaryBorderColor);border-radius:4px;padding:0 5px;color:var(--primaryTextColor)}.content-group select:focus-visible{outline:1px solid var(--inputHighlight)}.content-group .fa-angle-down{position:absolute;margin-left:-30px;margin-top:13px;color:var(--primaryTextColor)}.content-group ::placeholder{color:#c9c9c9;opacity:1}.content-group :-ms-input-placeholder{color:#c9c9c9}.content-group ::-ms-input-placeholder{color:#c9c9c9}select{width:100%;height:40px}#confirm{min-width:24px;height:24px;margin-right:12px;cursor:pointer}.confirm{font-size:14px;color:var(--primaryTextColor);display:flex;margin-top:16px;align-items:center}.confirm input[type=checkbox]{outline:1px solid #EEEEEE}.form-check-input:focus{border-color:#c9c9c9!important;outline:0;box-shadow:0 0 0 .25rem #0d6efd00}.form-check-input:checked{background-color:#3883c1;border-color:#3883c1!important}.addons-checkbox{width:24px;height:24px;margin-bottom:5px;border-color:#c9c9c9!important;outline:0;border-style:solid;border-width:1px}.confirm-msg{font-size:14px;color:var(--primaryTextColor)}.confirm-msg a{color:var(--linkColor)!important}.confirm-msg a:hover{color:var(--linkVisitedColor)!important}.invalid-input{margin-top:5px;color:#b94a48}@media (max-width: 768px){.transit-adjust{margin-top:8px}.confirm{align-items:baseline}.content-group{margin:12px 0}}\n"] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0, type: PaymentBankDetailsComponent, decorators: [{
-            type: Component,
-            args: [{
-                    selector: 'lib-payment-bank-details',
-                    templateUrl: './payment-bank-details.component.html',
-                    styleUrls: ['./payment-bank-details.component.scss']
-                }]
-        }], ctorParameters: function () { return [{ type: i1.FormBuilder }]; }, propDecorators: { paymentTypeS: [{
-                type: Input
-            }], payEmitter: [{
-                type: Output
-            }] } });
 
 class PaymentCardDetailsComponent {
     constructor(fb) {
@@ -302,7 +177,7 @@ class PaymentDetailsComponent {
     }
 }
 PaymentDetailsComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0, type: PaymentDetailsComponent, deps: [], target: i0.ɵɵFactoryTarget.Component });
-PaymentDetailsComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.2.17", type: PaymentDetailsComponent, selector: "lib-payment-details", inputs: { tip: "tip" }, outputs: { emitter: "emitter", payEmitter: "payEmitter" }, ngImport: i0, template: "<div class=\"row pay-body\">\n    <div class=\"pay-title-box\">\n        <div class=\"pay-title\">Payment details</div>\n        <div class=\"pay-details\">Please fill the information below about your payment method</div>\n    </div>\n    <div class=\"pay-selection\">\n\n        <div class=\"col pay-width\">Pay with</div>\n        <div class=\"row width-q\">\n            <div class=\"col pay-btn\" (click)=\"paymentSelected(1)\"><input type=\"radio\"\n                    name=\"payWith\" id=\"1\"><span class=\"pay-btn-text\">{{paymentMethodType }}</span>\n                <img class=\"icon-align\" src=\"\" alt=\"\">\n            </div>\n            <div class=\"col pay-btn\"\n                (click)=\"paymentSelected(2)\"><input type=\"radio\" name=\"payWith\" id=\"2\"><span class=\"pay-btn-text\">Debit or credit card</span><img class=\"icon-align\"\n                    src=\"\" alt=\"\"></div>\n            <!-- <div *ngIf=\"userData.isStripeEnabled && userData.isWalletPayEnabled && canDoWalletPay\" class=\"col pay-btn\"\n                [ngClass]=\"{'pay-btn-active' : paymentMethod == '3'}\" (click)=\"paymentSelected(3)\"><input type=\"radio\"\n                    name=\"payWith\" id=\"3\"><span class=\"pay-btn-text\">{{ walletPayDesc }}</span><img\n                    class=\"icon-align\" src=\"\" alt=\"\">\n            </div> -->\n\n        </div>\n        <lib-payment-bank-details *ngIf=\"paymentMethod == '1'\"></lib-payment-bank-details>\n        <lib-payment-card-details *ngIf=\"paymentMethod == '2'\"></lib-payment-card-details>\n        <!-- <app-payment-card *ngIf=\"paymentMethod == '2'\"></app-payment-card> -->\n    </div>\n</div>\n<div class=\"row pay-body error-body\" *ngIf=\"paymentMethod == 0\">\n    <div class=\"error-title\">\n        Oops. Sorry, we are unable to process your payment.\n    </div>\n    <div class=\"error-content\">\n        An error has occurred while attempting to process your order. Please try again or try another payment method.\n    </div>\n</div>", styles: [".pay-body{border:1px solid var(--primaryBorderColor);box-shadow:0 4px 8px #0000000a,0 0 2px #0000000f,0 0 1px #0000000a;border-radius:4px;margin:24px;overflow:hidden}.error-body{text-align:center;height:280px}.error-body .error-title{font-weight:700;font-size:14px;line-height:20px;color:#f2994a;padding-top:120px;padding-bottom:12px}.error-body .error-content{font-weight:400;font-size:12px;line-height:20px;color:var(--primaryTextColor)}.pay-title-box{background:var(--titleBarBackground);width:100%;padding:16px 24.5px}.pay-title{font-weight:700;font-size:16px;line-height:24px;color:var(--titleBarFontColor)}.pay-details{font-size:14px;line-height:20px;color:var(--titleBarSecondaryFontColour);padding-top:12px}.pay-selection{width:100%;padding:24px}.width-q{margin:0;grid-gap:24px;gap:24px}.pay-width{font-weight:700;font-size:16px;color:var(--primaryTextColor);padding-bottom:8px}.pay-btn{background:#FFFFFF;border:1px solid var(--primaryBorderColor);border-radius:4px;font-size:14px;color:var(--primaryTextColor);display:flex;align-items:center;cursor:pointer;margin-bottom:0;padding-right:18px}.pay-btn-active{border:1px solid var(--secondaryButtonColour)}.pay-btn-text{font-size:14px;color:var(--primaryTextColor);padding:8px 8px 8px 16px;width:95%}.icon-align{width:20px;height:19px}.paymentCompleted{padding:0}@media (max-width: 578px){.pay-body{margin:16px 0 0;border:none;box-shadow:none;border-radius:0}.pay-title-box{padding:22px 16px}.pay-selection{padding:16px}}@media (max-width: 784px){.pay-btn{min-width:100%;padding-right:16px;padding-left:12px}.width-q{grid-gap:12px;gap:12px}.pay-width{padding-bottom:12px}.pay-details{padding-top:8px}}\n"], components: [{ type: PaymentBankDetailsComponent, selector: "lib-payment-bank-details", inputs: ["paymentTypeS"], outputs: ["payEmitter"] }, { type: PaymentCardDetailsComponent, selector: "lib-payment-card-details", outputs: ["payEmitter"] }] });
+PaymentDetailsComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.2.17", type: PaymentDetailsComponent, selector: "lib-payment-details", inputs: { tip: "tip" }, outputs: { emitter: "emitter", payEmitter: "payEmitter" }, ngImport: i0, template: "<div class=\"row pay-body\">\n    <div class=\"pay-title-box\">\n        <div class=\"pay-title\">Payment details</div>\n        <div class=\"pay-details\">Please fill the information below about your payment method</div>\n    </div>\n    <div class=\"pay-selection\">\n\n        <div class=\"col pay-width\">Pay with</div>\n        <div class=\"row width-q\">\n            <div class=\"col pay-btn\" (click)=\"paymentSelected(1)\"><input type=\"radio\"\n                    name=\"payWith\" id=\"1\"><span class=\"pay-btn-text\">{{paymentMethodType }}</span>\n                <img class=\"icon-align\" src=\"\" alt=\"\">\n            </div>\n            <div class=\"col pay-btn\"\n                (click)=\"paymentSelected(2)\"><input type=\"radio\" name=\"payWith\" id=\"2\"><span class=\"pay-btn-text\">Debit or credit card</span><img class=\"icon-align\"\n                    src=\"\" alt=\"\"></div>\n            <!-- <div *ngIf=\"userData.isStripeEnabled && userData.isWalletPayEnabled && canDoWalletPay\" class=\"col pay-btn\"\n                [ngClass]=\"{'pay-btn-active' : paymentMethod == '3'}\" (click)=\"paymentSelected(3)\"><input type=\"radio\"\n                    name=\"payWith\" id=\"3\"><span class=\"pay-btn-text\">{{ walletPayDesc }}</span><img\n                    class=\"icon-align\" src=\"\" alt=\"\">\n            </div> -->\n\n        </div>\n        <!-- <lib-payment-bank-details *ngIf=\"paymentMethod == '1'\"></lib-payment-bank-details> -->\n        <lib-payment-card-details></lib-payment-card-details>\n        <!-- <app-payment-card *ngIf=\"paymentMethod == '2'\"></app-payment-card> -->\n    </div>\n</div>\n<div class=\"row pay-body error-body\" *ngIf=\"paymentMethod == 0\">\n    <div class=\"error-title\">\n        Oops. Sorry, we are unable to process your payment.\n    </div>\n    <div class=\"error-content\">\n        An error has occurred while attempting to process your order. Please try again or try another payment method.\n    </div>\n</div>", styles: [".pay-body{border:1px solid var(--primaryBorderColor);box-shadow:0 4px 8px #0000000a,0 0 2px #0000000f,0 0 1px #0000000a;border-radius:4px;margin:24px;overflow:hidden}.error-body{text-align:center;height:280px}.error-body .error-title{font-weight:700;font-size:14px;line-height:20px;color:#f2994a;padding-top:120px;padding-bottom:12px}.error-body .error-content{font-weight:400;font-size:12px;line-height:20px;color:var(--primaryTextColor)}.pay-title-box{background:var(--titleBarBackground);width:100%;padding:16px 24.5px}.pay-title{font-weight:700;font-size:16px;line-height:24px;color:var(--titleBarFontColor)}.pay-details{font-size:14px;line-height:20px;color:var(--titleBarSecondaryFontColour);padding-top:12px}.pay-selection{width:100%;padding:24px}.width-q{margin:0;grid-gap:24px;gap:24px}.pay-width{font-weight:700;font-size:16px;color:var(--primaryTextColor);padding-bottom:8px}.pay-btn{background:#FFFFFF;border:1px solid var(--primaryBorderColor);border-radius:4px;font-size:14px;color:var(--primaryTextColor);display:flex;align-items:center;cursor:pointer;margin-bottom:0;padding-right:18px}.pay-btn-active{border:1px solid var(--secondaryButtonColour)}.pay-btn-text{font-size:14px;color:var(--primaryTextColor);padding:8px 8px 8px 16px;width:95%}.icon-align{width:20px;height:19px}.paymentCompleted{padding:0}@media (max-width: 578px){.pay-body{margin:16px 0 0;border:none;box-shadow:none;border-radius:0}.pay-title-box{padding:22px 16px}.pay-selection{padding:16px}}@media (max-width: 784px){.pay-btn{min-width:100%;padding-right:16px;padding-left:12px}.width-q{grid-gap:12px;gap:12px}.pay-width{padding-bottom:12px}.pay-details{padding-top:8px}}\n"], components: [{ type: PaymentCardDetailsComponent, selector: "lib-payment-card-details", outputs: ["payEmitter"] }] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0, type: PaymentDetailsComponent, decorators: [{
             type: Component,
             args: [{
@@ -699,6 +574,131 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImpo
                     styleUrls: ['./payment-applepay.component.scss']
                 }]
         }], ctorParameters: function () { return []; }, propDecorators: { payEmitter: [{
+                type: Output
+            }] } });
+
+class PaymentBankDetailsComponent {
+    // @Injectable({providedIn: 'root'})
+    // resp: any;
+    // testObj:any;
+    constructor(fb) {
+        this.fb = fb;
+        this.companyNameSelected = false;
+        this.payEmitter = new EventEmitter();
+    }
+    ngOnInit() {
+        if (this.paymentTypeS == 'PAD') {
+            this.paymentType = 1;
+        }
+        else if (this.paymentTypeS == 'Bank transfer') {
+            this.paymentType = 2;
+        }
+        else if (this.paymentTypeS == 'ACH') {
+            this.paymentType = 3;
+        }
+        else if (this.paymentTypeS == 'SEPA') {
+            this.paymentType = 4;
+        }
+        this.buildPaymetForm();
+    }
+    buildPaymetForm() {
+        if (this.paymentType == 1) {
+            this.paymentForm = this.fb.group({
+                firstName: ['', [Validators.required]],
+                lastName: ['', [Validators.required]],
+                email: ['', [Validators.required, Validators.email]],
+                country: ['', [Validators.required]],
+                institutionNo: ['', [Validators.required]],
+                transitNo: ['', [Validators.required]],
+                accountNo: ['', [Validators.required,]],
+            });
+        }
+        else if (this.paymentType == 2) {
+            this.paymentForm = this.fb.group({
+                instantpayment: this.fb.group({
+                    country_code: 'GB',
+                    currency: this.userData.currencyCode,
+                    payment: this.fb.group({
+                        description: "Invoice no : #" + this.userData.invoiceDetails.invoiceNumber,
+                        amount: [0, [Validators.required]],
+                        app_fee: "1",
+                    }),
+                    customer: this.fb.group({
+                        commusoftId: 0,
+                        addressline1: this.userData.customerDetails.addressline1,
+                        addressline2: this.userData.customerDetails.addressline2,
+                        addressline3: this.userData.customerDetails.addressline3,
+                        companyname: "",
+                        surname: this.userData.customerDetails.customerName,
+                        firstname: this.userData.customerDetails.customerName,
+                        postcode: this.userData.customerDetails.postcode,
+                        phonenumber: "",
+                        region: this.userData.customerDetails.county,
+                        email: [this.userData.customerDetails.emailId, [Validators.required, Validators.email]],
+                        language: ""
+                    }),
+                    bank: this.fb.group({
+                        firstname: [this.userData.customerDetails.customerName, [Validators.required]],
+                        lastname: [""],
+                        account_number: ['', [Validators.required]],
+                        iban: "",
+                        account_type: "",
+                        bank_code: "",
+                        branch_code: ["", [Validators.required]],
+                    })
+                }),
+            });
+        }
+        else if (this.paymentType == 3) {
+            this.paymentForm = this.fb.group({
+                firstName: ['', [Validators.required]],
+                lastName: ['', [Validators.required]],
+                email: ['', [Validators.required, Validators.email]],
+                billingAddress1: ['', [Validators.required]],
+                billingAddress2: ['', [Validators.required]],
+                accountNo: ['', [Validators.required,]],
+                routingNo: ['', [Validators.required]],
+                accountType: ['', [Validators.required]],
+                // confirm: [false, [Validators.requiredTrue] ],
+            });
+        }
+        else if (this.paymentType == 4) {
+            this.paymentForm = this.fb.group({
+                firstName: ['', [Validators.required]],
+                lastName: ['', [Validators.required]],
+                email: ['', [Validators.required, Validators.email]],
+                creditorIdentifier: ['', [Validators.required]],
+                internationalBankAccountNo: ['', [Validators.required]],
+                accountNo: ['', [Validators.required,]],
+                billingAddress1: ['', [Validators.required]],
+                billingAddress2: ['', [Validators.required]],
+            });
+        }
+    }
+    companyNameClick() {
+        this.companyNameSelected = !this.companyNameSelected;
+        this.paymentForm.patchValue({ 'instantpayment': { 'bank': { 'firstname': '' } } });
+    }
+    keypress() {
+        this.payEmitter.emit(this.paymentForm);
+    }
+    branch_codeFormat(el) {
+        this.paymentForm.patchValue({ 'instantpayment': { 'bank': { 'branch_code': el.target.value.replace(/[^0-9]/g, '').replace(/(\d{2})(?=\d)/g, "$1-") } } });
+        this.keypress();
+    }
+}
+PaymentBankDetailsComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0, type: PaymentBankDetailsComponent, deps: [{ token: i1.FormBuilder }], target: i0.ɵɵFactoryTarget.Component });
+PaymentBankDetailsComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.2.17", type: PaymentBankDetailsComponent, selector: "lib-payment-bank-details", inputs: { paymentTypeS: "paymentTypeS" }, outputs: { payEmitter: "payEmitter" }, ngImport: i0, template: "<form>\n    <div>\n        \n<div class=\"content-group\">\n    <div class=\"row\">\n        <div class=\"col-md-6\">\n            <div class=\"lable\">First name</div>\n            <input class=\"field\" type=\"text\" (keyup)=\"keypress()\" >\n        </div>\n        <div class=\"col-md-6\">\n            <div class=\"lable\">Last name</div>\n            <input class=\"field\" type=\"text\" (keyup)=\"keypress()\" >\n        </div>\n    </div>\n    <div class=\"direct-debit\">\n        <div>\n            <div class=\"form-group\">\n        <div class=\"lable\">Account holder\u2019s name</div>\n            <input formControlName=\"firstname\" class=\"field\" type=\"text\" (keyup)=\"keypress()\" >\n            </div></div>\n    </div>\n    <div class=\"direct-debit\">\n        <div>\n            <div class=\"form-group\">\n        <div class=\"lable\">Company name</div>\n            <input class=\"field\" type=\"text\" (keyup)=\"keypress()\" >\n        </div></div>\n    </div>\n    <div  class=\"company-name-link\" (click)=\"companyNameClick()\">Or click here to use a company name</div>\n    <!-- <div *ngIf= \"companyNameSelected\" class=\"company-name-link\" (click)=\"companyNameClick()\">Or click here to use your personal information</div> -->\n</div>\n<div class=\"content-group\">\n    <div>\n        <div class=\"form-group\">\n            <div class=\"lable\">Email address</div>\n    <input class=\"field\" type=\"text\" placeholder=\"william.ty@example.co\" (keyup)=\"keypress()\" >\n    <div class=\"email-info\">This email will only be used to keep you updated about their payments</div>\n\n        </div>\n    </div>\n    \n</div>\n<div class=\"content-group\">\n    <div class=\"lable\">vdsf</div>\n    <select (click)=\"keypress()\">\n        <option value=\"\" disabled selected hidden>Please select</option>\n        <!-- <option *ngFor=\"let name of countryName\" [value]=\"name\" >{{name}}</option> -->\n    </select><i class=\"fa-solid fa-angle-down\"></i>\n</div>\n<div class=\"content-group\">\n    <div class=\"row\">\n        <div class=\"col-md-6\">\n            <div class=\"lable\">Institution number</div>\n            <input class=\"field\" type=\"text\" placeholder=\"E.g. 10-20-30\" (keyup)=\"keypress()\" >\n        </div>\n        <div class=\"col-md-6\">\n            <div class=\"lable transit-adjust\">Transit number</div>\n            <input class=\"field\" type=\"text\" placeholder=\"E.g. 12345678\" (keyup)=\"keypress()\" >\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"col-md-4\">\n                <div>\n                    <div class=\"form-group\">\n\n            <div class=\"lable\">Sort code</div>\n            <input class=\"field\" type=\"text\" placeholder=\"E.g. 10-20-30\" (input)=\"branch_codeFormat($event)\" maxlength=\"8\" >\n                    </div></div>\n        </div>\n        <div class=\"col-md-8\">\n            <div>\n                <div class=\"form-group\">\n\n\n            <div class=\"lable transit-adjust\">Account number</div>\n            <input class=\"field\" type=\"text\" placeholder=\"E.g. 12345678\" (keyup)=\"keypress()\" >\n        </div></div>\n        </div>\n    </div>\n</div>\n<div class=\"content-group\">\n    <div class=\"lable\">Account number</div>\n    <input class=\"field\" type=\"text\" placeholder=\"E.g. 12345678\" (keyup)=\"keypress()\" >\n</div>\n\n<!-- <div *ngIf=\"paymentType==4\" class=\"content-group\">\n    <div class=\"lable\">Creditor identifier</div>\n    <input class=\"field\" type=\"text\" placeholder=\"Creditor identifier\" (keyup)=\"keypress()\" >\n</div>\n\n<div *ngIf=\"paymentType==4\" class=\"content-group\">\n    <div class=\"lable\">International bank account number (IBAN)</div>\n    <input class=\"field\" type=\"text\" placeholder=\"International bank account number (IBAN)\" (keyup)=\"keypress()\" >\n</div>\n\n<div *ngIf=\"paymentType==3 || paymentType==4\" class=\"content-group\">\n    <div class=\"lable\">Billing address</div>\n    <input class=\"field\" type=\"text\" placeholder=\"Address Line 1\" >\n    <input class=\"field\" type=\"text\" placeholder=\"Address Line 2\" style=\"margin-top:12px\" >\n\n</div> -->\n<div class=\"content-group\">\n    <div class=\"lable\">Bank account number</div>\n    <input class=\"field\" type=\"text\" placeholder=\"Bank account number\" (keyup)=\"keypress()\">\n</div>\n<div class=\"content-group\">\n    <div class=\"row\">\n        <div class=\"col-md-6\">\n            <div class=\"lable\">Routing number</div>\n            <input class=\"field\" type=\"text\" placeholder=\"Routing number\" (keyup)=\"keypress()\">\n        </div>\n        <div class=\"col-md-6\">\n            <div class=\"lable transit-adjust\">Account type</div>\n            <select (click)=\"keypress()\">\n                <option value=\"\" disabled selected hidden>Please select</option>\n                <option>xxxx - xxxx - xxxx - 1234</option>\n                <option>Use existing credit card</option>\n            </select><i class=\"fa-solid fa-angle-down\"></i>\n        </div>\n    </div>\n</div>\n\n<!-- <div class=\"content-group\" style=\"margin-bottom: 0;\">\n    <div *ngIf=\"paymentType==1\">\n    <div class=\"confirm\">\n        <span style=\"margin-top: 5px;\">I confirm that I am the account holder and am authorised to set up PAD payments on this account</span>\n    </div>\n    </div>\n    \n    <div *ngIf=\"paymentType==2\">\n        <div class=\"confirm\">\n            <span>We work with a company called GoCardless. They help us process your payment, which involves some of your personal data. By continuing, you agree to their terms of use and understand their <a href=\"https://gocardless.com/privacy/payers/\"  target=\"_blank\"> privacy notice.</a></span></div>\n        </div>\n    <div *ngIf=\"paymentType==3\">\n        <div class=\"confirm-msg\">\n            This service is provided by Community Federal Savings Bank (\u201CCFSB\u201D), member FDIC, forwhich GoCardless Ltd acts as a third-party servicer. GoCardless and CFSB use personal data as described in <a>these privacy notices</a>. By submitting this form, you agree to the GoCardless <a>Website Terms of Use</a>. GoCardless uses analytics <a>cookies</a>.\n        </div></div>\n    \n        <div *ngIf=\"paymentType==4\">\n            <div class=\"confirm-msg\">\n                By signing this mandate form, you authorise (A) GoCardless to send instructions to your bank to debit your account (B) your bank to debit your account in accordance with the instructions from GoCardless. As part of your rights, you are entitled to refund from your bank under the terms and conditions of your agreement with your bank. A refund must be claimed within 8 weeks starting from the date on which your account was debited.\n            </div>\n        </div>\n    </div> -->\n    </div>\n    </form>", styles: ["a{color:var(--circleFontColour)!important;cursor:pointer;text-decoration:none}.lable{font-size:14px;color:var(--primaryTextColor);padding-bottom:8px}.field{width:100%;border:1px solid var(--primaryBorderColor);border-radius:4px;height:40px;padding:0 5px;color:var(--primaryTextColor);font-family:\"Helvetica\";font-style:normal;font-weight:400;font-size:14px;line-height:24px}.field:focus-visible{outline:1px solid var(--inputHighlight)}.company-name-link{padding-top:8px;color:var(--tertiaryButtonFontColour);cursor:pointer;font-family:\"Helvetica\";font-style:normal;font-weight:400;font-size:14px;line-height:20px;max-width:-moz-fit-content;max-width:fit-content}.email-info{color:var(--positiveFoundation);margin-top:8px;font-family:\"Helvetica\";font-style:normal;font-weight:400;font-size:14px;line-height:20px}.content-group{margin:16px 0;font-size:14px}.content-group select:invalid{color:gray}.content-group select{appearance:none;background-color:#fff;border:1px solid var(--primaryBorderColor);border-radius:4px;padding:0 5px;color:var(--primaryTextColor)}.content-group select:focus-visible{outline:1px solid var(--inputHighlight)}.content-group .fa-angle-down{position:absolute;margin-left:-30px;margin-top:13px;color:var(--primaryTextColor)}.content-group ::placeholder{color:#c9c9c9;opacity:1}.content-group :-ms-input-placeholder{color:#c9c9c9}.content-group ::-ms-input-placeholder{color:#c9c9c9}select{width:100%;height:40px}#confirm{min-width:24px;height:24px;margin-right:12px;cursor:pointer}.confirm{font-size:14px;color:var(--primaryTextColor);display:flex;margin-top:16px;align-items:center}.confirm input[type=checkbox]{outline:1px solid #EEEEEE}.form-check-input:focus{border-color:#c9c9c9!important;outline:0;box-shadow:0 0 0 .25rem #0d6efd00}.form-check-input:checked{background-color:#3883c1;border-color:#3883c1!important}.addons-checkbox{width:24px;height:24px;margin-bottom:5px;border-color:#c9c9c9!important;outline:0;border-style:solid;border-width:1px}.confirm-msg{font-size:14px;color:var(--primaryTextColor)}.confirm-msg a{color:var(--linkColor)!important}.confirm-msg a:hover{color:var(--linkVisitedColor)!important}.invalid-input{margin-top:5px;color:#b94a48}@media (max-width: 768px){.transit-adjust{margin-top:8px}.confirm{align-items:baseline}.content-group{margin:12px 0}}\n"] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0, type: PaymentBankDetailsComponent, decorators: [{
+            type: Component,
+            args: [{
+                    selector: 'lib-payment-bank-details',
+                    templateUrl: './payment-bank-details.component.html',
+                    styleUrls: ['./payment-bank-details.component.scss']
+                }]
+        }], ctorParameters: function () { return [{ type: i1.FormBuilder }]; }, propDecorators: { paymentTypeS: [{
+                type: Input
+            }], payEmitter: [{
                 type: Output
             }] } });
 
