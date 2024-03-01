@@ -140,6 +140,132 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImpo
                 type: Output
             }] } });
 
+class PaymentCardDetailsComponent {
+    constructor(fb) {
+        this.fb = fb;
+        this.payEmitter = new EventEmitter();
+        this.storedCards = [];
+        this.cardType = '';
+        this.card = false;
+        this.cardwidth = 350;
+        this.messages = { validDate: 'valid\ndate', monthYear: 'mm/yy' }; //Strings for translation
+        this.placeholders = { number: '•••• •••• •••• ••••', name: 'Full Name', expiry: '••/••', cvc: '•••' }; // Placeholders for rendered fields
+        this.formatting = true;
+        this.debug = true; // If true, will log helpful messages for setting up Card
+        this.companyNameSelected = false;
+        this.isCardNumberLength = true;
+    }
+    ngOnInit() {
+        this.payEmitter.emit(true);
+    }
+    dropdown(val) {
+        this.cardType = false;
+        this.payEmitter.emit(false);
+        // this.translate.get("Use existing credit card").subscribe(translations => {
+        //   if(val.value== translations){
+        //     this.card=true
+        //     if(this.storedCards.length == 1){
+        //       this.cardSelected(this.storedCards[0].id,'ts')
+        //     }
+        //   }
+        //   else{
+        //     this.card=false
+        //     this.buildCreditForms()
+        //   }
+        // })
+    }
+    buildCreditForms() {
+        let date = new Date().toISOString().slice(0, 10);
+        this.creditForm = this.fb.group({
+            payment: this.fb.group({
+                'amount': [,],
+                'cardCharge': [this.userData.cardCharges[this.userData.cardCharges.length - 1].charge,],
+                'cardName': [this.userData.customerDetails.customerName, [Validators.required]],
+                'cardNumber': ['', [Validators.required, 'c']],
+                'cardCvc': ['', [Validators.required, Validators.maxLength(3), Validators.maxLength(4)]],
+                'paymentDate': [date,],
+                'description': ["Invoice no : #" + this.userData.invoiceDetails.invoiceNumber],
+                'isportal': [true,],
+                'reference': ['Invoice no : #' + this.userData.invoiceDetails.invoiceNumber,],
+                'email': [this.userData.customerDetails.emailId, [Validators.required, Validators.email]],
+                'expiry': ['', [Validators.required, '']],
+                "paymentMethod": [this.userData.cardCharges[this.userData.cardCharges.length - 1].paymentMethodId],
+                "dontSendToAccounts": [''],
+            })
+        });
+        this.placeholders = { name: this.userData.customerDetails.customerName ? this.userData.customerDetails.customerName : 'Full Name' };
+    }
+    companyNameClick() {
+        this.companyNameSelected = !this.companyNameSelected;
+        this.creditForm.patchValue({ 'payment': { 'cardName': '' } });
+    }
+    keypress() {
+        this.payEmitter.emit(this.creditForm);
+    }
+    setCardType() {
+        this.cardType = this.detectCardType(this.creditForm.value.payment.cardNumber.replace(/\s/g, ""));
+        var cardStatus = this.creditForm.get('payment.cardNumber');
+        if (this.isCardNumberLength && (cardStatus === null || cardStatus === void 0 ? void 0 : cardStatus.status) == "INVALID")
+            this.isCardNumberLength = false;
+        if (!this.isCardNumberLength && (cardStatus === null || cardStatus === void 0 ? void 0 : cardStatus.status) == "VALID")
+            this.isCardNumberLength = true;
+        this.payEmitter.emit(this.creditForm);
+    }
+    cardSelected(val, from) {
+        val = from == 'html' ? val.value : val;
+        var storedCard = this.storedCards.find((x) => x.id == val).description;
+        this.cardType = storedCard.substring(0, storedCard.indexOf('ending') - 1);
+        let date = new Date().toISOString().slice(0, 10);
+        this.creditForm = this.fb.group({
+            'paymentDate': [date, [Validators.required]],
+            'description': ["Invoice no : #" + this.userData.invoiceDetails.invoiceNumber],
+            'reference': ['Invoice no : #' + this.userData.invoiceDetails.invoiceNumber,],
+            'paymentMethod': [this.userData.cardCharges[this.userData.cardCharges.length - 1].paymentMethodId, [Validators.required]],
+            'storedCard': [val, [Validators.required]],
+            'cardName': [this.userData.customerDetails.customerName, [Validators.required]],
+            'amount': [],
+            'cardCharge': [this.userData.cardCharges[this.userData.cardCharges.length - 1].charge,],
+            'isPortal': [true],
+        });
+        setTimeout(() => {
+            this.payEmitter.emit(this.creditForm);
+        }, 100);
+    }
+    detectCardType(number) {
+        var re = {
+            electron: /^(4026|417500|4405|4508|4844|4913|4917)\d+$/,
+            maestro: /^(5018|5020|5038|5612|5893|6304|6759|6761|6762|6763|0604|6390)\d+$/,
+            dankort: /^(5019)\d+$/,
+            interpayment: /^(636)\d+$/,
+            unionpay: /^(62|88)\d+$/,
+            'Visa': /^4[0-9]{12}(?:[0-9]{3})?$/,
+            'MasterCard': /^5[1-5][0-9]{14}$/,
+            'American Express': /^3[47][0-9]{13}$/,
+            diners: /^3(?:0[0-5]|[68][0-9])[0-9]{11}$/,
+            discover: /^6(?:011|5[0-9]{2})[0-9]{12}$/,
+            jcb: /^(?:2131|1800|35\d{3})\d{11}$/
+        };
+        for (var key in re) {
+            if (re[key].test(number)) {
+                return key;
+            }
+        }
+        return false;
+    }
+}
+PaymentCardDetailsComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0, type: PaymentCardDetailsComponent, deps: [{ token: i1.FormBuilder }], target: i0.ɵɵFactoryTarget.Component });
+PaymentCardDetailsComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.2.17", type: PaymentCardDetailsComponent, selector: "lib-payment-card-details", outputs: { payEmitter: "payEmitter" }, ngImport: i0, template: "<div class=\"content-group\" style=\"margin-bottom:-16px\">\n    <select (change)=\"dropdown($event.target)\">\n        <option>Use existing credit card</option>\n        <option>Set up new debit or credit card</option>\n    </select><i class=\"fa-solid fa-angle-down\"></i>\n    <div class=\"vh\"></div>\n</div>\n\n<div *ngIf=\"card\">\n    <div class=\"content-group\" style=\"margin-top:32px;margin-bottom: 0;\">\n        <div class=\"lable\">Select card</div>\n        <select (change)=\"cardSelected($event.target,'html')\">\n            <option value=\"\" disabled selected hidden>Please select</option>\n        </select><i class=\"fa-solid fa-angle-down\"></i>\n    </div>\n</div>\n<div *ngIf=\"!card\">\n    <form card container=\".card-container\">\n        <div>\n        <div class=\"row\">\n            <div class=\"col-md-6 credit-card-hide\">\n                <div class=\"card-container\">\n\n                </div>\n            </div>\n            <div class=\"col-md-6\">\n                <div class=\"content-group\">\n                    <div class=\"lable\">Cardholder\u2019s name</div>\n                    <!-- <div *ngIf=\"companyNameSelected\" class=\"lable\">Company name</div> -->\n                    <input class=\"field\" type=\"text\" card-name (keyup)=\"keypress()\" >\n                    <div class=\"company-name-link\" (click)=\"companyNameClick()\">Or click here to use a company name</div>\n                    <!-- <div *ngIf=\"companyNameSelected\" class=\"company-name-link\" (click)=\"companyNameClick()\">Or click here to use your personal information</div> -->\n                </div>\n\n\n                <div class=\"content-group\">\n                    <div class=\"lable\">Card number</div>\n                    <input class=\"field\" type=\"tel\" autocomplete=\"cc-number\" card-number placeholder=\"\u2022\u2022\u2022\u2022 \u2022\u2022\u2022\u2022 \u2022\u2022\u2022\u2022 \u2022\u2022\u2022\u2022\" (keyup)=\"setCardType()\">\n                    <img *ngIf=\"cardType\" class=\"icon-align\" src=\"\" alt=\"\">\n                </div>\n                <div class=\"row row-group\">\n                    <div class=\"col content-group\">\n                        <div class=\"lable\">CVC</div>\n                        <input class=\"field\" type=\"password\" autocomplete=\"new-password\" card-cvc placeholder=\"CVC\"\n                            (keyup)=\"keypress()\">\n                    </div>\n                    <div class=\"col content-group\">\n                        <div class=\"lable\">Exp date</div>\n                        <input class=\"field\" type=\"tel\" autocomplete=\"cc-exp\" card-expiry placeholder=\"MM/YY\" (keyup)=\"keypress()\">\n                    </div>\n                </div>\n            </div>\n        </div>\n    <div class=\"content-group\" style=\"margin: 0;\">\n        <div class=\"lable\">Email address</div>\n        <input class=\"field\" type=\"text\" placeholder=\"E.g. 12345678\" (keyup)=\"keypress()\">\n        <div class=\"email-info\">This email will only be used to keep the customer updated about their payments</div>\n    </div>\n</div>\n</form>\n</div>", styles: [".content-group{margin:16px 0;font-size:14px}.content-group .vh{border-bottom:1px dashed var(--primaryBorderColor);margin:16px 0}.content-group select{cursor:pointer;appearance:none;background-color:#fff;border:1px solid var(--primaryBorderColor);border-radius:4px;padding:0 5px;color:var(--primaryTextColor)}.content-group select:focus-visible{outline:1px solid var(--inputHighlight)}.content-group .fa-angle-down{position:absolute;margin-left:-30px;margin-top:13px;color:var(--primaryTextColor)}.row-group{margin:-16px 0 0;grid-gap:24px;gap:24px}.row-group .col{padding:0}select{width:100%;height:40px}.icon-align{margin-top:4px;width:50px;position:absolute;margin-left:-54px}.lable{font-size:14px;color:var(--primaryTextColor);padding-bottom:8px}.field{width:100%;border:1px solid var(--primaryBorderColor);border-radius:4px;height:40px;padding:0 5px;color:var(--primaryTextColor)}.field:focus-visible{outline:1px solid var(--inputHighlight)}.error_field{border-color:var(--negativeButtonColour)}.error_field:focus-visible{outline:none}.company-name-link{padding-top:8px;color:var(--tertiaryButtonFontColour);cursor:pointer;max-width:-moz-fit-content;max-width:fit-content}.email-info{color:var(--positiveFoundation);margin-top:8px}.credit-card-hide{margin:auto}.card-container{margin-top:25px}.invalid-input{margin-top:5px;color:#b94a48}@media (max-width: 857px){.card-container{transform:scale(.9)}}@media (max-width: 768px){.card-container{transform:scale(.79)}.content-group{margin:12px 0}}@media (max-width: 578px){.row-group{grid-gap:16px;gap:16px}}@media (max-width: 425px){.card-container{margin-bottom:12px;margin-top:0;margin-left:0;transform:scale(.9)!important}}@media (max-width: 380px){.card-container{margin-top:0;margin-left:0;margin-bottom:0;transform:scale(.8)!important}}@media (max-width: 320px){.card-container{margin-left:-20px;margin-top:0;margin-bottom:0;transform:scale(.65)!important}}\n"] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0, type: PaymentCardDetailsComponent, decorators: [{
+            type: Component,
+            args: [{
+                    selector: 'lib-payment-card-details',
+                    templateUrl: './payment-card-details.component.html',
+                    styleUrls: ['./payment-card-details.component.scss']
+                }]
+        }], ctorParameters: function () { return [{ type: i1.FormBuilder }]; }, propDecorators: { payEmitter: [{
+                type: Output
+            }] } });
+
 class PaymentDetailsComponent {
     constructor() {
         this.paymentMethodType = 'Bank transfer';
@@ -176,7 +302,7 @@ class PaymentDetailsComponent {
     }
 }
 PaymentDetailsComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0, type: PaymentDetailsComponent, deps: [], target: i0.ɵɵFactoryTarget.Component });
-PaymentDetailsComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.2.17", type: PaymentDetailsComponent, selector: "lib-payment-details", inputs: { tip: "tip" }, outputs: { emitter: "emitter", payEmitter: "payEmitter" }, ngImport: i0, template: "<div class=\"row pay-body\">\n    <div class=\"pay-title-box\">\n        <div class=\"pay-title\">Payment details</div>\n        <div class=\"pay-details\">Please fill the information below about your payment method</div>\n    </div>\n    <div class=\"pay-selection\">\n\n        <div class=\"col pay-width\">Pay with</div>\n        <div class=\"row width-q\">\n            <div class=\"col pay-btn\" (click)=\"paymentSelected(1)\"><input type=\"radio\"\n                    name=\"payWith\" id=\"1\"><span class=\"pay-btn-text\">{{paymentMethodType }}</span>\n                <img class=\"icon-align\" src=\"\" alt=\"\">\n            </div>\n            <div *ngIf=\"paymentMethodAllowed >= 2\" class=\"col pay-btn\"\n                (click)=\"paymentSelected(2)\"><input type=\"radio\" name=\"payWith\" id=\"2\"><span class=\"pay-btn-text\">Debit or credit card</span><img class=\"icon-align\"\n                    src=\"\" alt=\"\"></div>\n            <!-- <div *ngIf=\"userData.isStripeEnabled && userData.isWalletPayEnabled && canDoWalletPay\" class=\"col pay-btn\"\n                [ngClass]=\"{'pay-btn-active' : paymentMethod == '3'}\" (click)=\"paymentSelected(3)\"><input type=\"radio\"\n                    name=\"payWith\" id=\"3\"><span class=\"pay-btn-text\">{{ walletPayDesc }}</span><img\n                    class=\"icon-align\" src=\"\" alt=\"\">\n            </div> -->\n\n        </div>\n        <lib-payment-bank-details></lib-payment-bank-details>\n        <!-- <lib-payment-card-details *ngIf=\"paymentMethod == '2'\"></lib-payment-card-details> -->\n        <!-- <app-payment-card *ngIf=\"paymentMethod == '2'\"></app-payment-card> -->\n    </div>\n</div>\n<div class=\"row pay-body error-body\" *ngIf=\"paymentMethod == 0\">\n    <div class=\"error-title\">\n        Oops. Sorry, we are unable to process your payment.\n    </div>\n    <div class=\"error-content\">\n        An error has occurred while attempting to process your order. Please try again or try another payment method.\n    </div>\n</div>", styles: [".pay-body{border:1px solid var(--primaryBorderColor);box-shadow:0 4px 8px #0000000a,0 0 2px #0000000f,0 0 1px #0000000a;border-radius:4px;margin:24px;overflow:hidden}.error-body{text-align:center;height:280px}.error-body .error-title{font-weight:700;font-size:14px;line-height:20px;color:#f2994a;padding-top:120px;padding-bottom:12px}.error-body .error-content{font-weight:400;font-size:12px;line-height:20px;color:var(--primaryTextColor)}.pay-title-box{background:var(--titleBarBackground);width:100%;padding:16px 24.5px}.pay-title{font-weight:700;font-size:16px;line-height:24px;color:var(--titleBarFontColor)}.pay-details{font-size:14px;line-height:20px;color:var(--titleBarSecondaryFontColour);padding-top:12px}.pay-selection{width:100%;padding:24px}.width-q{margin:0;grid-gap:24px;gap:24px}.pay-width{font-weight:700;font-size:16px;color:var(--primaryTextColor);padding-bottom:8px}.pay-btn{background:#FFFFFF;border:1px solid var(--primaryBorderColor);border-radius:4px;font-size:14px;color:var(--primaryTextColor);display:flex;align-items:center;cursor:pointer;margin-bottom:0;padding-right:18px}.pay-btn-active{border:1px solid var(--secondaryButtonColour)}.pay-btn-text{font-size:14px;color:var(--primaryTextColor);padding:8px 8px 8px 16px;width:95%}.icon-align{width:20px;height:19px}.paymentCompleted{padding:0}@media (max-width: 578px){.pay-body{margin:16px 0 0;border:none;box-shadow:none;border-radius:0}.pay-title-box{padding:22px 16px}.pay-selection{padding:16px}}@media (max-width: 784px){.pay-btn{min-width:100%;padding-right:16px;padding-left:12px}.width-q{grid-gap:12px;gap:12px}.pay-width{padding-bottom:12px}.pay-details{padding-top:8px}}\n"], components: [{ type: PaymentBankDetailsComponent, selector: "lib-payment-bank-details", inputs: ["paymentTypeS"], outputs: ["payEmitter"] }] });
+PaymentDetailsComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.2.17", type: PaymentDetailsComponent, selector: "lib-payment-details", inputs: { tip: "tip" }, outputs: { emitter: "emitter", payEmitter: "payEmitter" }, ngImport: i0, template: "<div class=\"row pay-body\">\n    <div class=\"pay-title-box\">\n        <div class=\"pay-title\">Payment details</div>\n        <div class=\"pay-details\">Please fill the information below about your payment method</div>\n    </div>\n    <div class=\"pay-selection\">\n\n        <div class=\"col pay-width\">Pay with</div>\n        <div class=\"row width-q\">\n            <div class=\"col pay-btn\" (click)=\"paymentSelected(1)\"><input type=\"radio\"\n                    name=\"payWith\" id=\"1\"><span class=\"pay-btn-text\">{{paymentMethodType }}</span>\n                <img class=\"icon-align\" src=\"\" alt=\"\">\n            </div>\n            <div class=\"col pay-btn\"\n                (click)=\"paymentSelected(2)\"><input type=\"radio\" name=\"payWith\" id=\"2\"><span class=\"pay-btn-text\">Debit or credit card</span><img class=\"icon-align\"\n                    src=\"\" alt=\"\"></div>\n            <!-- <div *ngIf=\"userData.isStripeEnabled && userData.isWalletPayEnabled && canDoWalletPay\" class=\"col pay-btn\"\n                [ngClass]=\"{'pay-btn-active' : paymentMethod == '3'}\" (click)=\"paymentSelected(3)\"><input type=\"radio\"\n                    name=\"payWith\" id=\"3\"><span class=\"pay-btn-text\">{{ walletPayDesc }}</span><img\n                    class=\"icon-align\" src=\"\" alt=\"\">\n            </div> -->\n\n        </div>\n        <lib-payment-bank-details *ngIf=\"paymentMethod == '1'\"></lib-payment-bank-details>\n        <lib-payment-card-details *ngIf=\"paymentMethod == '2'\"></lib-payment-card-details>\n        <!-- <app-payment-card *ngIf=\"paymentMethod == '2'\"></app-payment-card> -->\n    </div>\n</div>\n<div class=\"row pay-body error-body\" *ngIf=\"paymentMethod == 0\">\n    <div class=\"error-title\">\n        Oops. Sorry, we are unable to process your payment.\n    </div>\n    <div class=\"error-content\">\n        An error has occurred while attempting to process your order. Please try again or try another payment method.\n    </div>\n</div>", styles: [".pay-body{border:1px solid var(--primaryBorderColor);box-shadow:0 4px 8px #0000000a,0 0 2px #0000000f,0 0 1px #0000000a;border-radius:4px;margin:24px;overflow:hidden}.error-body{text-align:center;height:280px}.error-body .error-title{font-weight:700;font-size:14px;line-height:20px;color:#f2994a;padding-top:120px;padding-bottom:12px}.error-body .error-content{font-weight:400;font-size:12px;line-height:20px;color:var(--primaryTextColor)}.pay-title-box{background:var(--titleBarBackground);width:100%;padding:16px 24.5px}.pay-title{font-weight:700;font-size:16px;line-height:24px;color:var(--titleBarFontColor)}.pay-details{font-size:14px;line-height:20px;color:var(--titleBarSecondaryFontColour);padding-top:12px}.pay-selection{width:100%;padding:24px}.width-q{margin:0;grid-gap:24px;gap:24px}.pay-width{font-weight:700;font-size:16px;color:var(--primaryTextColor);padding-bottom:8px}.pay-btn{background:#FFFFFF;border:1px solid var(--primaryBorderColor);border-radius:4px;font-size:14px;color:var(--primaryTextColor);display:flex;align-items:center;cursor:pointer;margin-bottom:0;padding-right:18px}.pay-btn-active{border:1px solid var(--secondaryButtonColour)}.pay-btn-text{font-size:14px;color:var(--primaryTextColor);padding:8px 8px 8px 16px;width:95%}.icon-align{width:20px;height:19px}.paymentCompleted{padding:0}@media (max-width: 578px){.pay-body{margin:16px 0 0;border:none;box-shadow:none;border-radius:0}.pay-title-box{padding:22px 16px}.pay-selection{padding:16px}}@media (max-width: 784px){.pay-btn{min-width:100%;padding-right:16px;padding-left:12px}.width-q{grid-gap:12px;gap:12px}.pay-width{padding-bottom:12px}.pay-details{padding-top:8px}}\n"], components: [{ type: PaymentBankDetailsComponent, selector: "lib-payment-bank-details", inputs: ["paymentTypeS"], outputs: ["payEmitter"] }, { type: PaymentCardDetailsComponent, selector: "lib-payment-card-details", outputs: ["payEmitter"] }] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0, type: PaymentDetailsComponent, decorators: [{
             type: Component,
             args: [{
@@ -573,132 +699,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImpo
                     styleUrls: ['./payment-applepay.component.scss']
                 }]
         }], ctorParameters: function () { return []; }, propDecorators: { payEmitter: [{
-                type: Output
-            }] } });
-
-class PaymentCardDetailsComponent {
-    constructor(fb) {
-        this.fb = fb;
-        this.payEmitter = new EventEmitter();
-        this.storedCards = [];
-        this.cardType = '';
-        this.card = false;
-        this.cardwidth = 350;
-        this.messages = { validDate: 'valid\ndate', monthYear: 'mm/yy' }; //Strings for translation
-        this.placeholders = { number: '•••• •••• •••• ••••', name: 'Full Name', expiry: '••/••', cvc: '•••' }; // Placeholders for rendered fields
-        this.formatting = true;
-        this.debug = true; // If true, will log helpful messages for setting up Card
-        this.companyNameSelected = false;
-        this.isCardNumberLength = true;
-    }
-    ngOnInit() {
-        this.payEmitter.emit(true);
-    }
-    dropdown(val) {
-        this.cardType = false;
-        this.payEmitter.emit(false);
-        // this.translate.get("Use existing credit card").subscribe(translations => {
-        //   if(val.value== translations){
-        //     this.card=true
-        //     if(this.storedCards.length == 1){
-        //       this.cardSelected(this.storedCards[0].id,'ts')
-        //     }
-        //   }
-        //   else{
-        //     this.card=false
-        //     this.buildCreditForms()
-        //   }
-        // })
-    }
-    buildCreditForms() {
-        let date = new Date().toISOString().slice(0, 10);
-        this.creditForm = this.fb.group({
-            payment: this.fb.group({
-                'amount': [,],
-                'cardCharge': [this.userData.cardCharges[this.userData.cardCharges.length - 1].charge,],
-                'cardName': [this.userData.customerDetails.customerName, [Validators.required]],
-                'cardNumber': ['', [Validators.required, 'c']],
-                'cardCvc': ['', [Validators.required, Validators.maxLength(3), Validators.maxLength(4)]],
-                'paymentDate': [date,],
-                'description': ["Invoice no : #" + this.userData.invoiceDetails.invoiceNumber],
-                'isportal': [true,],
-                'reference': ['Invoice no : #' + this.userData.invoiceDetails.invoiceNumber,],
-                'email': [this.userData.customerDetails.emailId, [Validators.required, Validators.email]],
-                'expiry': ['', [Validators.required, '']],
-                "paymentMethod": [this.userData.cardCharges[this.userData.cardCharges.length - 1].paymentMethodId],
-                "dontSendToAccounts": [''],
-            })
-        });
-        this.placeholders = { name: this.userData.customerDetails.customerName ? this.userData.customerDetails.customerName : 'Full Name' };
-    }
-    companyNameClick() {
-        this.companyNameSelected = !this.companyNameSelected;
-        this.creditForm.patchValue({ 'payment': { 'cardName': '' } });
-    }
-    keypress() {
-        this.payEmitter.emit(this.creditForm);
-    }
-    setCardType() {
-        this.cardType = this.detectCardType(this.creditForm.value.payment.cardNumber.replace(/\s/g, ""));
-        var cardStatus = this.creditForm.get('payment.cardNumber');
-        if (this.isCardNumberLength && (cardStatus === null || cardStatus === void 0 ? void 0 : cardStatus.status) == "INVALID")
-            this.isCardNumberLength = false;
-        if (!this.isCardNumberLength && (cardStatus === null || cardStatus === void 0 ? void 0 : cardStatus.status) == "VALID")
-            this.isCardNumberLength = true;
-        this.payEmitter.emit(this.creditForm);
-    }
-    cardSelected(val, from) {
-        val = from == 'html' ? val.value : val;
-        var storedCard = this.storedCards.find((x) => x.id == val).description;
-        this.cardType = storedCard.substring(0, storedCard.indexOf('ending') - 1);
-        let date = new Date().toISOString().slice(0, 10);
-        this.creditForm = this.fb.group({
-            'paymentDate': [date, [Validators.required]],
-            'description': ["Invoice no : #" + this.userData.invoiceDetails.invoiceNumber],
-            'reference': ['Invoice no : #' + this.userData.invoiceDetails.invoiceNumber,],
-            'paymentMethod': [this.userData.cardCharges[this.userData.cardCharges.length - 1].paymentMethodId, [Validators.required]],
-            'storedCard': [val, [Validators.required]],
-            'cardName': [this.userData.customerDetails.customerName, [Validators.required]],
-            'amount': [],
-            'cardCharge': [this.userData.cardCharges[this.userData.cardCharges.length - 1].charge,],
-            'isPortal': [true],
-        });
-        setTimeout(() => {
-            this.payEmitter.emit(this.creditForm);
-        }, 100);
-    }
-    detectCardType(number) {
-        var re = {
-            electron: /^(4026|417500|4405|4508|4844|4913|4917)\d+$/,
-            maestro: /^(5018|5020|5038|5612|5893|6304|6759|6761|6762|6763|0604|6390)\d+$/,
-            dankort: /^(5019)\d+$/,
-            interpayment: /^(636)\d+$/,
-            unionpay: /^(62|88)\d+$/,
-            'Visa': /^4[0-9]{12}(?:[0-9]{3})?$/,
-            'MasterCard': /^5[1-5][0-9]{14}$/,
-            'American Express': /^3[47][0-9]{13}$/,
-            diners: /^3(?:0[0-5]|[68][0-9])[0-9]{11}$/,
-            discover: /^6(?:011|5[0-9]{2})[0-9]{12}$/,
-            jcb: /^(?:2131|1800|35\d{3})\d{11}$/
-        };
-        for (var key in re) {
-            if (re[key].test(number)) {
-                return key;
-            }
-        }
-        return false;
-    }
-}
-PaymentCardDetailsComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0, type: PaymentCardDetailsComponent, deps: [{ token: i1.FormBuilder }], target: i0.ɵɵFactoryTarget.Component });
-PaymentCardDetailsComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.2.17", type: PaymentCardDetailsComponent, selector: "lib-payment-card-details", outputs: { payEmitter: "payEmitter" }, ngImport: i0, template: "<div class=\"content-group\" *ngIf=\"storedCards.length != 0\" style=\"margin-bottom:-16px\">\n    <select (change)=\"dropdown($event.target)\">\n        <option>Use existing credit card</option>\n        <option>Set up new debit or credit card</option>\n    </select><i class=\"fa-solid fa-angle-down\"></i>\n    <div class=\"vh\"></div>\n</div>\n\n<div *ngIf=\"card\">\n    <div class=\"content-group\" style=\"margin-top:32px;margin-bottom: 0;\">\n        <div class=\"lable\">Select card</div>\n        <select (change)=\"cardSelected($event.target,'html')\">\n            <option value=\"\" disabled selected hidden>Please select</option>\n        </select><i class=\"fa-solid fa-angle-down\"></i>\n    </div>\n</div>\n<div *ngIf=\"!card\">\n    <form card container=\".card-container\">\n        <div>\n        <div class=\"row\">\n            <div class=\"col-md-6 credit-card-hide\">\n                <div class=\"card-container\">\n\n                </div>\n            </div>\n            <div class=\"col-md-6\">\n                <div class=\"content-group\">\n                    <div *ngIf=\"!companyNameSelected\" class=\"lable\">Cardholder\u2019s name</div>\n                    <div *ngIf=\"companyNameSelected\" class=\"lable\">Company name</div>\n                    <input class=\"field\" type=\"text\" card-name (keyup)=\"keypress()\" >\n                    <div *ngIf=\"!companyNameSelected\" class=\"company-name-link\" (click)=\"companyNameClick()\">Or click here to use a company name</div>\n                    <div *ngIf=\"companyNameSelected\" class=\"company-name-link\" (click)=\"companyNameClick()\">Or click here to use your personal information</div>\n                </div>\n\n\n                <div class=\"content-group\">\n                    <div class=\"lable\">Card number</div>\n                    <input class=\"field\" type=\"tel\" autocomplete=\"cc-number\" card-number placeholder=\"\u2022\u2022\u2022\u2022 \u2022\u2022\u2022\u2022 \u2022\u2022\u2022\u2022 \u2022\u2022\u2022\u2022\" (keyup)=\"setCardType()\">\n                    <img *ngIf=\"cardType\" class=\"icon-align\" src=\"\" alt=\"\">\n                </div>\n                <div class=\"row row-group\">\n                    <div class=\"col content-group\">\n                        <div class=\"lable\">CVC</div>\n                        <input class=\"field\" type=\"password\" autocomplete=\"new-password\" card-cvc placeholder=\"CVC\"\n                            (keyup)=\"keypress()\">\n                    </div>\n                    <div class=\"col content-group\">\n                        <div class=\"lable\">Exp date</div>\n                        <input class=\"field\" type=\"tel\" autocomplete=\"cc-exp\" card-expiry placeholder=\"MM/YY\" (keyup)=\"keypress()\">\n                    </div>\n                </div>\n            </div>\n        </div>\n    <div class=\"content-group\" style=\"margin: 0;\">\n        <div class=\"lable\">Email address</div>\n        <input class=\"field\" type=\"text\" placeholder=\"E.g. 12345678\" (keyup)=\"keypress()\">\n        <div class=\"email-info\">This email will only be used to keep the customer updated about their payments</div>\n    </div>\n</div>\n</form>\n</div>", styles: [".content-group{margin:16px 0;font-size:14px}.content-group .vh{border-bottom:1px dashed var(--primaryBorderColor);margin:16px 0}.content-group select{cursor:pointer;appearance:none;background-color:#fff;border:1px solid var(--primaryBorderColor);border-radius:4px;padding:0 5px;color:var(--primaryTextColor)}.content-group select:focus-visible{outline:1px solid var(--inputHighlight)}.content-group .fa-angle-down{position:absolute;margin-left:-30px;margin-top:13px;color:var(--primaryTextColor)}.row-group{margin:-16px 0 0;grid-gap:24px;gap:24px}.row-group .col{padding:0}select{width:100%;height:40px}.icon-align{margin-top:4px;width:50px;position:absolute;margin-left:-54px}.lable{font-size:14px;color:var(--primaryTextColor);padding-bottom:8px}.field{width:100%;border:1px solid var(--primaryBorderColor);border-radius:4px;height:40px;padding:0 5px;color:var(--primaryTextColor)}.field:focus-visible{outline:1px solid var(--inputHighlight)}.error_field{border-color:var(--negativeButtonColour)}.error_field:focus-visible{outline:none}.company-name-link{padding-top:8px;color:var(--tertiaryButtonFontColour);cursor:pointer;max-width:-moz-fit-content;max-width:fit-content}.email-info{color:var(--positiveFoundation);margin-top:8px}.credit-card-hide{margin:auto}.card-container{margin-top:25px}.invalid-input{margin-top:5px;color:#b94a48}@media (max-width: 857px){.card-container{transform:scale(.9)}}@media (max-width: 768px){.card-container{transform:scale(.79)}.content-group{margin:12px 0}}@media (max-width: 578px){.row-group{grid-gap:16px;gap:16px}}@media (max-width: 425px){.card-container{margin-bottom:12px;margin-top:0;margin-left:0;transform:scale(.9)!important}}@media (max-width: 380px){.card-container{margin-top:0;margin-left:0;margin-bottom:0;transform:scale(.8)!important}}@media (max-width: 320px){.card-container{margin-left:-20px;margin-top:0;margin-bottom:0;transform:scale(.65)!important}}\n"] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0, type: PaymentCardDetailsComponent, decorators: [{
-            type: Component,
-            args: [{
-                    selector: 'lib-payment-card-details',
-                    templateUrl: './payment-card-details.component.html',
-                    styleUrls: ['./payment-card-details.component.scss']
-                }]
-        }], ctorParameters: function () { return [{ type: i1.FormBuilder }]; }, propDecorators: { payEmitter: [{
                 type: Output
             }] } });
 
