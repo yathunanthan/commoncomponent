@@ -1,5 +1,3 @@
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient } from '@angular/common/http';
 import * as i0 from "@angular/core";
 import * as i1 from "./parentpayment.component";
 import * as i2 from "./payment-sections/payment-sections.component";
@@ -9,12 +7,8 @@ import * as i5 from "./payment-sections/payment-applepay/payment-applepay.compon
 import * as i6 from "./payment-details/payment-details.component";
 import * as i7 from "./payment-details/payment-bank-details/payment-bank-details.component";
 import * as i8 from "./payment-details/payment-card-details/payment-card-details.component";
-import * as i9 from "ngx-card";
-import * as i10 from "@ngx-translate/core";
-import * as i11 from "angular-cc-library";
-export declare function httpTranslateLoader(http: HttpClient): TranslateHttpLoader;
 export declare class ParentpaymentModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<ParentpaymentModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<ParentpaymentModule, [typeof i1.ParentpaymentComponent, typeof i2.PaymentSectionsComponent, typeof i3.PaymentCardComponent, typeof i4.PaymentBankComponent, typeof i5.PaymentApplepayComponent, typeof i6.PaymentDetailsComponent, typeof i7.PaymentBankDetailsComponent, typeof i8.PaymentCardDetailsComponent], [typeof i9.CardModule, typeof i10.TranslateModule, typeof i11.CreditCardDirectivesModule], [typeof i1.ParentpaymentComponent]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<ParentpaymentModule, [typeof i1.ParentpaymentComponent, typeof i2.PaymentSectionsComponent, typeof i3.PaymentCardComponent, typeof i4.PaymentBankComponent, typeof i5.PaymentApplepayComponent, typeof i6.PaymentDetailsComponent, typeof i7.PaymentBankDetailsComponent, typeof i8.PaymentCardDetailsComponent], never, [typeof i1.ParentpaymentComponent]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<ParentpaymentModule>;
 }
