@@ -1,8 +1,10 @@
 import { OnInit, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { CommonPaymentService } from '../../serivces/common-payment.service';
 import * as i0 from "@angular/core";
 export declare class PaymentBankDetailsComponent implements OnInit {
     private fb;
+    private commonService;
     paymentData: any;
     countryName: any;
     paymentType: any;
@@ -13,7 +15,7 @@ export declare class PaymentBankDetailsComponent implements OnInit {
     paymentTypeS: any;
     payEmitter: EventEmitter<any>;
     userData: any;
-    constructor(fb: FormBuilder);
+    constructor(fb: FormBuilder, commonService: CommonPaymentService);
     ngOnInit(): void;
     buildPaymetForm(): void;
     companyNameClick(): void;
