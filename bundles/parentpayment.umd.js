@@ -441,13 +441,15 @@
             i1.HttpClientModule,
             i1$1.ReactiveFormsModule,
             i1$1.FormsModule,
-            i3$1.CardModule], exports: [ParentpaymentComponent] });
+            i3$1.CardModule,
+            angularCcLibrary.CreditCardDirectivesModule], exports: [ParentpaymentComponent] });
     ParentpaymentModule.ɵinj = i0__namespace.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: ParentpaymentModule, imports: [[
                 i3.CommonModule,
                 i1.HttpClientModule,
                 i1$1.ReactiveFormsModule,
                 i1$1.FormsModule,
-                i3$1.CardModule
+                i3$1.CardModule,
+                angularCcLibrary.CreditCardDirectivesModule
             ]] });
     i0__namespace.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: ParentpaymentModule, decorators: [{
                 type: i0.NgModule,
@@ -463,7 +465,8 @@
                             i1.HttpClientModule,
                             i1$1.ReactiveFormsModule,
                             i1$1.FormsModule,
-                            i3$1.CardModule
+                            i3$1.CardModule,
+                            angularCcLibrary.CreditCardDirectivesModule
                         ],
                         schemas: [
                             i0.CUSTOM_ELEMENTS_SCHEMA

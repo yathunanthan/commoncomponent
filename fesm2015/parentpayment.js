@@ -6,7 +6,7 @@ import * as i1 from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import * as i3 from '@angular/common';
 import { CommonModule } from '@angular/common';
-import { CreditCardValidators } from 'angular-cc-library';
+import { CreditCardValidators, CreditCardDirectivesModule } from 'angular-cc-library';
 import * as i3$1 from 'ngx-card';
 import { CardModule } from 'ngx-card';
 
@@ -414,13 +414,15 @@ ParentpaymentModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", ver
         HttpClientModule,
         ReactiveFormsModule,
         FormsModule,
-        CardModule], exports: [ParentpaymentComponent] });
+        CardModule,
+        CreditCardDirectivesModule], exports: [ParentpaymentComponent] });
 ParentpaymentModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0, type: ParentpaymentModule, imports: [[
             CommonModule,
             HttpClientModule,
             ReactiveFormsModule,
             FormsModule,
-            CardModule
+            CardModule,
+            CreditCardDirectivesModule
         ]] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0, type: ParentpaymentModule, decorators: [{
             type: NgModule,
@@ -436,7 +438,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImpo
                         HttpClientModule,
                         ReactiveFormsModule,
                         FormsModule,
-                        CardModule
+                        CardModule,
+                        CreditCardDirectivesModule
                     ],
                     schemas: [
                         CUSTOM_ELEMENTS_SCHEMA
