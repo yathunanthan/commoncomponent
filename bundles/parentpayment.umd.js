@@ -274,14 +274,10 @@
                     'description': ["Invoice no : " + this.cardPaymentData.invoiceDetails.invoiceNumber],
                     'isportal': [true,],
                     'reference': ['Invoice no : ' + this.cardPaymentData.invoiceDetails.invoiceNumber,],
-                    // 'invoices':[[this.cardPaymentData.invoiceDetails.invoiceNumber]],
                     'email': [this.cardPaymentData.customerDetails.emailId, [i1$1.Validators.required, i1$1.Validators.email]],
-                    // 'storedCard': [0, ],
                     'expiry': ['', [i1$1.Validators.required, angularCcLibrary.CreditCardValidators.validateExpDate]],
-                    // 'saveCard': [true, ],
                     "paymentMethod": [this.cardPaymentData.cardCharges['']],
                     "dontSendToAccounts": [''],
-                    // "invoices":[{'invoiceId':'1','amount':'1', 'auditSendtoaccountingsystemsid:'1'},]
                 })
             });
             this.placeholders = { name: this.cardPaymentData.customerDetails.customerName ? this.cardPaymentData.customerDetails.customerName : 'Full Name' };
