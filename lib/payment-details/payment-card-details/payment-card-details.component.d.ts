@@ -21,12 +21,15 @@ export declare class PaymentCardDetailsComponent implements OnInit {
     summary: any;
     companyNameSelected: boolean;
     isCardNumberLength: boolean;
+    cardLogo: any;
+    cardImg: string;
     ngOnInit(): void;
     dropdown(val: any): void;
     buildCreditForms(): void;
     companyNameClick(): void;
     keypress(): void;
     setCardType(): void;
+    defaultCard(): void;
     cardSelected(val: any, from: string): void;
     detectCardType(number: number): string | false;
     static ɵfac: i0.ɵɵFactoryDeclaration<PaymentCardDetailsComponent, never>;
