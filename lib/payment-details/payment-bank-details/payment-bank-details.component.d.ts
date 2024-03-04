@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import * as i0 from "@angular/core";
 export declare class PaymentBankDetailsComponent implements OnInit {
     private fb;
+    paymentData: any;
     countryName: any;
     paymentType: any;
     paymentForm: FormGroup;
@@ -19,5 +20,5 @@ export declare class PaymentBankDetailsComponent implements OnInit {
     keypress(): void;
     branch_codeFormat(el: any): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<PaymentBankDetailsComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<PaymentBankDetailsComponent, "lib-payment-bank-details", never, { "paymentTypeS": "paymentTypeS"; }, { "payEmitter": "payEmitter"; }, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<PaymentBankDetailsComponent, "lib-payment-bank-details", never, { "paymentData": "paymentData"; "paymentTypeS": "paymentTypeS"; }, { "payEmitter": "payEmitter"; }, never, never>;
 }
