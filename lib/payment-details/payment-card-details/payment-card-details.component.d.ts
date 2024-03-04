@@ -7,6 +7,7 @@ export declare class PaymentCardDetailsComponent implements OnInit {
     userData: any;
     storedCards: any;
     cardType: any;
+    cardPaymentData: any;
     constructor(fb: FormBuilder);
     card: boolean;
     container: any;
@@ -29,5 +30,5 @@ export declare class PaymentCardDetailsComponent implements OnInit {
     cardSelected(val: any, from: string): void;
     detectCardType(number: number): string | false;
     static ɵfac: i0.ɵɵFactoryDeclaration<PaymentCardDetailsComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<PaymentCardDetailsComponent, "lib-payment-card-details", never, {}, { "payEmitter": "payEmitter"; }, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<PaymentCardDetailsComponent, "lib-payment-card-details", never, { "cardPaymentData": "cardPaymentData"; }, { "payEmitter": "payEmitter"; }, never, never>;
 }
