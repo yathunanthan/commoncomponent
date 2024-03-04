@@ -243,20 +243,20 @@ class PaymentCardDetailsComponent {
         this.creditForm = this.fb.group({
             payment: this.fb.group({
                 'amount': [,],
-                'cardCharge': [this.userData.cardCharges['']],
-                'cardName': [this.userData.customerDetails.customerName, [Validators.required]],
+                'cardCharge': [this.cardPaymentData.cardCharges['']],
+                'cardName': [this.cardPaymentData.customerDetails.customerName, [Validators.required]],
                 'cardNumber': ['', [Validators.required, CreditCardValidators.validateCCNumber]],
                 'cardCvc': ['', [Validators.required, Validators.minLength(3), Validators.maxLength(4)]],
                 'paymentDate': [date,],
-                'description': ["Invoice no : " + this.userData.invoiceDetails.invoiceNumber],
+                'description': ["Invoice no : " + this.cardPaymentData.invoiceDetails.invoiceNumber],
                 'isportal': [true,],
-                'reference': ['Invoice no : ' + this.userData.invoiceDetails.invoiceNumber,],
-                // 'invoices':[[this.userData.invoiceDetails.invoiceNumber]],
-                'email': [this.userData.customerDetails.emailId, [Validators.required, Validators.email]],
+                'reference': ['Invoice no : ' + this.cardPaymentData.invoiceDetails.invoiceNumber,],
+                // 'invoices':[[this.cardPaymentData.invoiceDetails.invoiceNumber]],
+                'email': [this.cardPaymentData.customerDetails.emailId, [Validators.required, Validators.email]],
                 // 'storedCard': [0, ],
                 'expiry': ['', [Validators.required, CreditCardValidators.validateExpDate]],
                 // 'saveCard': [true, ],
-                "paymentMethod": [this.userData.cardCharges['']],
+                "paymentMethod": [this.cardPaymentData.cardCharges['']],
                 "dontSendToAccounts": [''],
                 // "invoices":[{'invoiceId':'1','amount':'1', 'auditSendtoaccountingsystemsid:'1'},]
             })
