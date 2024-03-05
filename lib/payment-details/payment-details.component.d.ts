@@ -5,10 +5,10 @@ export declare class PaymentDetailsComponent implements OnInit {
     paymentEnable: any;
     settings: any;
     devicePayment: boolean;
+    clientTelephone: any;
     testResult: any;
     valid(paymentEnable: any): void;
     genericPaymentDetails: any;
-    userData: any;
     tip: any;
     paymentMethodAllowed: any;
     paymentMethod: any;
