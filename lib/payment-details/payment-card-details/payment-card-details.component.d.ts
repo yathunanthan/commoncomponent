@@ -7,9 +7,10 @@ export declare class PaymentCardDetailsComponent implements OnInit {
     private commomPaymentService;
     payEmitter: EventEmitter<any>;
     userData: any;
-    storedCards: any;
     cardType: any;
     cardPaymentData: any;
+    storedCards: any;
+    cardSelectedType: any;
     constructor(fb: FormBuilder, commomPaymentService: CommonPaymentService);
     card: boolean;
     container: any;
@@ -32,8 +33,9 @@ export declare class PaymentCardDetailsComponent implements OnInit {
     keypress(): void;
     setCardType(): void;
     defaultCard(): void;
+    errorHandler(): void;
     cardSelected(val: any, from: string): void;
     detectCardType(number: number): string | false;
     static ɵfac: i0.ɵɵFactoryDeclaration<PaymentCardDetailsComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<PaymentCardDetailsComponent, "lib-payment-card-details", never, { "cardPaymentData": "cardPaymentData"; }, { "payEmitter": "payEmitter"; }, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<PaymentCardDetailsComponent, "lib-payment-card-details", never, { "cardPaymentData": "cardPaymentData"; "storedCards": "storedCards"; }, { "payEmitter": "payEmitter"; }, never, never>;
 }

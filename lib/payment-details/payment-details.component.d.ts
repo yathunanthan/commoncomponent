@@ -11,6 +11,7 @@ export declare class PaymentDetailsComponent implements OnInit {
     testResult: any;
     valid(paymentEnable: any): void;
     genericPaymentDetails: any;
+    storedCard: any;
     tip: any;
     paymentMethodAllowed: any;
     paymentMethod: any;
@@ -25,5 +26,5 @@ export declare class PaymentDetailsComponent implements OnInit {
     ngOnInit(): void;
     paymentSelected(value: any): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<PaymentDetailsComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<PaymentDetailsComponent, "lib-payment-details", never, { "genericPaymentDetails": "genericPaymentDetails"; "tip": "tip"; }, { "emitter": "emitter"; "payEmitter": "payEmitter"; }, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<PaymentDetailsComponent, "lib-payment-details", never, { "genericPaymentDetails": "genericPaymentDetails"; "storedCard": "storedCard"; "tip": "tip"; }, { "emitter": "emitter"; "payEmitter": "payEmitter"; }, never, never>;
 }

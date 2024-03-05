@@ -7,6 +7,7 @@ export declare class ParentpaymentComponent implements OnInit {
     commonPaymentEnableEmitter: EventEmitter<string>;
     commonSelectPaymentMethodEmitter: EventEmitter<string>;
     apiUrl: any;
+    storedCardData: any;
     valid(paymentEnable: any): void;
     selectPaymentMethod(paymentMethod: any): void;
     constructor(commonService: CommonPaymentService);
