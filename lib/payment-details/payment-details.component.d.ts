@@ -1,6 +1,8 @@
 import { OnInit, EventEmitter } from '@angular/core';
+import { CommonPaymentService } from '../serivces/common-payment.service';
 import * as i0 from "@angular/core";
 export declare class PaymentDetailsComponent implements OnInit {
+    private commonService;
     paymentMethodType: any;
     paymentEnable: any;
     settings: any;
@@ -19,7 +21,7 @@ export declare class PaymentDetailsComponent implements OnInit {
     walletDetails: any;
     emitter: EventEmitter<string>;
     payEmitter: EventEmitter<any>;
-    constructor();
+    constructor(commonService: CommonPaymentService);
     ngOnInit(): void;
     paymentSelected(value: any): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<PaymentDetailsComponent, never>;
