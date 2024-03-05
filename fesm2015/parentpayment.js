@@ -35,6 +35,14 @@ class CommonPaymentService {
             this.cardCharges = data.cardCharges.findIndex((item) => item.paymentIntegration === (data.isStripeEnabled ? "Stripe" : "Basys"));
         }
     }
+    getApiUrl(url) {
+        console.log('apiUrl', url);
+        this.apiUrl = url;
+    }
+    getStorecard(invoiceAddressId) {
+        var userdata = this.http.get(this.apiUrl.apiUrl + `invoiceaddresses/${invoiceAddressId}/storedcards`, { headers: { "token": this.apiUrl.token, "portal": this.apiUrl.portal } });
+        return userdata;
+    }
 }
 CommonPaymentService.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0, type: CommonPaymentService, deps: [{ token: i1.HttpClient }], target: i0.ɵɵFactoryTarget.Injectable });
 CommonPaymentService.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0, type: CommonPaymentService, providedIn: 'root' });
@@ -409,7 +417,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImpo
             }] } });
 
 class ParentpaymentComponent {
-    constructor() {
+    constructor(commonService) {
+        this.commonService = commonService;
         this.commonPaymentEnableEmitter = new EventEmitter();
         this.commonSelectPaymentMethodEmitter = new EventEmitter();
     }
@@ -422,10 +431,11 @@ class ParentpaymentComponent {
         this.commonSelectPaymentMethodEmitter.emit(paymentMethod);
     }
     ngOnInit() {
+        this.commonService.getApiUrl(this.apiUrl);
     }
 }
-ParentpaymentComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0, type: ParentpaymentComponent, deps: [], target: i0.ɵɵFactoryTarget.Component });
-ParentpaymentComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.2.17", type: ParentpaymentComponent, selector: "lib-parentpayment", inputs: { paymentDetails: "paymentDetails" }, outputs: { commonPaymentEnableEmitter: "commonPaymentEnableEmitter", commonSelectPaymentMethodEmitter: "commonSelectPaymentMethodEmitter" }, ngImport: i0, template: `
+ParentpaymentComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0, type: ParentpaymentComponent, deps: [{ token: CommonPaymentService }], target: i0.ɵɵFactoryTarget.Component });
+ParentpaymentComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.2.17", type: ParentpaymentComponent, selector: "lib-parentpayment", inputs: { paymentDetails: "paymentDetails", apiUrl: "apiUrl" }, outputs: { commonPaymentEnableEmitter: "commonPaymentEnableEmitter", commonSelectPaymentMethodEmitter: "commonSelectPaymentMethodEmitter" }, ngImport: i0, template: `
       <lib-payment-details [genericPaymentDetails]="paymentDetails" (payEmitter)="valid($event)" (emitter)="selectPaymentMethod($event)"></lib-payment-details>
   `, isInline: true, components: [{ type: PaymentDetailsComponent, selector: "lib-payment-details", inputs: ["genericPaymentDetails", "tip"], outputs: ["emitter", "payEmitter"] }] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0, type: ParentpaymentComponent, decorators: [{
@@ -437,12 +447,14 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImpo
   `,
                     styles: []
                 }]
-        }], ctorParameters: function () { return []; }, propDecorators: { paymentDetails: [{
+        }], ctorParameters: function () { return [{ type: CommonPaymentService }]; }, propDecorators: { paymentDetails: [{
                 type: Input
             }], commonPaymentEnableEmitter: [{
                 type: Output
             }], commonSelectPaymentMethodEmitter: [{
                 type: Output
+            }], apiUrl: [{
+                type: Input
             }] } });
 
 class ParentpaymentModule {
