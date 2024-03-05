@@ -218,7 +218,7 @@ class PaymentCardDetailsComponent {
     dropdown(val) {
         this.cardType = false;
         this.payEmitter.emit(false);
-        if (val == 'Set up new debit or credit card') {
+        if (val.value == 'Set up new debit or credit card') {
             this.card = true;
             this.buildCreditForms();
         }
