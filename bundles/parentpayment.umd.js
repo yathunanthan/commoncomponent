@@ -227,7 +227,7 @@
             this.payEmitter = new i0.EventEmitter();
             this.storedCards = [];
             this.cardType = '';
-            this.card = true;
+            this.card = false;
             this.cardwidth = 350;
             this.messages = { validDate: 'valid\ndate', monthYear: 'mm/yy' }; //Strings for translation
             this.placeholders = { number: '•••• •••• •••• ••••', name: 'Full Name', expiry: '••/••', cvc: '•••' }; // Placeholders for rendered fields
@@ -242,11 +242,14 @@
             this.payEmitter.emit(true);
         };
         PaymentCardDetailsComponent.prototype.dropdown = function (val) {
+            var _this = this;
             this.cardType = false;
             this.payEmitter.emit(false);
             if (val == 'Set up new debit or credit card') {
-                this.card = false;
-                this.buildCreditForms();
+                setTimeout(function () {
+                    _this.card = false;
+                    _this.buildCreditForms();
+                }, 100);
             }
             // this.translate.get("Use existing credit card").subscribe(translations => {
             //   if(val.value== translations){
