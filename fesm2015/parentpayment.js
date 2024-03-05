@@ -241,21 +241,19 @@ class PaymentCardDetailsComponent {
     buildCreditForms() {
         let date = new Date().toISOString().slice(0, 10);
         this.creditForm = this.fb.group({
-            payment: this.fb.group({
-                'amount': [],
-                'cardCharge': [this.cardPaymentData.cardCharges['']],
-                'cardName': [this.cardPaymentData.customerDetails.customerName, [Validators.required]],
-                'cardNumber': ['', [Validators.required, CreditCardValidators.validateCCNumber]],
-                'cardCvc': ['', [Validators.required, Validators.minLength(3), Validators.maxLength(4)]],
-                'paymentDate': [date],
-                'description': ["Invoice no : " + this.cardPaymentData.invoiceDetails.invoiceNumber],
-                'isportal': [true],
-                'reference': ['Invoice no : ' + this.cardPaymentData.invoiceDetails.invoiceNumber,],
-                'email': [this.cardPaymentData.customerDetails.emailId, [Validators.required, Validators.email]],
-                'expiry': ['', [Validators.required, CreditCardValidators.validateExpDate]],
-                "paymentMethod": [this.cardPaymentData.cardCharges['']],
-                "dontSendToAccounts": [''],
-            })
+            'amount': [],
+            'cardCharge': [this.cardPaymentData.cardCharges['']],
+            'cardName': [this.cardPaymentData.customerDetails.customerName, [Validators.required]],
+            'cardNumber': ['', [Validators.required, CreditCardValidators.validateCCNumber]],
+            'cardCvc': ['', [Validators.required, Validators.minLength(3), Validators.maxLength(4)]],
+            'paymentDate': [date],
+            'description': ["Invoice no : " + this.cardPaymentData.invoiceDetails.invoiceNumber],
+            'isportal': [true],
+            'reference': ['Invoice no : ' + this.cardPaymentData.invoiceDetails.invoiceNumber,],
+            'email': [this.cardPaymentData.customerDetails.emailId, [Validators.required, Validators.email]],
+            'expiry': ['', [Validators.required, CreditCardValidators.validateExpDate]],
+            "paymentMethod": [this.cardPaymentData.cardCharges['']],
+            "dontSendToAccounts": [''],
         });
         this.placeholders = { name: this.cardPaymentData.customerDetails.customerName ? this.cardPaymentData.customerDetails.customerName : 'Full Name' };
     }

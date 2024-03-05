@@ -264,21 +264,19 @@
         PaymentCardDetailsComponent.prototype.buildCreditForms = function () {
             var date = new Date().toISOString().slice(0, 10);
             this.creditForm = this.fb.group({
-                payment: this.fb.group({
-                    'amount': [],
-                    'cardCharge': [this.cardPaymentData.cardCharges['']],
-                    'cardName': [this.cardPaymentData.customerDetails.customerName, [i1$1.Validators.required]],
-                    'cardNumber': ['', [i1$1.Validators.required, angularCcLibrary.CreditCardValidators.validateCCNumber]],
-                    'cardCvc': ['', [i1$1.Validators.required, i1$1.Validators.minLength(3), i1$1.Validators.maxLength(4)]],
-                    'paymentDate': [date],
-                    'description': ["Invoice no : " + this.cardPaymentData.invoiceDetails.invoiceNumber],
-                    'isportal': [true],
-                    'reference': ['Invoice no : ' + this.cardPaymentData.invoiceDetails.invoiceNumber,],
-                    'email': [this.cardPaymentData.customerDetails.emailId, [i1$1.Validators.required, i1$1.Validators.email]],
-                    'expiry': ['', [i1$1.Validators.required, angularCcLibrary.CreditCardValidators.validateExpDate]],
-                    "paymentMethod": [this.cardPaymentData.cardCharges['']],
-                    "dontSendToAccounts": [''],
-                })
+                'amount': [],
+                'cardCharge': [this.cardPaymentData.cardCharges['']],
+                'cardName': [this.cardPaymentData.customerDetails.customerName, [i1$1.Validators.required]],
+                'cardNumber': ['', [i1$1.Validators.required, angularCcLibrary.CreditCardValidators.validateCCNumber]],
+                'cardCvc': ['', [i1$1.Validators.required, i1$1.Validators.minLength(3), i1$1.Validators.maxLength(4)]],
+                'paymentDate': [date],
+                'description': ["Invoice no : " + this.cardPaymentData.invoiceDetails.invoiceNumber],
+                'isportal': [true],
+                'reference': ['Invoice no : ' + this.cardPaymentData.invoiceDetails.invoiceNumber,],
+                'email': [this.cardPaymentData.customerDetails.emailId, [i1$1.Validators.required, i1$1.Validators.email]],
+                'expiry': ['', [i1$1.Validators.required, angularCcLibrary.CreditCardValidators.validateExpDate]],
+                "paymentMethod": [this.cardPaymentData.cardCharges['']],
+                "dontSendToAccounts": [''],
             });
             this.placeholders = { name: this.cardPaymentData.customerDetails.customerName ? this.cardPaymentData.customerDetails.customerName : 'Full Name' };
         };
