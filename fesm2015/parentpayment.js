@@ -214,6 +214,7 @@ class PaymentCardDetailsComponent {
         this.fb = fb;
         this.commomPaymentService = commomPaymentService;
         this.payEmitter = new EventEmitter();
+        this.storedCards = [];
         this.cardType = '';
         this.card = false;
         this.cardwidth = 350;
@@ -230,8 +231,8 @@ class PaymentCardDetailsComponent {
         this.payEmitter.emit(true);
         this.commomPaymentService.getStorecard(this.cardPaymentData.invoiceDetails.invoiceAddressId).subscribe((res) => {
             this.storedCards = res.records;
+            console.log('cardDetails', this.storedCards);
         });
-        console.log('cardDetails', this.storedCards);
     }
     dropdown(val) {
         this.cardType = false;
