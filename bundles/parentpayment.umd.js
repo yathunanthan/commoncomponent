@@ -522,8 +522,12 @@
         PaymentCompleteComponent.prototype.ngOnInit = function () {
             var _a;
             this.cardCharges = this.completePageDetails.cardCharges[this.commonPaymentService.cardCharges].charge;
-            console.log('completePaymentData', this.completePageDetails);
+            console.log('completePaymentData', this.valid);
             if ((((_a = this.completePaymentData.paymentDetails) === null || _a === void 0 ? void 0 : _a.cardlat4) || this.cardDetails) && this.valid) {
+                this.pending = false;
+            }
+            else {
+                this.pending = false;
             }
         };
         return PaymentCompleteComponent;
