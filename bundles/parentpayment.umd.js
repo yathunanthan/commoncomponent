@@ -252,6 +252,7 @@
         }
         PaymentCardDetailsComponent.prototype.ngOnInit = function () {
             this.payEmitter.emit(true);
+            console.log('cardDetails', this.storedCards);
         };
         PaymentCardDetailsComponent.prototype.dropdown = function (val) {
             this.cardType = false;
@@ -422,6 +423,7 @@
             this.paymentMethodType = this.settings.countryRegion == 6 ? 'ACH' : 'Bank transfer';
             this.emitter.emit(this.paymentMethodType);
             this.clientTelephone = this.genericPaymentDetails.clientDetails.countrycode + this.genericPaymentDetails.clientDetails.telephone;
+            console.log('stoedpass', this.storedCard);
         };
         PaymentDetailsComponent.prototype.paymentSelected = function (value) {
             var temp = this.paymentMethod != value;
