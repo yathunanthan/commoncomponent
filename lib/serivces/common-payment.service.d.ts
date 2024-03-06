@@ -4,9 +4,11 @@ export declare class CommonPaymentService {
     private http;
     cardCharges: any;
     apiUrl: any;
+    completePageData: any;
     constructor(http: HttpClient);
     getCountryName(): import("rxjs").Observable<Object>;
     setUserResponse(data: any, key: any): void;
+    setPaymentDetails(data: any): void;
     getApiUrl(url: any): void;
     getStorecard(invoiceAddressId: string): import("rxjs").Observable<Object>;
     static ɵfac: i0.ɵɵFactoryDeclaration<CommonPaymentService, never>;
