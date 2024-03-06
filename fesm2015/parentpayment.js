@@ -574,5 +574,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImpo
  * Generated bundle index. Do not edit.
  */
 
-export { CommonPaymentService, ParentpaymentComponent, ParentpaymentModule, ParentpaymentService, PaymentBankDetailsComponent, PaymentCardDetailsComponent, PaymentDetailsComponent };
+export { CommonPaymentService, ParentpaymentComponent, ParentpaymentModule, ParentpaymentService, PaymentBankDetailsComponent, PaymentCardDetailsComponent, PaymentCompleteComponent, PaymentDetailsComponent };
 //# sourceMappingURL=parentpayment.js.map

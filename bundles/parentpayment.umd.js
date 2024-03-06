@@ -612,6 +612,7 @@
     exports.ParentpaymentService = ParentpaymentService;
     exports.PaymentBankDetailsComponent = PaymentBankDetailsComponent;
     exports.PaymentCardDetailsComponent = PaymentCardDetailsComponent;
+    exports.PaymentCompleteComponent = PaymentCompleteComponent;
     exports.PaymentDetailsComponent = PaymentDetailsComponent;
 
     Object.defineProperty(exports, '__esModule', { value: true });
