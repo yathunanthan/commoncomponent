@@ -7,7 +7,6 @@ export declare class PaymentCompleteComponent implements OnInit {
     userResponse: any;
     paymentCharges: any;
     cardImg: string;
-    paymentId: any;
     paymentFailed: boolean;
     loading: boolean;
     completePaymentData: any;
@@ -17,13 +16,12 @@ export declare class PaymentCompleteComponent implements OnInit {
     uuid: any;
     amount: number;
     valid: boolean;
-    paymentType: any;
     cardDetails: any;
-    bankDetails: any;
+    completePageDetails: any;
     close: EventEmitter<boolean>;
     cardCharges: any;
     constructor(commonPaymentService: CommonPaymentService);
     ngOnInit(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<PaymentCompleteComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<PaymentCompleteComponent, "lib-payment-complete", never, { "paymentId": "paymentId"; "valid": "valid"; "paymentType": "paymentType"; "cardDetails": "cardDetails"; "bankDetails": "bankDetails"; }, { "close": "close"; }, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<PaymentCompleteComponent, "lib-payment-complete", never, { "valid": "valid"; "cardDetails": "cardDetails"; "completePageDetails": "completePageDetails"; }, { "close": "close"; }, never, never>;
 }
