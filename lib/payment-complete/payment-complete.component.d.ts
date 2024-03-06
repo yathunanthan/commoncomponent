@@ -3,6 +3,9 @@ import { CommonPaymentService } from '../serivces/common-payment.service';
 import * as i0 from "@angular/core";
 export declare class PaymentCompleteComponent implements OnInit {
     private commonPaymentService;
+    valid: boolean;
+    cardDetails: any;
+    completePageDetails: any;
     pending: boolean;
     userResponse: any;
     paymentCharges: any;
@@ -15,9 +18,6 @@ export declare class PaymentCompleteComponent implements OnInit {
     tip: number;
     uuid: any;
     amount: number;
-    valid: boolean;
-    cardDetails: any;
-    completePageDetails: any;
     close: EventEmitter<boolean>;
     cardCharges: any;
     constructor(commonPaymentService: CommonPaymentService);
