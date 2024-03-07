@@ -1,8 +1,10 @@
 import { EventEmitter, OnInit } from '@angular/core';
 import { CommonPaymentService } from '../serivces/common-payment.service';
+import { ActivatedRoute } from '@angular/router';
 import * as i0 from "@angular/core";
 export declare class PaymentCompleteComponent implements OnInit {
     private commonPaymentService;
+    private activatedRoute;
     valid: boolean;
     cardDetails: any;
     completePageDetails: any;
@@ -18,9 +20,11 @@ export declare class PaymentCompleteComponent implements OnInit {
     tip: number;
     uuid: any;
     amount: number;
+    paymentType: string;
     close: EventEmitter<boolean>;
     cardCharges: any;
-    constructor(commonPaymentService: CommonPaymentService);
+    cardCharge: number;
+    constructor(commonPaymentService: CommonPaymentService, activatedRoute: ActivatedRoute);
     ngOnInit(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<PaymentCompleteComponent, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<PaymentCompleteComponent, "lib-payment-complete", never, { "valid": "valid"; "cardDetails": "cardDetails"; "completePageDetails": "completePageDetails"; }, { "close": "close"; }, never, never>;
