@@ -12,6 +12,7 @@ export declare class PaymentDetailsComponent implements OnInit {
     valid(paymentEnable: any): void;
     genericPaymentDetails: any;
     tip: any;
+    total: number;
     paymentMethodAllowed: any;
     paymentMethod: any;
     paymentCompleted: boolean;
@@ -19,11 +20,14 @@ export declare class PaymentDetailsComponent implements OnInit {
     walletPayLogoName: string;
     walletPayDesc: string;
     walletDetails: any;
+    amountToBePaid: any;
+    pendingAmount: any;
+    portalName: any;
     emitter: EventEmitter<string>;
     payEmitter: EventEmitter<any>;
     constructor(commonService: CommonPaymentService);
     ngOnInit(): void;
     paymentSelected(value: any): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<PaymentDetailsComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<PaymentDetailsComponent, "lib-payment-details", never, { "genericPaymentDetails": "genericPaymentDetails"; "tip": "tip"; }, { "emitter": "emitter"; "payEmitter": "payEmitter"; }, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<PaymentDetailsComponent, "lib-payment-details", never, { "genericPaymentDetails": "genericPaymentDetails"; "tip": "tip"; "total": "total"; }, { "emitter": "emitter"; "payEmitter": "payEmitter"; }, never, never>;
 }
