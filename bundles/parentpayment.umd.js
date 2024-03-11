@@ -49,6 +49,8 @@
             this.cardCharges = [];
             this.userUrl = new rxjs.BehaviorSubject(null);
             this.userUrl$ = this.userUrl.asObservable();
+            this.paymentDetails = new rxjs.BehaviorSubject(null);
+            this.paymentDetails$ = this.paymentDetails.asObservable();
         }
         CommonPaymentService.prototype.getCountryName = function () {
             return this.http.get("https://restcountries.com/v3.1/all");
@@ -60,6 +62,7 @@
         };
         CommonPaymentService.prototype.setPaymentDetails = function (data) {
             this.completePageData = data;
+            this.paymentDetails.next(data);
         };
         CommonPaymentService.prototype.getApiUrl = function (url) {
             console.log('apiUrl', url);
@@ -479,6 +482,9 @@
             var _a, _b;
             this.commonService.userUrl$.subscribe(function (res) {
                 _this.portalName = res.portal;
+            });
+            this.commonService.paymentDetails$.subscribe(function (response) {
+                _this.genericPaymentDetails = response;
             });
             console.log('portalname', this.portalName);
             console.log('statemtn', this.genericPaymentDetails);

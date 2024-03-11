@@ -30,6 +30,8 @@ class CommonPaymentService {
         this.cardCharges = [];
         this.userUrl = new BehaviorSubject(null);
         this.userUrl$ = this.userUrl.asObservable();
+        this.paymentDetails = new BehaviorSubject(null);
+        this.paymentDetails$ = this.paymentDetails.asObservable();
     }
     getCountryName() {
         return this.http.get(`https://restcountries.com/v3.1/all`);
@@ -41,6 +43,7 @@ class CommonPaymentService {
     }
     setPaymentDetails(data) {
         this.completePageData = data;
+        this.paymentDetails.next(data);
     }
     getApiUrl(url) {
         console.log('apiUrl', url);
@@ -451,6 +454,9 @@ class PaymentDetailsComponent {
         var _a, _b;
         this.commonService.userUrl$.subscribe((res) => {
             this.portalName = res.portal;
+        });
+        this.commonService.paymentDetails$.subscribe((response) => {
+            this.genericPaymentDetails = response;
         });
         console.log('portalname', this.portalName);
         console.log('statemtn', this.genericPaymentDetails);
