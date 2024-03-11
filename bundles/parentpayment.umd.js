@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common/http'), require('@angular/forms'), require('@angular/common'), require('angular-cc-library'), require('ngx-card'), require('@angular/router')) :
-    typeof define === 'function' && define.amd ? define('parentpayment', ['exports', '@angular/core', '@angular/common/http', '@angular/forms', '@angular/common', 'angular-cc-library', 'ngx-card', '@angular/router'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.parentpayment = {}, global.ng.core, global.ng.common.http, global.ng.forms, global.ng.common, global.angularCcLibrary, global.i4, global.ng.router));
-})(this, (function (exports, i0, i1, i1$1, i3, angularCcLibrary, i4, i2) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs'), require('@angular/common/http'), require('@angular/forms'), require('@angular/common'), require('angular-cc-library'), require('ngx-card'), require('@angular/router')) :
+    typeof define === 'function' && define.amd ? define('parentpayment', ['exports', '@angular/core', 'rxjs', '@angular/common/http', '@angular/forms', '@angular/common', 'angular-cc-library', 'ngx-card', '@angular/router'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.parentpayment = {}, global.ng.core, global.rxjs, global.ng.common.http, global.ng.forms, global.ng.common, global.angularCcLibrary, global.i4, global.ng.router));
+})(this, (function (exports, i0, rxjs, i1, i1$1, i3, angularCcLibrary, i4, i2) { 'use strict';
 
     function _interopNamespace(e) {
         if (e && e.__esModule) return e;
@@ -47,6 +47,8 @@
         function CommonPaymentService(http) {
             this.http = http;
             this.cardCharges = [];
+            this.userUrl = new rxjs.BehaviorSubject(null);
+            this.userUrl$ = this.userUrl.asObservable();
         }
         CommonPaymentService.prototype.getCountryName = function () {
             return this.http.get("https://restcountries.com/v3.1/all");
@@ -61,6 +63,7 @@
         };
         CommonPaymentService.prototype.getApiUrl = function (url) {
             console.log('apiUrl', url);
+            this.userUrl.next(url);
             this.apiUrl = url;
         };
         CommonPaymentService.prototype.getStorecard = function (invoiceAddressId) {
@@ -473,23 +476,25 @@
         };
         PaymentDetailsComponent.prototype.ngOnInit = function () {
             var _this = this;
-            var _a, _b, _c;
-            console.log('statemtn', this.genericPaymentDetails);
+            var _a, _b;
+            this.commonService.userUrl$.subscribe(function (res) {
+                _this.portalName = res.portal;
+            });
             console.log('portalname', this.portalName);
-            this.portalName = (_a = this.commonService.apiUrl) === null || _a === void 0 ? void 0 : _a.portal;
-            if (((_b = this.commonService.apiUrl) === null || _b === void 0 ? void 0 : _b.portal) == 'InvoicePortal') {
+            console.log('statemtn', this.genericPaymentDetails);
+            if (((_a = this.commonService.apiUrl) === null || _a === void 0 ? void 0 : _a.portal) == 'InvoicePortal') {
                 this.amountToBePaid = this.genericPaymentDetails.paymentDetails.amountToBePaid;
                 this.pendingAmount = this.genericPaymentDetails.paymentDetails.pendingAmount;
                 this.paymentCompleted = (this.amountToBePaid - this.genericPaymentDetails.paymentDetails.pendingAmount) < 1;
                 this.paymentMethod = this.genericPaymentDetails.isGocardlessEnabled && this.genericPaymentDetails.customerDetails.postcode ? 1 : (this.genericPaymentDetails.cardIntegration && this.genericPaymentDetails.cardCharges != -1 && (this.genericPaymentDetails.isBasysEnabled || this.genericPaymentDetails.isPayFortEnabled || this.genericPaymentDetails.isStripeEnabled || this.genericPaymentDetails.isWorldPayEnbled) && (!this.settings.cardEnable || this.settings.cardEnable == 'Always' || this.genericPaymentDetails.invoiceDetails.total + this.genericPaymentDetails.invoiceDetails.taxes + this.genericPaymentDetails.invoiceDetails.total * (this.tip / 100) + (this.genericPaymentDetails.cardCharges[this.genericPaymentDetails.cardCharges].charge / 100) * (this.genericPaymentDetails.invoiceDetails.total + this.genericPaymentDetails.invoiceDetails.taxes + this.genericPaymentDetails.invoiceDetails.total * (this.tip / 100)) <= this.settings.creditDebitCard)) ? 2 : 0;
             }
-            else if (((_c = this.commonService.apiUrl) === null || _c === void 0 ? void 0 : _c.portal) == 'StatementPortal') {
+            else if (((_b = this.commonService.apiUrl) === null || _b === void 0 ? void 0 : _b.portal) == 'StatementPortal') {
                 this.paymentMethod = this.genericPaymentDetails.isGocardlessEnabled && this.genericPaymentDetails.customerDetails.postcode ? 1 : (this.genericPaymentDetails.cardIntegration && (this.genericPaymentDetails.isStripeEnabled || this.genericPaymentDetails.isWorldPayEnbled || this.genericPaymentDetails.isPayFort) && (this.settings.cardEnable == undefined || (this.settings.cardEnable != 'No' && (this.settings.cardEnable == 'Always' || this.total <= this.settings.creditDebitCard)))) ? 2 : 0;
             }
             this.commonService.setUserResponse(this.genericPaymentDetails, '');
             this.settings = this.genericPaymentDetails.settings.reduce(function (obj, item) {
-                var _d;
-                return Object.assign(obj, (_d = {}, _d[item.key] = item.value, _d));
+                var _c;
+                return Object.assign(obj, (_c = {}, _c[item.key] = item.value, _c));
             }, {});
             setTimeout(function () {
                 _this.paymentSelected(_this.paymentMethod);

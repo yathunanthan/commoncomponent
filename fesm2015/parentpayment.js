@@ -1,5 +1,6 @@
 import * as i0 from '@angular/core';
 import { Injectable, EventEmitter, Component, Input, Output, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import * as i1 from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import * as i1$1 from '@angular/forms';
@@ -27,6 +28,8 @@ class CommonPaymentService {
     constructor(http) {
         this.http = http;
         this.cardCharges = [];
+        this.userUrl = new BehaviorSubject(null);
+        this.userUrl$ = this.userUrl.asObservable();
     }
     getCountryName() {
         return this.http.get(`https://restcountries.com/v3.1/all`);
@@ -41,6 +44,7 @@ class CommonPaymentService {
     }
     getApiUrl(url) {
         console.log('apiUrl', url);
+        this.userUrl.next(url);
         this.apiUrl = url;
     }
     getStorecard(invoiceAddressId) {
@@ -444,17 +448,19 @@ class PaymentDetailsComponent {
         this.payEmitter.emit(paymentEnable);
     }
     ngOnInit() {
-        var _a, _b, _c;
-        console.log('statemtn', this.genericPaymentDetails);
+        var _a, _b;
+        this.commonService.userUrl$.subscribe((res) => {
+            this.portalName = res.portal;
+        });
         console.log('portalname', this.portalName);
-        this.portalName = (_a = this.commonService.apiUrl) === null || _a === void 0 ? void 0 : _a.portal;
-        if (((_b = this.commonService.apiUrl) === null || _b === void 0 ? void 0 : _b.portal) == 'InvoicePortal') {
+        console.log('statemtn', this.genericPaymentDetails);
+        if (((_a = this.commonService.apiUrl) === null || _a === void 0 ? void 0 : _a.portal) == 'InvoicePortal') {
             this.amountToBePaid = this.genericPaymentDetails.paymentDetails.amountToBePaid;
             this.pendingAmount = this.genericPaymentDetails.paymentDetails.pendingAmount;
             this.paymentCompleted = (this.amountToBePaid - this.genericPaymentDetails.paymentDetails.pendingAmount) < 1;
             this.paymentMethod = this.genericPaymentDetails.isGocardlessEnabled && this.genericPaymentDetails.customerDetails.postcode ? 1 : (this.genericPaymentDetails.cardIntegration && this.genericPaymentDetails.cardCharges != -1 && (this.genericPaymentDetails.isBasysEnabled || this.genericPaymentDetails.isPayFortEnabled || this.genericPaymentDetails.isStripeEnabled || this.genericPaymentDetails.isWorldPayEnbled) && (!this.settings.cardEnable || this.settings.cardEnable == 'Always' || this.genericPaymentDetails.invoiceDetails.total + this.genericPaymentDetails.invoiceDetails.taxes + this.genericPaymentDetails.invoiceDetails.total * (this.tip / 100) + (this.genericPaymentDetails.cardCharges[this.genericPaymentDetails.cardCharges].charge / 100) * (this.genericPaymentDetails.invoiceDetails.total + this.genericPaymentDetails.invoiceDetails.taxes + this.genericPaymentDetails.invoiceDetails.total * (this.tip / 100)) <= this.settings.creditDebitCard)) ? 2 : 0;
         }
-        else if (((_c = this.commonService.apiUrl) === null || _c === void 0 ? void 0 : _c.portal) == 'StatementPortal') {
+        else if (((_b = this.commonService.apiUrl) === null || _b === void 0 ? void 0 : _b.portal) == 'StatementPortal') {
             this.paymentMethod = this.genericPaymentDetails.isGocardlessEnabled && this.genericPaymentDetails.customerDetails.postcode ? 1 : (this.genericPaymentDetails.cardIntegration && (this.genericPaymentDetails.isStripeEnabled || this.genericPaymentDetails.isWorldPayEnbled || this.genericPaymentDetails.isPayFort) && (this.settings.cardEnable == undefined || (this.settings.cardEnable != 'No' && (this.settings.cardEnable == 'Always' || this.total <= this.settings.creditDebitCard)))) ? 2 : 0;
         }
         this.commonService.setUserResponse(this.genericPaymentDetails, '');

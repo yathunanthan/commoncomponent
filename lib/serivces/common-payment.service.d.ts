@@ -5,6 +5,8 @@ export declare class CommonPaymentService {
     cardCharges: any;
     apiUrl: any;
     completePageData: any;
+    private userUrl;
+    userUrl$: import("rxjs").Observable<null>;
     constructor(http: HttpClient);
     getCountryName(): import("rxjs").Observable<Object>;
     setUserResponse(data: any, key: any): void;
