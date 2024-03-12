@@ -276,7 +276,7 @@
             });
             console.log('invaddress0', this.paymentStoredDetials);
             console.log('cardpaymentdetal', this.cardPaymentData);
-            if (this.paymentStoredDetials != null || this.paymentStoredDetials != undefined) {
+            if (this.paymentStoredDetials == null || this.paymentStoredDetials == undefined) {
                 this.commomPaymentService.getStorecard(invoiceAddressesId).subscribe(function (res) {
                     if (res && res.records) {
                         _this.storedCards = res.records;
