@@ -129,7 +129,7 @@
                 this.paymentForm = this.fb.group({
                     instantpayment: this.fb.group({
                         country_code: 'GB',
-                        currency: this.paymentData.currencyCode,
+                        currency: this.paymentData.currencyCode ? this.paymentData.currencyCode : 'GBP',
                         payment: this.fb.group({
                             description: ((_a = this.paymentData.invoiceDetails) === null || _a === void 0 ? void 0 : _a.invoiceNumber) ? "Invoice no : #" + this.paymentData.invoiceDetails.invoiceNumber : '',
                             amount: [0, [i1$1.Validators.required]],
