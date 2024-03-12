@@ -9,6 +9,8 @@ export declare class PaymentDetailsComponent implements OnInit {
     devicePayment: boolean;
     clientTelephone: any;
     testResult: any;
+    postCode: any;
+    isGocardlessEnabled: any;
     valid(paymentEnable: any): void;
     genericPaymentDetails: any;
     tip: any;
