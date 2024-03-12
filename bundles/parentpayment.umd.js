@@ -305,7 +305,9 @@
             // })
         };
         PaymentCardDetailsComponent.prototype.buildCreditForms = function () {
+            var _a;
             var date = new Date().toISOString().slice(0, 10);
+            var invoiceNo = ((_a = this.cardPaymentData.invoiceDetails) === null || _a === void 0 ? void 0 : _a.invoiceNumber) ? "Invoice no : " + this.cardPaymentData.invoiceDetails.invoiceNumber : '';
             this.creditForm = this.fb.group({
                 payment: this.fb.group({
                     'amount': [],
@@ -314,9 +316,9 @@
                     'cardNumber': ['', [i1$1.Validators.required, angularCcLibrary.CreditCardValidators.validateCCNumber]],
                     'cardCvc': ['', [i1$1.Validators.required, i1$1.Validators.minLength(3), i1$1.Validators.maxLength(4)]],
                     'paymentDate': [date],
-                    'description': ["Invoice no : " + this.cardPaymentData.invoiceDetails.invoiceNumber],
+                    'description': [invoiceNo],
                     'isportal': [true],
-                    'reference': ['Invoice no : ' + this.cardPaymentData.invoiceDetails.invoiceNumber,],
+                    'reference': [invoiceNo],
                     'email': [this.cardPaymentData.customerDetails.emailId, [i1$1.Validators.required, i1$1.Validators.email]],
                     'expiry': ['', [i1$1.Validators.required, angularCcLibrary.CreditCardValidators.validateExpDate]],
                     "paymentMethod": [this.cardPaymentData.cardCharges[this.commomPaymentService.cardCharges].paymentMethodId],
