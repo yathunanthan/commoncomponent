@@ -269,7 +269,12 @@
             console.log('invaddress0', invoiceAddressesId);
             console.log('cardpaymentdetal', this.cardPaymentData);
             this.commomPaymentService.getStorecard(invoiceAddressesId).subscribe(function (res) {
-                _this.storedCards = res.records;
+                if (res && res.records) {
+                    _this.storedCards = res.records;
+                }
+                else {
+                    _this.storedCards = res;
+                }
                 console.log('cardDetails', _this.storedCards);
             });
         };
