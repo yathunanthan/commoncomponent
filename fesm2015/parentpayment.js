@@ -240,8 +240,10 @@ class PaymentCardDetailsComponent {
         this.cardImg = "";
     }
     ngOnInit() {
+        var _a;
         this.payEmitter.emit(true);
-        this.commomPaymentService.getStorecard(this.cardPaymentData.invoiceDetails.invoiceAddressId).subscribe((res) => {
+        let invoiceAddressesId = ((_a = this.cardPaymentData.invoiceDetails) === null || _a === void 0 ? void 0 : _a.invoiceAddressId) ? this.cardPaymentData.invoiceDetails.invoiceAddressId : this.cardPaymentData.invoiceAddressNo;
+        this.commomPaymentService.getStorecard(invoiceAddressesId).subscribe((res) => {
             this.storedCards = res.records;
             console.log('cardDetails', this.storedCards);
         });
@@ -277,7 +279,7 @@ class PaymentCardDetailsComponent {
         this.creditForm = this.fb.group({
             payment: this.fb.group({
                 'amount': [],
-                'cardCharge': [this.cardPaymentData.cardCharges['']],
+                'cardCharge': [this.cardPaymentData.cardCharges[0].charge],
                 'cardName': [this.cardPaymentData.customerDetails.customerName, [Validators.required]],
                 'cardNumber': ['', [Validators.required, CreditCardValidators.validateCCNumber]],
                 'cardCvc': ['', [Validators.required, Validators.minLength(3), Validators.maxLength(4)]],
