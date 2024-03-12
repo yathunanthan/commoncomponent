@@ -326,6 +326,7 @@ class PaymentCardDetailsComponent {
         this.cardLogo = 'card';
     }
     cardSelected(val, from) {
+        var _a;
         if (from == 'html') {
             val = val.value;
         }
@@ -337,10 +338,11 @@ class PaymentCardDetailsComponent {
             this.cardLogo = tagsData.card_type;
         });
         let date = new Date().toISOString().slice(0, 10);
+        let invoiceNumber = ((_a = this.cardPaymentData.invoiceDetails) === null || _a === void 0 ? void 0 : _a.invoiceNumber) ? "Invoice no : #" + this.cardPaymentData.invoiceDetails.invoiceNumber : '';
         this.creditForm = this.fb.group({
             'paymentDate': [date, [Validators.required]],
-            'description': ["Invoice no : #" + this.cardPaymentData.invoiceDetails.invoiceNumber],
-            'reference': ['Invoice no : #' + this.cardPaymentData.invoiceDetails.invoiceNumber,],
+            'description': [invoiceNumber],
+            'reference': [invoiceNumber],
             'paymentMethod': [this.cardPaymentData.cardCharges[this.commomPaymentService.cardCharges].paymentMethodId, [Validators.required]],
             'storedCard': [val, [Validators.required]],
             'cardName': [this.cardPaymentData.customerDetails.customerName, [Validators.required]],

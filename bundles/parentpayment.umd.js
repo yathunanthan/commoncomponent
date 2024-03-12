@@ -350,6 +350,7 @@
         };
         PaymentCardDetailsComponent.prototype.cardSelected = function (val, from) {
             var _this = this;
+            var _a;
             if (from == 'html') {
                 val = val.value;
             }
@@ -361,10 +362,11 @@
                 _this.cardLogo = tagsData.card_type;
             });
             var date = new Date().toISOString().slice(0, 10);
+            var invoiceNumber = ((_a = this.cardPaymentData.invoiceDetails) === null || _a === void 0 ? void 0 : _a.invoiceNumber) ? "Invoice no : #" + this.cardPaymentData.invoiceDetails.invoiceNumber : '';
             this.creditForm = this.fb.group({
                 'paymentDate': [date, [i1$1.Validators.required]],
-                'description': ["Invoice no : #" + this.cardPaymentData.invoiceDetails.invoiceNumber],
-                'reference': ['Invoice no : #' + this.cardPaymentData.invoiceDetails.invoiceNumber,],
+                'description': [invoiceNumber],
+                'reference': [invoiceNumber],
                 'paymentMethod': [this.cardPaymentData.cardCharges[this.commomPaymentService.cardCharges].paymentMethodId, [i1$1.Validators.required]],
                 'storedCard': [val, [i1$1.Validators.required]],
                 'cardName': [this.cardPaymentData.customerDetails.customerName, [i1$1.Validators.required]],
