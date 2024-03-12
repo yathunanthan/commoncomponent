@@ -27,6 +27,7 @@ export declare class PaymentCardDetailsComponent implements OnInit {
     cardLogo: any;
     cardImg: string;
     storedCardData: any;
+    paymentStoredDetials: any;
     ngOnInit(): void;
     dropdown(val: any): void;
     buildCreditForms(): void;

@@ -32,6 +32,8 @@ class CommonPaymentService {
         this.userUrl$ = this.userUrl.asObservable();
         this.paymentDetails = new BehaviorSubject(null);
         this.paymentDetails$ = this.paymentDetails.asObservable();
+        this.paymentStoredCard = new BehaviorSubject(null);
+        this.paymentStoredCard$ = this.paymentStoredCard.asObservable();
     }
     getCountryName() {
         return this.http.get(`https://restcountries.com/v3.1/all`);
@@ -44,6 +46,9 @@ class CommonPaymentService {
     setPaymentDetails(data) {
         this.completePageData = data;
         this.paymentDetails.next(data);
+    }
+    setPaymentStoredCard(storedCard) {
+        this.paymentStoredCard.next(storedCard);
     }
     getApiUrl(url) {
         console.log('apiUrl', url);
@@ -243,7 +248,10 @@ class PaymentCardDetailsComponent {
         var _a;
         this.payEmitter.emit(true);
         let invoiceAddressesId = ((_a = this.cardPaymentData.invoiceDetails) === null || _a === void 0 ? void 0 : _a.invoiceAddressId) ? this.cardPaymentData.invoiceDetails.invoiceAddressId : this.cardPaymentData.invoiceAddressNo;
-        console.log('invaddress0', invoiceAddressesId);
+        this.commomPaymentService.paymentStoredCard$.subscribe((stored) => {
+            this.paymentStoredDetials = stored;
+        });
+        console.log('invaddress0', this.paymentStoredDetials);
         console.log('cardpaymentdetal', this.cardPaymentData);
         this.commomPaymentService.getStorecard(invoiceAddressesId).subscribe((res) => {
             if (res && res.records) {
@@ -252,6 +260,7 @@ class PaymentCardDetailsComponent {
             else {
                 this.storedCards = res;
             }
+            this.commomPaymentService.setPaymentStoredCard(this.storedCards);
             console.log('cardDetails', this.storedCards);
         });
     }
