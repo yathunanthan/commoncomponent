@@ -243,6 +243,8 @@ class PaymentCardDetailsComponent {
         var _a;
         this.payEmitter.emit(true);
         let invoiceAddressesId = ((_a = this.cardPaymentData.invoiceDetails) === null || _a === void 0 ? void 0 : _a.invoiceAddressId) ? this.cardPaymentData.invoiceDetails.invoiceAddressId : this.cardPaymentData.invoiceAddressNo;
+        console.log('invaddress0', invoiceAddressesId);
+        console.log('cardpaymentdetal', this.cardPaymentData);
         this.commomPaymentService.getStorecard(invoiceAddressesId).subscribe((res) => {
             this.storedCards = res.records;
             console.log('cardDetails', this.storedCards);
