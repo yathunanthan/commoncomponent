@@ -249,24 +249,26 @@ class PaymentCardDetailsComponent {
         this.payEmitter.emit(true);
         let invoiceAddressesId = ((_a = this.cardPaymentData.invoiceDetails) === null || _a === void 0 ? void 0 : _a.invoiceAddressId) ? this.cardPaymentData.invoiceDetails.invoiceAddressId : this.cardPaymentData.invoiceAddressNo;
         this.commomPaymentService.paymentStoredCard$.subscribe((stored) => {
-            if (stored != null) {
-                this.commomPaymentService.getStorecard(invoiceAddressesId).subscribe((res) => {
-                    if (res && res.records) {
-                        this.storedCards = res.records;
-                    }
-                    else {
-                        this.storedCards = res;
-                    }
-                    this.commomPaymentService.setPaymentStoredCard(this.storedCards);
-                    console.log('cardDetails', this.storedCards);
-                });
-            }
-            else {
-                this.storedCards = stored;
-            }
+            this.paymentStoredDetials = stored;
         });
         console.log('invaddress0', this.paymentStoredDetials);
         console.log('cardpaymentdetal', this.cardPaymentData);
+        if (this.paymentStoredDetials != null || this.paymentStoredDetials != undefined) {
+            this.commomPaymentService.getStorecard(invoiceAddressesId).subscribe((res) => {
+                if (res && res.records) {
+                    this.storedCards = res.records;
+                }
+                else {
+                    this.storedCards = res;
+                }
+                this.commomPaymentService.setPaymentStoredCard(this.storedCards);
+                console.log('cardDetails', this.storedCards);
+            });
+        }
+        else {
+            this.storedCards = this.paymentStoredDetials;
+            console.log('cardDetailsafter', this.storedCards);
+        }
     }
     dropdown(val) {
         this.cardType = false;

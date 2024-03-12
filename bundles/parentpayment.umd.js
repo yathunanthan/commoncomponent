@@ -272,24 +272,26 @@
             this.payEmitter.emit(true);
             var invoiceAddressesId = ((_a = this.cardPaymentData.invoiceDetails) === null || _a === void 0 ? void 0 : _a.invoiceAddressId) ? this.cardPaymentData.invoiceDetails.invoiceAddressId : this.cardPaymentData.invoiceAddressNo;
             this.commomPaymentService.paymentStoredCard$.subscribe(function (stored) {
-                if (stored != null) {
-                    _this.commomPaymentService.getStorecard(invoiceAddressesId).subscribe(function (res) {
-                        if (res && res.records) {
-                            _this.storedCards = res.records;
-                        }
-                        else {
-                            _this.storedCards = res;
-                        }
-                        _this.commomPaymentService.setPaymentStoredCard(_this.storedCards);
-                        console.log('cardDetails', _this.storedCards);
-                    });
-                }
-                else {
-                    _this.storedCards = stored;
-                }
+                _this.paymentStoredDetials = stored;
             });
             console.log('invaddress0', this.paymentStoredDetials);
             console.log('cardpaymentdetal', this.cardPaymentData);
+            if (this.paymentStoredDetials != null || this.paymentStoredDetials != undefined) {
+                this.commomPaymentService.getStorecard(invoiceAddressesId).subscribe(function (res) {
+                    if (res && res.records) {
+                        _this.storedCards = res.records;
+                    }
+                    else {
+                        _this.storedCards = res;
+                    }
+                    _this.commomPaymentService.setPaymentStoredCard(_this.storedCards);
+                    console.log('cardDetails', _this.storedCards);
+                });
+            }
+            else {
+                this.storedCards = this.paymentStoredDetials;
+                console.log('cardDetailsafter', this.storedCards);
+            }
         };
         PaymentCardDetailsComponent.prototype.dropdown = function (val) {
             this.cardType = false;
