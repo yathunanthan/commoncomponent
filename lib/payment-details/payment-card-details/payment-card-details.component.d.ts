@@ -30,7 +30,6 @@ export declare class PaymentCardDetailsComponent implements OnInit {
     paymentStoredDetials: any;
     portalName: any;
     ngOnInit(): void;
-    ngAfterviewInit(): void;
     dropdown(val: any): void;
     buildCreditForms(): void;
     companyNameClick(): void;

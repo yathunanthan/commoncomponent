@@ -296,11 +296,11 @@
                 }
             }
         };
-        PaymentCardDetailsComponent.prototype.ngAfterviewInit = function () {
-            this.buildCreditForms();
-        };
         PaymentCardDetailsComponent.prototype.dropdown = function (val) {
-            this.cardType = false;
+            var _this = this;
+            setTimeout(function () {
+                _this.card = false;
+            }, 100);
             this.payEmitter.emit(false);
             if (val.value == 'Set up new debit or credit card') {
                 this.card = true;

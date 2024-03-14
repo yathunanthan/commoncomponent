@@ -273,11 +273,10 @@ class PaymentCardDetailsComponent {
             }
         }
     }
-    ngAfterviewInit() {
-        this.buildCreditForms();
-    }
     dropdown(val) {
-        this.cardType = false;
+        setTimeout(() => {
+            this.card = false;
+        }, 100);
         this.payEmitter.emit(false);
         if (val.value == 'Set up new debit or credit card') {
             this.card = true;
