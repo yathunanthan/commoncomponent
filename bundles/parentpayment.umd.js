@@ -536,14 +536,14 @@
                     var _f;
                     return Object.assign(obj, (_f = {}, _f[item.key] = item.value, _f));
                 }, {});
+                this.paymentMethodType = this.settings.countryRegion == 6 ? 'ACH' : 'Bank transfer';
             }
             else {
-                this.settings['countryRegion'] = this.genericPaymentDetails.countryRegion;
+                this.paymentMethodType = this.genericPaymentDetails.countryRegion == 6 ? 'ACH' : 'Bank transfer';
             }
             setTimeout(function () {
                 _this.paymentSelected(_this.paymentMethod);
             }, 100);
-            this.paymentMethodType = this.settings.countryRegion == 6 ? 'ACH' : 'Bank transfer';
             this.emitter.emit(this.paymentMethodType);
         };
         PaymentDetailsComponent.prototype.paymentSelected = function (value) {

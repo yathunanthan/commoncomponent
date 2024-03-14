@@ -505,14 +505,14 @@ class PaymentDetailsComponent {
         this.commonService.setUserResponse(this.genericPaymentDetails, '');
         if ("settings" in this.genericPaymentDetails) {
             this.settings = this.genericPaymentDetails.settings.reduce((obj, item) => Object.assign(obj, { [item.key]: item.value }), {});
+            this.paymentMethodType = this.settings.countryRegion == 6 ? 'ACH' : 'Bank transfer';
         }
         else {
-            this.settings['countryRegion'] = this.genericPaymentDetails.countryRegion;
+            this.paymentMethodType = this.genericPaymentDetails.countryRegion == 6 ? 'ACH' : 'Bank transfer';
         }
         setTimeout(() => {
             this.paymentSelected(this.paymentMethod);
         }, 100);
-        this.paymentMethodType = this.settings.countryRegion == 6 ? 'ACH' : 'Bank transfer';
         this.emitter.emit(this.paymentMethodType);
     }
     paymentSelected(value) {
