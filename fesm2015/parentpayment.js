@@ -299,7 +299,7 @@ class PaymentCardDetailsComponent {
         // })
     }
     buildCreditForms() {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
         let date = new Date().toISOString().slice(0, 10);
         let invoiceNo;
         if ((_a = this.cardPaymentData.invoiceDetails) === null || _a === void 0 ? void 0 : _a.invoiceNumber) {
@@ -311,22 +311,22 @@ class PaymentCardDetailsComponent {
         let paymentId = this.cardPaymentData.cardCharges.length != 0 ? this.cardPaymentData.cardCharges[this.commomPaymentService.cardCharges].paymentMethodId : '';
         this.creditForm = this.fb.group({
             payment: this.fb.group({
-                'amount': [],
-                'cardCharge': [((_c = this.cardPaymentData) === null || _c === void 0 ? void 0 : _c.cardCharges[0].charge) ? this.cardPaymentData.cardCharges[0].charge : this.cardPaymentData.paymentCharge[0].charge],
-                'cardName': [((_e = (_d = this.cardPaymentData) === null || _d === void 0 ? void 0 : _d.customerDetails) === null || _e === void 0 ? void 0 : _e.customerName) ? this.cardPaymentData.customerDetails.customerName : this.cardPaymentData.customerName, [Validators.required]],
+                'amount': [((_c = this.cardPaymentData) === null || _c === void 0 ? void 0 : _c.showDeposit) ? (_d = this.cardPaymentData) === null || _d === void 0 ? void 0 : _d.showDeposit : ''],
+                'cardCharge': [((_e = this.cardPaymentData) === null || _e === void 0 ? void 0 : _e.cardCharges[0].charge) ? this.cardPaymentData.cardCharges[0].charge : this.cardPaymentData.paymentCharge[0].charge],
+                'cardName': [((_g = (_f = this.cardPaymentData) === null || _f === void 0 ? void 0 : _f.customerDetails) === null || _g === void 0 ? void 0 : _g.customerName) ? this.cardPaymentData.customerDetails.customerName : this.cardPaymentData.customerName, [Validators.required]],
                 'cardNumber': ['', [Validators.required, CreditCardValidators.validateCCNumber]],
                 'cardCvc': ['', [Validators.required, Validators.minLength(3), Validators.maxLength(4)]],
                 'paymentDate': [date],
                 'description': [invoiceNo],
                 'isportal': [true],
                 'reference': [invoiceNo],
-                'email': [((_g = (_f = this.cardPaymentData) === null || _f === void 0 ? void 0 : _f.customerDetails) === null || _g === void 0 ? void 0 : _g.emailId) ? this.cardPaymentData.customerDetails.emailId : '', [Validators.required, Validators.email]],
+                'email': [((_j = (_h = this.cardPaymentData) === null || _h === void 0 ? void 0 : _h.customerDetails) === null || _j === void 0 ? void 0 : _j.emailId) ? this.cardPaymentData.customerDetails.emailId : '', [Validators.required, Validators.email]],
                 'expiry': ['', [Validators.required, CreditCardValidators.validateExpDate]],
                 "paymentMethod": [paymentId],
                 "dontSendToAccounts": [''],
             })
         });
-        this.placeholders = { name: ((_j = (_h = this.cardPaymentData) === null || _h === void 0 ? void 0 : _h.customerDetails) === null || _j === void 0 ? void 0 : _j.customerName) ? this.cardPaymentData.customerDetails.customerName : 'Full Name' };
+        this.placeholders = { name: ((_l = (_k = this.cardPaymentData) === null || _k === void 0 ? void 0 : _k.customerDetails) === null || _l === void 0 ? void 0 : _l.customerName) ? this.cardPaymentData.customerDetails.customerName : 'Full Name' };
     }
     companyNameClick() {
         this.companyNameSelected = !this.companyNameSelected;
