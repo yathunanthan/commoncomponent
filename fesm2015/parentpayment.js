@@ -506,6 +506,9 @@ class PaymentDetailsComponent {
         if ("settings" in this.genericPaymentDetails) {
             this.settings = this.genericPaymentDetails.settings.reduce((obj, item) => Object.assign(obj, { [item.key]: item.value }), {});
         }
+        else {
+            this.settings['countryRegion'] = this.genericPaymentDetails.countryRegion;
+        }
         setTimeout(() => {
             this.paymentSelected(this.paymentMethod);
         }, 100);

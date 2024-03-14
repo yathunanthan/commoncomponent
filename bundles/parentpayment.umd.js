@@ -537,6 +537,9 @@
                     return Object.assign(obj, (_f = {}, _f[item.key] = item.value, _f));
                 }, {});
             }
+            else {
+                this.settings['countryRegion'] = this.genericPaymentDetails.countryRegion;
+            }
             setTimeout(function () {
                 _this.paymentSelected(_this.paymentMethod);
             }, 100);
