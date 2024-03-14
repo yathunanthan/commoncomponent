@@ -503,7 +503,9 @@ class PaymentDetailsComponent {
         this.isGocardlessEnabled = this.genericPaymentDetails.isGocardlessEnabled;
         this.postCode = ((_d = (_c = this.genericPaymentDetails) === null || _c === void 0 ? void 0 : _c.customerDetails) === null || _d === void 0 ? void 0 : _d.postcode) ? (_e = this.genericPaymentDetails) === null || _e === void 0 ? void 0 : _e.customerDetails.postcode : this.genericPaymentDetails['postcode'];
         this.commonService.setUserResponse(this.genericPaymentDetails, '');
-        this.settings = this.genericPaymentDetails.settings.reduce((obj, item) => Object.assign(obj, { [item.key]: item.value }), {});
+        if ("settings" in this.genericPaymentDetails) {
+            this.settings = this.genericPaymentDetails.settings.reduce((obj, item) => Object.assign(obj, { [item.key]: item.value }), {});
+        }
         setTimeout(() => {
             this.paymentSelected(this.paymentMethod);
         }, 100);

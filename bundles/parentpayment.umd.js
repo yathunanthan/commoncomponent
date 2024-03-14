@@ -531,10 +531,12 @@
             this.isGocardlessEnabled = this.genericPaymentDetails.isGocardlessEnabled;
             this.postCode = ((_d = (_c = this.genericPaymentDetails) === null || _c === void 0 ? void 0 : _c.customerDetails) === null || _d === void 0 ? void 0 : _d.postcode) ? (_e = this.genericPaymentDetails) === null || _e === void 0 ? void 0 : _e.customerDetails.postcode : this.genericPaymentDetails['postcode'];
             this.commonService.setUserResponse(this.genericPaymentDetails, '');
-            this.settings = this.genericPaymentDetails.settings.reduce(function (obj, item) {
-                var _f;
-                return Object.assign(obj, (_f = {}, _f[item.key] = item.value, _f));
-            }, {});
+            if ("settings" in this.genericPaymentDetails) {
+                this.settings = this.genericPaymentDetails.settings.reduce(function (obj, item) {
+                    var _f;
+                    return Object.assign(obj, (_f = {}, _f[item.key] = item.value, _f));
+                }, {});
+            }
             setTimeout(function () {
                 _this.paymentSelected(_this.paymentMethod);
             }, 100);
