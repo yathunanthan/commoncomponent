@@ -480,7 +480,7 @@ class PaymentDetailsComponent {
         this.payEmitter.emit(paymentEnable);
     }
     ngOnInit() {
-        var _a, _b;
+        var _a, _b, _c, _d;
         this.commonService.userUrl$.subscribe((res) => {
             this.portalName = res === null || res === void 0 ? void 0 : res.portal;
         });
@@ -501,7 +501,7 @@ class PaymentDetailsComponent {
             this.clientTelephone = this.genericPaymentDetails.client_telephone;
         }
         this.isGocardlessEnabled = this.genericPaymentDetails.isGocardlessEnabled;
-        this.postCode = this.genericPaymentDetails.customerDetails.postcode ? this.genericPaymentDetails.customerDetails.postcode : this.genericPaymentDetails['postcode'];
+        this.postCode = ((_c = this.genericPaymentDetails) === null || _c === void 0 ? void 0 : _c.customerDetails.postcode) ? (_d = this.genericPaymentDetails) === null || _d === void 0 ? void 0 : _d.customerDetails.postcode : this.genericPaymentDetails['postcode'];
         this.commonService.setUserResponse(this.genericPaymentDetails, '');
         this.settings = this.genericPaymentDetails.settings.reduce((obj, item) => Object.assign(obj, { [item.key]: item.value }), {});
         setTimeout(() => {

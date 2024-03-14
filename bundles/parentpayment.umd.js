@@ -508,7 +508,7 @@
         };
         PaymentDetailsComponent.prototype.ngOnInit = function () {
             var _this = this;
-            var _a, _b;
+            var _a, _b, _c, _d;
             this.commonService.userUrl$.subscribe(function (res) {
                 _this.portalName = res === null || res === void 0 ? void 0 : res.portal;
             });
@@ -529,11 +529,11 @@
                 this.clientTelephone = this.genericPaymentDetails.client_telephone;
             }
             this.isGocardlessEnabled = this.genericPaymentDetails.isGocardlessEnabled;
-            this.postCode = this.genericPaymentDetails.customerDetails.postcode ? this.genericPaymentDetails.customerDetails.postcode : this.genericPaymentDetails['postcode'];
+            this.postCode = ((_c = this.genericPaymentDetails) === null || _c === void 0 ? void 0 : _c.customerDetails.postcode) ? (_d = this.genericPaymentDetails) === null || _d === void 0 ? void 0 : _d.customerDetails.postcode : this.genericPaymentDetails['postcode'];
             this.commonService.setUserResponse(this.genericPaymentDetails, '');
             this.settings = this.genericPaymentDetails.settings.reduce(function (obj, item) {
-                var _c;
-                return Object.assign(obj, (_c = {}, _c[item.key] = item.value, _c));
+                var _e;
+                return Object.assign(obj, (_e = {}, _e[item.key] = item.value, _e));
             }, {});
             setTimeout(function () {
                 _this.paymentSelected(_this.paymentMethod);
