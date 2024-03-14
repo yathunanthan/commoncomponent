@@ -295,12 +295,12 @@
                     console.log('cardDetailsafter', this.storedCards);
                 }
             }
+            setTimeout(function () {
+                _this.card = true;
+            }, 100);
         };
         PaymentCardDetailsComponent.prototype.dropdown = function (val) {
-            var _this = this;
-            setTimeout(function () {
-                _this.card = false;
-            }, 100);
+            this.card = false;
             this.payEmitter.emit(false);
             if (val.value == 'Set up new debit or credit card') {
                 this.card = true;

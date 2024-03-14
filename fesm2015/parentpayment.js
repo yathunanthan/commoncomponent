@@ -272,11 +272,12 @@ class PaymentCardDetailsComponent {
                 console.log('cardDetailsafter', this.storedCards);
             }
         }
+        setTimeout(() => {
+            this.card = true;
+        }, 100);
     }
     dropdown(val) {
-        setTimeout(() => {
-            this.card = false;
-        }, 100);
+        this.card = false;
         this.payEmitter.emit(false);
         if (val.value == 'Set up new debit or credit card') {
             this.card = true;
