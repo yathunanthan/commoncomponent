@@ -482,7 +482,7 @@ class PaymentDetailsComponent {
     ngOnInit() {
         var _a, _b;
         this.commonService.userUrl$.subscribe((res) => {
-            this.portalName = res.portal;
+            this.portalName = res === null || res === void 0 ? void 0 : res.portal;
         });
         this.commonService.paymentDetails$.subscribe((response) => {
             this.genericPaymentDetails = response;
@@ -501,7 +501,7 @@ class PaymentDetailsComponent {
             this.clientTelephone = this.genericPaymentDetails.client_telephone;
         }
         this.isGocardlessEnabled = this.genericPaymentDetails.isGocardlessEnabled;
-        this.postCode = this.genericPaymentDetails.customerDetails.postcode;
+        this.postCode = this.genericPaymentDetails.customerDetails.postcode ? this.genericPaymentDetails.customerDetails.postcode : this.genericPaymentDetails.postcode;
         this.commonService.setUserResponse(this.genericPaymentDetails, '');
         this.settings = this.genericPaymentDetails.settings.reduce((obj, item) => Object.assign(obj, { [item.key]: item.value }), {});
         setTimeout(() => {

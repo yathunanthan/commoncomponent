@@ -510,7 +510,7 @@
             var _this = this;
             var _a, _b;
             this.commonService.userUrl$.subscribe(function (res) {
-                _this.portalName = res.portal;
+                _this.portalName = res === null || res === void 0 ? void 0 : res.portal;
             });
             this.commonService.paymentDetails$.subscribe(function (response) {
                 _this.genericPaymentDetails = response;
@@ -529,7 +529,7 @@
                 this.clientTelephone = this.genericPaymentDetails.client_telephone;
             }
             this.isGocardlessEnabled = this.genericPaymentDetails.isGocardlessEnabled;
-            this.postCode = this.genericPaymentDetails.customerDetails.postcode;
+            this.postCode = this.genericPaymentDetails.customerDetails.postcode ? this.genericPaymentDetails.customerDetails.postcode : this.genericPaymentDetails.postcode;
             this.commonService.setUserResponse(this.genericPaymentDetails, '');
             this.settings = this.genericPaymentDetails.settings.reduce(function (obj, item) {
                 var _c;
