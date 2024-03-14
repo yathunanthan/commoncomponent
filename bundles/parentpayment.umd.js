@@ -529,7 +529,7 @@
                 this.clientTelephone = this.genericPaymentDetails.client_telephone;
             }
             this.isGocardlessEnabled = this.genericPaymentDetails.isGocardlessEnabled;
-            this.postCode = this.genericPaymentDetails.customerDetails.postcode ? this.genericPaymentDetails.customerDetails.postcode : this.genericPaymentDetails.postcode;
+            this.postCode = this.genericPaymentDetails.customerDetails.postcode ? this.genericPaymentDetails.customerDetails.postcode : this.genericPaymentDetails['postcode'];
             this.commonService.setUserResponse(this.genericPaymentDetails, '');
             this.settings = this.genericPaymentDetails.settings.reduce(function (obj, item) {
                 var _c;

@@ -501,7 +501,7 @@ class PaymentDetailsComponent {
             this.clientTelephone = this.genericPaymentDetails.client_telephone;
         }
         this.isGocardlessEnabled = this.genericPaymentDetails.isGocardlessEnabled;
-        this.postCode = this.genericPaymentDetails.customerDetails.postcode ? this.genericPaymentDetails.customerDetails.postcode : this.genericPaymentDetails.postcode;
+        this.postCode = this.genericPaymentDetails.customerDetails.postcode ? this.genericPaymentDetails.customerDetails.postcode : this.genericPaymentDetails['postcode'];
         this.commonService.setUserResponse(this.genericPaymentDetails, '');
         this.settings = this.genericPaymentDetails.settings.reduce((obj, item) => Object.assign(obj, { [item.key]: item.value }), {});
         setTimeout(() => {
