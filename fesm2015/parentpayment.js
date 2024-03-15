@@ -298,7 +298,7 @@ class PaymentCardDetailsComponent {
         setTimeout(() => {
             this.buildCreditForms();
             this.card = false;
-        }, 800);
+        }, 1000);
     }
     dropdown(val) {
         this.card = false;

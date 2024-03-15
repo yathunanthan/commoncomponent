@@ -321,7 +321,7 @@
             setTimeout(function () {
                 _this.buildCreditForms();
                 _this.card = false;
-            }, 800);
+            }, 1000);
         };
         PaymentCardDetailsComponent.prototype.dropdown = function (val) {
             this.card = false;
