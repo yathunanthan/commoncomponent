@@ -296,8 +296,8 @@
                 }
             }
             setTimeout(function () {
-                _this.card = true;
-            }, 100);
+                _this.card = false;
+            }, 800);
         };
         PaymentCardDetailsComponent.prototype.dropdown = function (val) {
             this.card = false;

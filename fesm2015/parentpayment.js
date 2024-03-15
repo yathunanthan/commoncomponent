@@ -273,8 +273,8 @@ class PaymentCardDetailsComponent {
             }
         }
         setTimeout(() => {
-            this.card = true;
-        }, 100);
+            this.card = false;
+        }, 800);
     }
     dropdown(val) {
         this.card = false;
