@@ -12,6 +12,14 @@ export declare class PaymentBankDetailsComponent implements OnInit {
     paymentForm1: FormGroup;
     testForm: FormGroup;
     companyNameSelected: boolean;
+    addressline1: any;
+    addressline2: any;
+    addressline3: any;
+    surname: any;
+    name: any;
+    county: any;
+    postcode: any;
+    customerName: any;
     paymentTypeS: any;
     payEmitter: EventEmitter<any>;
     userData: any;

@@ -77,6 +77,7 @@ class PaymentBankDetailsComponent {
         this.payEmitter = new EventEmitter();
     }
     ngOnInit() {
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z;
         if (this.paymentTypeS == 'PAD') {
             this.paymentType = 1;
             this.commonService.getCountryName().subscribe((response) => {
@@ -93,11 +94,19 @@ class PaymentBankDetailsComponent {
         else if (this.paymentTypeS == 'SEPA') {
             this.paymentType = 4;
         }
-        this.companyNameSelected = this.paymentData.customerDetails.customerType != 'customer';
+        this.companyNameSelected = ((_b = (_a = this.paymentData) === null || _a === void 0 ? void 0 : _a.customerDetails) === null || _b === void 0 ? void 0 : _b.customerType) != 'customer';
         console.log(this.paymentData);
+        this.addressline1 = ((_d = (_c = this.paymentData) === null || _c === void 0 ? void 0 : _c.customerDetails) === null || _d === void 0 ? void 0 : _d.addressline1) ? (_f = (_e = this.paymentData) === null || _e === void 0 ? void 0 : _e.customerDetails) === null || _f === void 0 ? void 0 : _f.addressline1 : this.paymentData.addressline1;
+        this.addressline2 = ((_h = (_g = this.paymentData) === null || _g === void 0 ? void 0 : _g.customerDetails) === null || _h === void 0 ? void 0 : _h.addressline2) ? (_k = (_j = this.paymentData) === null || _j === void 0 ? void 0 : _j.customerDetails) === null || _k === void 0 ? void 0 : _k.addressline2 : this.paymentData.addressline2;
+        this.addressline3 = ((_m = (_l = this.paymentData) === null || _l === void 0 ? void 0 : _l.customerDetails) === null || _m === void 0 ? void 0 : _m.addressline3) ? (_p = (_o = this.paymentData) === null || _o === void 0 ? void 0 : _o.customerDetails) === null || _p === void 0 ? void 0 : _p.addressline3 : this.paymentData.addressline3;
+        this.surname = ((_r = (_q = this.paymentData) === null || _q === void 0 ? void 0 : _q.customerDetails) === null || _r === void 0 ? void 0 : _r.surname) ? this.paymentData.customerDetails.surname : this.paymentData.customerDetails.lastName;
+        this.name = ((_t = (_s = this.paymentData) === null || _s === void 0 ? void 0 : _s.customerDetails) === null || _t === void 0 ? void 0 : _t.name) ? this.paymentData.customerDetails.name : this.paymentData.firstName;
+        this.postcode = ((_v = (_u = this.paymentData) === null || _u === void 0 ? void 0 : _u.customerDetails) === null || _v === void 0 ? void 0 : _v.postcode) ? this.paymentData.customerDetails.postcode : this.paymentData.postcode;
+        this.county = ((_x = (_w = this.paymentData) === null || _w === void 0 ? void 0 : _w.customerDetails) === null || _x === void 0 ? void 0 : _x.county) ? this.paymentData.customerDetails.county : this.paymentData.county;
+        this.customerName = ((_z = (_y = this.paymentData) === null || _y === void 0 ? void 0 : _y.customerDetails) === null || _z === void 0 ? void 0 : _z.customerName) ? this.paymentData.customerDetails.customerName : this.paymentData.customerName;
     }
     buildPaymetForm() {
-        var _a;
+        var _a, _b, _c, _d, _e, _f, _g, _h;
         if (this.paymentType == 1) {
             this.paymentForm = this.fb.group({
                 firstName: ['', [Validators.required]],
@@ -110,29 +119,36 @@ class PaymentBankDetailsComponent {
             });
         }
         else if (this.paymentType == 2) {
+            let invoiceNo;
+            if ((_a = this.paymentData.invoiceDetails) === null || _a === void 0 ? void 0 : _a.invoiceNumber) {
+                invoiceNo = ((_b = this.paymentData.invoiceDetails) === null || _b === void 0 ? void 0 : _b.invoiceNumber) ? "Invoice no : " + this.paymentData.invoiceDetails.invoiceNumber : '';
+            }
+            else {
+                invoiceNo = 'Opportunity no: ' + this.paymentData.opportunityId;
+            }
             this.paymentForm = this.fb.group({
                 instantpayment: this.fb.group({
                     country_code: 'GB',
                     currency: this.paymentData.currencyCode ? this.paymentData.currencyCode : 'GBP',
                     payment: this.fb.group({
-                        description: ((_a = this.paymentData.invoiceDetails) === null || _a === void 0 ? void 0 : _a.invoiceNumber) ? "Invoice no : #" + this.paymentData.invoiceDetails.invoiceNumber : '',
+                        description: invoiceNo,
                         amount: [0, [Validators.required]],
                         app_fee: "1",
                     }),
                     customer: this.fb.group({
                         commusoftId: 0,
-                        addressline1: this.paymentData.customerDetails.addressline1,
-                        addressline2: this.paymentData.customerDetails.addressline2 + ((this.paymentData.customerDetails.addressline2 && this.paymentData.customerDetails.addressline3) ? ", " : '') + this.paymentData.customerDetails.addressline3,
+                        addressline1: this.addressline1,
+                        addressline2: this.addressline2 + ((this.addressline2 && this.addressline3) ? ", " : '') + this.addressline3,
                         companyname: "",
-                        surname: this.paymentData.customerDetails.surname,
-                        firstname: this.paymentData.customerDetails.name,
-                        postcode: this.paymentData.customerDetails.postcode,
+                        surname: this.surname,
+                        firstname: this.name,
+                        postcode: this.postcode,
                         phonenumber: "",
-                        region: this.paymentData.customerDetails.county,
-                        email: [this.paymentData.customerDetails.emailId, [Validators.required, Validators.email]]
+                        region: this.county,
+                        email: [((_d = (_c = this.paymentData) === null || _c === void 0 ? void 0 : _c.customerDetails) === null || _d === void 0 ? void 0 : _d.emailId) ? (_f = (_e = this.paymentData) === null || _e === void 0 ? void 0 : _e.customerDetails) === null || _f === void 0 ? void 0 : _f.emailId : '', [Validators.required, Validators.email]]
                     }),
                     bank: this.fb.group({
-                        firstname: [this.paymentData.customerDetails.customerName, [Validators.required]],
+                        firstname: [this.customerName, [Validators.required]],
                         lastname: [""],
                         account_number: ['', [Validators.required]],
                         iban: "",
@@ -144,6 +160,13 @@ class PaymentBankDetailsComponent {
             });
         }
         else if (this.paymentType == 3) {
+            let invoiceNo;
+            if ((_g = this.paymentData.invoiceDetails) === null || _g === void 0 ? void 0 : _g.invoiceNumber) {
+                invoiceNo = ((_h = this.paymentData.invoiceDetails) === null || _h === void 0 ? void 0 : _h.invoiceNumber) ? "Invoice no : " + this.paymentData.invoiceDetails.invoiceNumber : '';
+            }
+            else {
+                invoiceNo = 'Opportunity no: ' + this.paymentData.opportunityId;
+            }
             this.paymentForm = this.fb.group({
                 directdebit: this.fb.group({
                     tablepkid: [],
@@ -153,24 +176,24 @@ class PaymentBankDetailsComponent {
                     currency: this.paymentData.currencyCode,
                     scheme: "ach",
                     payment: this.fb.group({
-                        description: "Invoice no : #" + this.paymentData.invoiceDetails.invoiceNumber,
+                        description: invoiceNo,
                         amount: [0, [Validators.required]],
                     }),
                     customer: this.fb.group({
                         commusoftId: 0,
-                        addressline1: this.paymentData.customerDetails.addressline1,
-                        addressline2: this.paymentData.customerDetails.addressline2 + ((this.paymentData.customerDetails.addressline2 && this.paymentData.customerDetails.addressline3) ? ", " : '') + this.paymentData.customerDetails.addressline3,
+                        addressline1: this.addressline1,
+                        addressline2: this.addressline2 + ((this.addressline2 && this.addressline3) ? ", " : '') + this.addressline3,
                         companyname: "",
-                        surname: this.paymentData.customerDetails.surname,
-                        firstname: this.paymentData.customerDetails.name,
-                        postcode: this.paymentData.customerDetails.postcode,
+                        surname: this.surname,
+                        firstname: this.name,
+                        postcode: this.postcode,
                         phonenumber: "",
-                        region: this.paymentData.customerDetails.county,
+                        region: this.county,
                         email: [this.paymentData.customerDetails.emailId, [Validators.required, Validators.email]],
                         language: ""
                     }),
                     bank: this.fb.group({
-                        firstname: [this.paymentData.customerDetails.customerName, [Validators.required]],
+                        firstname: [this.customerName, [Validators.required]],
                         lastname: [""],
                         account_number: ['', [Validators.required]],
                         iban: "",
@@ -199,7 +222,7 @@ class PaymentBankDetailsComponent {
         this.companyNameSelected = !this.companyNameSelected;
         this.paymentForm.patchValue({ 'instantpayment': { 'bank': { 'firstname': '' } } });
         this.paymentForm.patchValue({ 'directdebit': { 'bank': { 'lastname': '' } } });
-        (_a = this.paymentForm.get('directdebit.bank.lastname')) === null || _a === void 0 ? void 0 : _a.setValue(this.companyNameSelected ? this.paymentData.customerDetails.customerName : (this.paymentData.customerDetails.surname ? this.paymentData.customerDetails.surname : this.paymentData.customerDetails.customerName));
+        (_a = this.paymentForm.get('directdebit.bank.lastname')) === null || _a === void 0 ? void 0 : _a.setValue(this.companyNameSelected ? this.customerName : (this.surname ? this.surname : this.customerName));
     }
     keypress() {
         this.payEmitter.emit(this.paymentForm);
@@ -313,7 +336,10 @@ class PaymentCardDetailsComponent {
         else {
             invoiceNo = 'Opportunity no: ' + this.cardPaymentData.opportunityId;
         }
-        let paymentId = ((_c = this.cardPaymentData) === null || _c === void 0 ? void 0 : _c.cardCharges.length) != 0 ? this.cardPaymentData.cardCharges[this.commomPaymentService.cardCharges].paymentMethodId : '';
+        let paymentId;
+        if (((_c = this.cardPaymentData) === null || _c === void 0 ? void 0 : _c.cardCharges.length) != 0) {
+            paymentId = this.cardPaymentData.cardCharges[this.commomPaymentService.cardCharges].paymentMethodId;
+        }
         this.creditForm = this.fb.group({
             payment: this.fb.group({
                 'amount': [((_d = this.cardPaymentData) === null || _d === void 0 ? void 0 : _d.showDeposit) ? (_e = this.cardPaymentData) === null || _e === void 0 ? void 0 : _e.showDeposit : ''],
@@ -327,7 +353,7 @@ class PaymentCardDetailsComponent {
                 'reference': [invoiceNo],
                 'email': [((_k = (_j = this.cardPaymentData) === null || _j === void 0 ? void 0 : _j.customerDetails) === null || _k === void 0 ? void 0 : _k.emailId) ? this.cardPaymentData.customerDetails.emailId : '', [Validators.required, Validators.email]],
                 'expiry': ['', [Validators.required, CreditCardValidators.validateExpDate]],
-                "paymentMethod": [paymentId],
+                "paymentMethod": [paymentId ? paymentId : ''],
                 "dontSendToAccounts": [''],
             })
         });
