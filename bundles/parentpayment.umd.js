@@ -296,6 +296,7 @@
                 }
             }
             setTimeout(function () {
+                _this.buildCreditForms();
                 _this.card = false;
             }, 800);
         };

@@ -273,6 +273,7 @@ class PaymentCardDetailsComponent {
             }
         }
         setTimeout(() => {
+            this.buildCreditForms();
             this.card = false;
         }, 800);
     }
