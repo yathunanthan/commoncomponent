@@ -632,15 +632,15 @@ class ParentpaymentComponent {
     }
 }
 ParentpaymentComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0, type: ParentpaymentComponent, deps: [{ token: CommonPaymentService }], target: i0.ɵɵFactoryTarget.Component });
-ParentpaymentComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.2.17", type: ParentpaymentComponent, selector: "lib-parentpayment", inputs: { paymentDetails: "paymentDetails", apiUrl: "apiUrl" }, outputs: { commonPaymentEnableEmitter: "commonPaymentEnableEmitter", commonSelectPaymentMethodEmitter: "commonSelectPaymentMethodEmitter", selectPaymentMethodEmitter: "selectPaymentMethodEmitter" }, ngImport: i0, template: `
-      <lib-payment-details [genericPaymentDetails]="paymentDetails" (payEmitter)="valid($event)" (payOptionEmitter)="payOptionsChecked($event)" (emitter)="selectPaymentMethod($event)"></lib-payment-details>
+ParentpaymentComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.2.17", type: ParentpaymentComponent, selector: "lib-parentpayment", inputs: { paymentDetails: "paymentDetails", apiUrl: "apiUrl", paymentSelectedOptions: "paymentSelectedOptions" }, outputs: { commonPaymentEnableEmitter: "commonPaymentEnableEmitter", commonSelectPaymentMethodEmitter: "commonSelectPaymentMethodEmitter", selectPaymentMethodEmitter: "selectPaymentMethodEmitter" }, ngImport: i0, template: `
+      <lib-payment-details [genericPaymentDetails]="paymentDetails" (payEmitter)="valid($event)" [paymentSelectedOptions]="paymentSelectedOptions" (payOptionEmitter)="payOptionsChecked($event)" (emitter)="selectPaymentMethod($event)"></lib-payment-details>
   `, isInline: true, components: [{ type: PaymentDetailsComponent, selector: "lib-payment-details", inputs: ["genericPaymentDetails", "tip", "total", "paymentSelectedOptions"], outputs: ["emitter", "payEmitter", "payOptionEmitter"] }] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0, type: ParentpaymentComponent, decorators: [{
             type: Component,
             args: [{
                     selector: 'lib-parentpayment',
                     template: `
-      <lib-payment-details [genericPaymentDetails]="paymentDetails" (payEmitter)="valid($event)" (payOptionEmitter)="payOptionsChecked($event)" (emitter)="selectPaymentMethod($event)"></lib-payment-details>
+      <lib-payment-details [genericPaymentDetails]="paymentDetails" (payEmitter)="valid($event)" [paymentSelectedOptions]="paymentSelectedOptions" (payOptionEmitter)="payOptionsChecked($event)" (emitter)="selectPaymentMethod($event)"></lib-payment-details>
   `,
                     styles: []
                 }]
@@ -653,6 +653,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImpo
             }], selectPaymentMethodEmitter: [{
                 type: Output
             }], apiUrl: [{
+                type: Input
+            }], paymentSelectedOptions: [{
                 type: Input
             }] } });
 

@@ -665,12 +665,12 @@
         return ParentpaymentComponent;
     }());
     ParentpaymentComponent.ɵfac = i0__namespace.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: ParentpaymentComponent, deps: [{ token: CommonPaymentService }], target: i0__namespace.ɵɵFactoryTarget.Component });
-    ParentpaymentComponent.ɵcmp = i0__namespace.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.2.17", type: ParentpaymentComponent, selector: "lib-parentpayment", inputs: { paymentDetails: "paymentDetails", apiUrl: "apiUrl" }, outputs: { commonPaymentEnableEmitter: "commonPaymentEnableEmitter", commonSelectPaymentMethodEmitter: "commonSelectPaymentMethodEmitter", selectPaymentMethodEmitter: "selectPaymentMethodEmitter" }, ngImport: i0__namespace, template: "\n      <lib-payment-details [genericPaymentDetails]=\"paymentDetails\" (payEmitter)=\"valid($event)\" (payOptionEmitter)=\"payOptionsChecked($event)\" (emitter)=\"selectPaymentMethod($event)\"></lib-payment-details>\n  ", isInline: true, components: [{ type: PaymentDetailsComponent, selector: "lib-payment-details", inputs: ["genericPaymentDetails", "tip", "total", "paymentSelectedOptions"], outputs: ["emitter", "payEmitter", "payOptionEmitter"] }] });
+    ParentpaymentComponent.ɵcmp = i0__namespace.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "12.2.17", type: ParentpaymentComponent, selector: "lib-parentpayment", inputs: { paymentDetails: "paymentDetails", apiUrl: "apiUrl", paymentSelectedOptions: "paymentSelectedOptions" }, outputs: { commonPaymentEnableEmitter: "commonPaymentEnableEmitter", commonSelectPaymentMethodEmitter: "commonSelectPaymentMethodEmitter", selectPaymentMethodEmitter: "selectPaymentMethodEmitter" }, ngImport: i0__namespace, template: "\n      <lib-payment-details [genericPaymentDetails]=\"paymentDetails\" (payEmitter)=\"valid($event)\" [paymentSelectedOptions]=\"paymentSelectedOptions\" (payOptionEmitter)=\"payOptionsChecked($event)\" (emitter)=\"selectPaymentMethod($event)\"></lib-payment-details>\n  ", isInline: true, components: [{ type: PaymentDetailsComponent, selector: "lib-payment-details", inputs: ["genericPaymentDetails", "tip", "total", "paymentSelectedOptions"], outputs: ["emitter", "payEmitter", "payOptionEmitter"] }] });
     i0__namespace.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.17", ngImport: i0__namespace, type: ParentpaymentComponent, decorators: [{
                 type: i0.Component,
                 args: [{
                         selector: 'lib-parentpayment',
-                        template: "\n      <lib-payment-details [genericPaymentDetails]=\"paymentDetails\" (payEmitter)=\"valid($event)\" (payOptionEmitter)=\"payOptionsChecked($event)\" (emitter)=\"selectPaymentMethod($event)\"></lib-payment-details>\n  ",
+                        template: "\n      <lib-payment-details [genericPaymentDetails]=\"paymentDetails\" (payEmitter)=\"valid($event)\" [paymentSelectedOptions]=\"paymentSelectedOptions\" (payOptionEmitter)=\"payOptionsChecked($event)\" (emitter)=\"selectPaymentMethod($event)\"></lib-payment-details>\n  ",
                         styles: []
                     }]
             }], ctorParameters: function () { return [{ type: CommonPaymentService }]; }, propDecorators: { paymentDetails: [{
@@ -682,6 +682,8 @@
                 }], selectPaymentMethodEmitter: [{
                     type: i0.Output
                 }], apiUrl: [{
+                    type: i0.Input
+                }], paymentSelectedOptions: [{
                     type: i0.Input
                 }] } });
 
