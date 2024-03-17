@@ -266,6 +266,7 @@ class PaymentCardDetailsComponent {
         this.isCardNumberLength = true;
         this.cardLogo = '';
         this.cardImg = "";
+        this.cardPaymentData = this.cardPaymentData;
         this.card = false;
         this.buildCreditFormS();
     }
