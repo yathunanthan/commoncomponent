@@ -16,6 +16,7 @@ export declare class PaymentDetailsComponent implements OnInit {
     genericPaymentDetails: any;
     tip: any;
     total: number;
+    paymentSelectedOptions: any;
     paymentMethodAllowed: any;
     paymentMethod: any;
     paymentCompleted: boolean;
@@ -34,5 +35,5 @@ export declare class PaymentDetailsComponent implements OnInit {
     changePaymentOption(option: string, selected: any): void;
     paymentSelected(value: any): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<PaymentDetailsComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<PaymentDetailsComponent, "lib-payment-details", never, { "genericPaymentDetails": "genericPaymentDetails"; "tip": "tip"; "total": "total"; }, { "emitter": "emitter"; "payEmitter": "payEmitter"; "payOptionEmitter": "payOptionEmitter"; }, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<PaymentDetailsComponent, "lib-payment-details", never, { "genericPaymentDetails": "genericPaymentDetails"; "tip": "tip"; "total": "total"; "paymentSelectedOptions": "paymentSelectedOptions"; }, { "emitter": "emitter"; "payEmitter": "payEmitter"; "payOptionEmitter": "payOptionEmitter"; }, never, never>;
 }
