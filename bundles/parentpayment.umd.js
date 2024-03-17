@@ -273,6 +273,7 @@
 
     var PaymentCardDetailsComponent = /** @class */ (function () {
         function PaymentCardDetailsComponent(fb, commomPaymentService) {
+            var _this = this;
             this.fb = fb;
             this.commomPaymentService = commomPaymentService;
             this.payEmitter = new i0.EventEmitter();
@@ -289,6 +290,9 @@
             this.cardLogo = '';
             this.cardImg = "";
             this.cardPaymentData = this.cardPaymentData;
+            this.commomPaymentService.paymentDetails$.subscribe(function (response) {
+                _this.cardPaymentData = response;
+            });
             this.card = false;
             this.buildCreditFormS();
         }

@@ -267,6 +267,9 @@ class PaymentCardDetailsComponent {
         this.cardLogo = '';
         this.cardImg = "";
         this.cardPaymentData = this.cardPaymentData;
+        this.commomPaymentService.paymentDetails$.subscribe((response) => {
+            this.cardPaymentData = response;
+        });
         this.card = false;
         this.buildCreditFormS();
     }
