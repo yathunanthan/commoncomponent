@@ -387,7 +387,6 @@ class PaymentCardDetailsComponent {
             'reference': [invoiceNo],
             'email': [((_l = (_k = this.cardPaymentData) === null || _k === void 0 ? void 0 : _k.customerDetails) === null || _l === void 0 ? void 0 : _l.emailId) ? this.cardPaymentData.customerDetails.emailId : '', [Validators.required, Validators.email]],
             'expiry': ['', [Validators.required, CreditCardValidators.validateExpDate]],
-            "paymentMethod": [''],
             "dontSendToAccounts": [''],
         });
         this.placeholders = { name: ((_o = (_m = this.cardPaymentData) === null || _m === void 0 ? void 0 : _m.customerDetails) === null || _o === void 0 ? void 0 : _o.customerName) ? this.cardPaymentData.customerDetails.customerName : 'Full Name' };
@@ -561,6 +560,7 @@ class PaymentDetailsComponent {
         this.commonService.paymentDetails$.subscribe((response) => {
             this.genericPaymentDetails = response;
         });
+        console.log('paymentSelectedOptions', this.paymentSelectedOptions);
         console.log('portalname', this.portalName);
         console.log('statemtn', this.genericPaymentDetails);
         if (((_a = this.commonService.apiUrl) === null || _a === void 0 ? void 0 : _a.portal) == 'InvoicePortal') {
@@ -661,7 +661,6 @@ class ParentpaymentComponent {
     }
     ngOnInit() {
         this.commonService.getApiUrl(this.apiUrl);
-        console.log('paymentSelectedOptions', this.paymentSelectedOptions);
         this.commonService.setPaymentDetails(this.paymentDetails);
     }
 }
