@@ -661,6 +661,7 @@ class ParentpaymentComponent {
     }
     ngOnInit() {
         this.commonService.getApiUrl(this.apiUrl);
+        console.log('paymentSelectedOptions', this.paymentSelectedOptions);
         this.commonService.setPaymentDetails(this.paymentDetails);
     }
 }
