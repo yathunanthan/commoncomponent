@@ -366,7 +366,7 @@ class PaymentCardDetailsComponent {
         this.placeholders = { name: ((_k = (_j = this.cardPaymentData) === null || _j === void 0 ? void 0 : _j.customerDetails) === null || _k === void 0 ? void 0 : _k.customerName) ? this.cardPaymentData.customerDetails.customerName : 'Full Name' };
     }
     buildCreditFormS() {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q;
         let date = new Date().toISOString().slice(0, 10);
         let invoiceNo;
         if ((_b = (_a = this.cardPaymentData) === null || _a === void 0 ? void 0 : _a.invoiceDetails) === null || _b === void 0 ? void 0 : _b.invoiceNumber) {
@@ -376,25 +376,25 @@ class PaymentCardDetailsComponent {
             invoiceNo = 'Opportunity no: ' + this.cardPaymentData.opportunityId;
         }
         let paymentId;
-        if (((_e = this.cardPaymentData) === null || _e === void 0 ? void 0 : _e.cardCharges.length) != 0) {
+        if (((_f = (_e = this.cardPaymentData) === null || _e === void 0 ? void 0 : _e.cardCharges) === null || _f === void 0 ? void 0 : _f.length) != 0) {
             paymentId = this.cardPaymentData.cardCharges[this.commomPaymentService.cardCharges].paymentMethodId;
         }
         this.creditForm = this.fb.group({
-            'amount': [((_f = this.cardPaymentData) === null || _f === void 0 ? void 0 : _f.showDeposit) ? (_g = this.cardPaymentData) === null || _g === void 0 ? void 0 : _g.showDeposit : ''],
-            'cardCharge': [((_h = this.cardPaymentData) === null || _h === void 0 ? void 0 : _h.cardCharges[0].charge) ? this.cardPaymentData.cardCharges[0].charge : this.cardPaymentData.paymentCharge[0].charge],
-            'cardName': [((_k = (_j = this.cardPaymentData) === null || _j === void 0 ? void 0 : _j.customerDetails) === null || _k === void 0 ? void 0 : _k.customerName) ? this.cardPaymentData.customerDetails.customerName : this.cardPaymentData.customerName, [Validators.required]],
+            'amount': [((_g = this.cardPaymentData) === null || _g === void 0 ? void 0 : _g.showDeposit) ? (_h = this.cardPaymentData) === null || _h === void 0 ? void 0 : _h.showDeposit : ''],
+            'cardCharge': [((_j = this.cardPaymentData) === null || _j === void 0 ? void 0 : _j.cardCharges[0].charge) ? this.cardPaymentData.cardCharges[0].charge : this.cardPaymentData.paymentCharge[0].charge],
+            'cardName': [((_l = (_k = this.cardPaymentData) === null || _k === void 0 ? void 0 : _k.customerDetails) === null || _l === void 0 ? void 0 : _l.customerName) ? this.cardPaymentData.customerDetails.customerName : this.cardPaymentData.customerName, [Validators.required]],
             'cardNumber': ['', [Validators.required, CreditCardValidators.validateCCNumber]],
             'cardCvc': ['', [Validators.required, Validators.minLength(3), Validators.maxLength(4)]],
             'paymentDate': [date],
             'description': [invoiceNo],
             'isportal': [true],
             'reference': [invoiceNo],
-            'email': [((_m = (_l = this.cardPaymentData) === null || _l === void 0 ? void 0 : _l.customerDetails) === null || _m === void 0 ? void 0 : _m.emailId) ? this.cardPaymentData.customerDetails.emailId : '', [Validators.required, Validators.email]],
+            'email': [((_o = (_m = this.cardPaymentData) === null || _m === void 0 ? void 0 : _m.customerDetails) === null || _o === void 0 ? void 0 : _o.emailId) ? this.cardPaymentData.customerDetails.emailId : '', [Validators.required, Validators.email]],
             'expiry': ['', [Validators.required, CreditCardValidators.validateExpDate]],
             "paymentMethod": [paymentId ? paymentId : ''],
             "dontSendToAccounts": [''],
         });
-        this.placeholders = { name: ((_p = (_o = this.cardPaymentData) === null || _o === void 0 ? void 0 : _o.customerDetails) === null || _p === void 0 ? void 0 : _p.customerName) ? this.cardPaymentData.customerDetails.customerName : 'Full Name' };
+        this.placeholders = { name: ((_q = (_p = this.cardPaymentData) === null || _p === void 0 ? void 0 : _p.customerDetails) === null || _q === void 0 ? void 0 : _q.customerName) ? this.cardPaymentData.customerDetails.customerName : 'Full Name' };
     }
     companyNameClick() {
         this.companyNameSelected = !this.companyNameSelected;
