@@ -383,6 +383,8 @@
                     'reference': [invoiceNo],
                     'email': [((_h = (_g = this.cardPaymentData) === null || _g === void 0 ? void 0 : _g.customerDetails) === null || _h === void 0 ? void 0 : _h.emailId) ? this.cardPaymentData.customerDetails.emailId : '', [i1$1.Validators.required, i1$1.Validators.email]],
                     'expiry': ['', [i1$1.Validators.required, angularCcLibrary.CreditCardValidators.validateExpDate]],
+                    'storedCard': [0,],
+                    'saveCard': [true,],
                     "paymentMethod": [paymentId ? paymentId : ''],
                     "dontSendToAccounts": [''],
                 })
@@ -401,14 +403,13 @@
             }
             this.creditForm = this.fb.group({
                 'amount': [((_e = this.cardPaymentData) === null || _e === void 0 ? void 0 : _e.showDeposit) ? (_f = this.cardPaymentData) === null || _f === void 0 ? void 0 : _f.showDeposit : ''],
-                'cardCharge': [''],
+                'cardCharge': [0],
                 'cardName': [((_h = (_g = this.cardPaymentData) === null || _g === void 0 ? void 0 : _g.customerDetails) === null || _h === void 0 ? void 0 : _h.customerName) ? this.cardPaymentData.customerDetails.customerName : (_j = this.cardPaymentData) === null || _j === void 0 ? void 0 : _j.customerName, [i1$1.Validators.required]],
                 'cardNumber': ['', [i1$1.Validators.required, angularCcLibrary.CreditCardValidators.validateCCNumber]],
                 'cardCvc': ['', [i1$1.Validators.required, i1$1.Validators.minLength(3), i1$1.Validators.maxLength(4)]],
                 'paymentDate': [date],
                 'description': [invoiceNo],
                 'isportal': [true],
-                'reference': [invoiceNo],
                 'email': [((_l = (_k = this.cardPaymentData) === null || _k === void 0 ? void 0 : _k.customerDetails) === null || _l === void 0 ? void 0 : _l.emailId) ? this.cardPaymentData.customerDetails.emailId : '', [i1$1.Validators.required, i1$1.Validators.email]],
                 'expiry': ['', [i1$1.Validators.required, angularCcLibrary.CreditCardValidators.validateExpDate]],
                 "dontSendToAccounts": [''],
