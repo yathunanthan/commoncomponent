@@ -771,9 +771,6 @@
             if (this.portalName == 'StatementPortal' || this.portalName == 'InvoicePortal') {
                 this.card = true;
             }
-            else {
-                this.card = false;
-            }
             var invoiceAddressesId = ((_b = this.cardPaymentData.invoiceDetails) === null || _b === void 0 ? void 0 : _b.invoiceAddressId) ? this.cardPaymentData.invoiceDetails.invoiceAddressId : this.cardPaymentData.invoiceAddressNo;
             this.portalName = (_c = this.commomPaymentService.apiUrl) === null || _c === void 0 ? void 0 : _c.portal;
             this.commomPaymentService.paymentStoredCard$.subscribe(function (stored) {
