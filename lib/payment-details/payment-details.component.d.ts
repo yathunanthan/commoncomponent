@@ -32,6 +32,7 @@ export declare class PaymentDetailsComponent implements OnInit {
     payOptionEmitter: EventEmitter<any>;
     constructor(commonService: CommonPaymentService);
     ngOnInit(): void;
+    canWalletPay(): void;
     changePaymentOption(option: string, selected: any): void;
     paymentSelected(value: any): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<PaymentDetailsComponent, never>;
