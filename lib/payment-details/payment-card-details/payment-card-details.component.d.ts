@@ -11,6 +11,7 @@ export declare class PaymentCardDetailsComponent implements OnInit {
     cardType: any;
     cardPaymentData: any;
     cardSelectedType: any;
+    constructor(fb: FormBuilder, commomPaymentService: CommonPaymentService);
     card: boolean;
     container: any;
     cardwidth: Number;
@@ -27,12 +28,9 @@ export declare class PaymentCardDetailsComponent implements OnInit {
     cardImg: string;
     storedCardData: any;
     paymentStoredDetials: any;
-    portalName: any;
-    constructor(fb: FormBuilder, commomPaymentService: CommonPaymentService);
     ngOnInit(): void;
     dropdown(val: any): void;
     buildCreditForms(): void;
-    buildCreditFormS(): void;
     companyNameClick(): void;
     keypress(): void;
     setCardType(): void;

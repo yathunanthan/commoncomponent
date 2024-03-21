@@ -18,7 +18,6 @@ export declare class CommonPaymentService {
     setPaymentStoredCard(storedCard: any): void;
     getApiUrl(url: any): void;
     getStorecard(invoiceAddressId: string): import("rxjs").Observable<Object>;
-    roundAmount(amount: number): number;
     static ɵfac: i0.ɵɵFactoryDeclaration<CommonPaymentService, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<CommonPaymentService>;
 }

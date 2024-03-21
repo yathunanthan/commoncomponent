@@ -1,20 +1,47 @@
 {
+  "_args": [
+    [
+      "git+https://github.com/yathunanthan/commoncomponent.git",
+      "/home/yathunanthan/v4_angular_portals_invoice"
+    ]
+  ],
+  "_from": "git+https://github.com/yathunanthan/commoncomponent.git",
+  "_id": "parentpayment@git+https://github.com/yathunanthan/commoncomponent.git#feb18536e0df96632e9cb942e3317b006e20aee1",
+  "_inBundle": false,
+  "_integrity": "",
+  "_location": "/parentpayment",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "git",
+    "raw": "git+https://github.com/yathunanthan/commoncomponent.git",
+    "rawSpec": "git+https://github.com/yathunanthan/commoncomponent.git",
+    "saveSpec": "git+https://github.com/yathunanthan/commoncomponent.git",
+    "fetchSpec": "https://github.com/yathunanthan/commoncomponent.git",
+    "gitCommittish": null
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "git+https://github.com/yathunanthan/commoncomponent.git#feb18536e0df96632e9cb942e3317b006e20aee1",
+  "_spec": "git+https://github.com/yathunanthan/commoncomponent.git",
+  "_where": "/home/yathunanthan/v4_angular_portals_invoice",
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "description": "This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.0.",
+  "es2015": "fesm2015/parentpayment.js",
+  "esm2015": "esm2015/parentpayment.js",
+  "fesm2015": "fesm2015/parentpayment.js",
+  "main": "bundles/parentpayment.umd.js",
+  "module": "fesm2015/parentpayment.js",
   "name": "parentpayment",
-  "version": "0.0.132",
   "peerDependencies": {
     "@angular/common": "^12.2.0",
     "@angular/core": "^12.2.0",
     "angular-cc-library": "2.1.3",
     "ngx-card": "0.2.4"
   },
-  "dependencies": {
-    "tslib": "^2.3.0"
-  },
-  "main": "bundles/parentpayment.umd.js",
-  "module": "fesm2015/parentpayment.js",
-  "es2015": "fesm2015/parentpayment.js",
-  "esm2015": "esm2015/parentpayment.js",
-  "fesm2015": "fesm2015/parentpayment.js",
+  "sideEffects": false,
   "typings": "parentpayment.d.ts",
-  "sideEffects": false
+  "version": "0.0.77"
 }
