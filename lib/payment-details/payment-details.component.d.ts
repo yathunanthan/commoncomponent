@@ -11,10 +11,13 @@ export declare class PaymentDetailsComponent implements OnInit {
     testResult: any;
     postCode: any;
     isGocardlessEnabled: any;
+    paymentOption: any;
     valid(paymentEnable: any): void;
     genericPaymentDetails: any;
     tip: any;
     total: number;
+    paymentSelectedOptions: any;
+    paymentSelect: string;
     paymentMethodAllowed: any;
     paymentMethod: any;
     paymentCompleted: boolean;
@@ -25,11 +28,16 @@ export declare class PaymentDetailsComponent implements OnInit {
     amountToBePaid: any;
     pendingAmount: any;
     portalName: any;
+    tax: number;
+    amount: number;
     emitter: EventEmitter<string>;
     payEmitter: EventEmitter<any>;
+    payOptionEmitter: EventEmitter<any>;
     constructor(commonService: CommonPaymentService);
     ngOnInit(): void;
+    canWalletPay(): void;
+    changePaymentOption(option: string, selected: any): void;
     paymentSelected(value: any): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<PaymentDetailsComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<PaymentDetailsComponent, "lib-payment-details", never, { "genericPaymentDetails": "genericPaymentDetails"; "tip": "tip"; "total": "total"; }, { "emitter": "emitter"; "payEmitter": "payEmitter"; }, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<PaymentDetailsComponent, "lib-payment-details", never, { "genericPaymentDetails": "genericPaymentDetails"; "tip": "tip"; "total": "total"; "paymentSelectedOptions": "paymentSelectedOptions"; }, { "emitter": "emitter"; "payEmitter": "payEmitter"; "payOptionEmitter": "payOptionEmitter"; }, never, never>;
 }
